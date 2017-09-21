@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="chargeData" 
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" 
+            resizableColumns="true"
+            sortable="custom">
+            <p-column [style]="{'width':'30px'}" selectionMode="multiple"></p-column>
+            <p-column field="chargename" header="费用名称" [sortable]="true" >
+                <template let-attr="rowData" pTemplate type="body" >
+                    <a type="text" name="chargename" class="interlinkage" (click)="onEdit(attr)">
+                        {{attr.chargename}}
+                    </a>
+                </template>
+            </p-column>
+            <p-column field="chargetype" header="费用类型" [sortable]="true"></p-column>
+            <p-column field="describe" header="费用描述" [sortable]="true"></p-column>
+            <p-footer >
+            <div class="total-style">
+                共{{totalRecords}}条记录
+            </div>
+            <p-paginator 
+                    [first]='first'
+                    rows="10" 
+                    [totalRecords]="totalRecords"
+                    [rowsPerPageOptions]="[10,20,30]"
+                    (onPageChange)="paginate($event,'listUser')">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+        
+    </div>
+</div>
+
+

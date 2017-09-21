@@ -1,0 +1,50 @@
+<div [class]="customClasses" class="clearfix">
+    <div class="col-md-6 nav-bar left-group">
+        <ng-container *ngFor="let configItem of leftGroup">
+            <ng-container [ngSwitch]="configItem.type">
+                 <template [ngSwitchCase]="'button'">
+                   <button 	class="font-size-12 transparent-button-style" type="button" 
+                   			(click)="configItem.handler.call()">{{configItem.label}}
+                   </button>
+                 </template>
+                 <template [ngSwitchCase]="'search'">
+                 	  <div class="ui input">
+    			            <input name='searchKeyWord' #search type="text" />
+    			            <i class="fa fa-times-circle fa-lg mr-5 mb-8 icon" style="color: #ccc;padding-top: 6px;width:30px" (click)="search.value=''"></i>
+  			            </div>
+      			        <button class="font-size-12 transparent-button-style" type="button" 
+      			        	(click)="configItem.handler.call(null,search.value)">搜索
+      			        </button>
+                 </template>
+                 <template ngSwitchDefault>
+                    <span>ErrorType</span>
+                 </template>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div class="col-md-6 nav-bar right-group">
+       <ng-container *ngFor="let configItem of rightGroup" style="display:inline-block;">
+        	<ng-container [ngSwitch]="configItem.type">
+                 <template [ngSwitchCase]="'button'">
+                   <button 	class="font-size-12 transparent-button-style pull-right" type="button" 
+                   			(click)="configItem.handler.call()">{{configItem.label}}
+                   </button>
+                 </template>
+                 <template [ngSwitchCase]="'search'">
+                    <div class="pull-right" style="display:inline-block;">
+                        <div class="ui input">
+                            <input name='searchKeyWord' #search  type="text" />
+                            <i class="fa fa-times-circle fa-lg mr-5 mb-8 icon" style="color: #ccc;padding-top: 6px;width:30px" (click)="search.value=''"></i>
+                        </div>
+                        <button class="font-size-12 transparent-button-style" type="button" 
+                          (click)="configItem.handler.call(null,search.value)">搜索
+                        </button>
+                    </div>
+                 </template>
+                 <template ngSwitchDefault>
+                   <span>ErrorType</span>
+                 </template>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

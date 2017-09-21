@@ -1,0 +1,116 @@
+{
+  "tableContent": [
+    {
+      "fggods007": "PO",
+      "qtyTbMatched": "1000.000000",
+      "fggods006": "A11|A1101|A110101",
+      "transMatchedCode": "20000160719TRTY000004",
+      "fggods005": "D0717A0151084CF19FD8BBD67",
+      "fggods003": "金1",
+      "fggods002": "200001468808697683",
+      "dealerCode": "",
+      "fggods001": "20000160718GODS000005",
+      "fggods011": "1",
+      "fggods010": "1",
+      "amntTbMatched": "212480.00",
+      "transCode": "20000160719TRTY000004",
+      "containerCode": "20000160713ADDR000001",
+      "fggods009": "1",
+      "fggods008": "RawMaterials"
+    },
+    {
+      "fggods007": "PO",
+      "qtyTbMatched": "2000.000000",
+      "fggods006": "A11|A1101|A110101",
+      "transMatchedCode": "20000160719TRTY000004",
+      "fggods005": "D0717A0151084CF19FD8BBD67",
+      "fggods003": "金2",
+      "fggods002": "200001468808710960",
+      "dealerCode": "",
+      "fggods001": "20000160718GODS000006",
+      "fggods011": "2",
+      "fggods010": "2",
+      "amntTbMatched": "428280.00",
+      "transCode": "20000160719TRTY000004",
+      "containerCode": "20000160713ADDR000001",
+      "fggods009": "2",
+      "fggods008": "RawMaterials"
+    },
+    {
+      "fggods007": "PO",
+      "qtyTbMatched": "3000.000000",
+      "fggods006": "A11|A1101|A110101",
+      "transMatchedCode": "20000160719TRTY000004",
+      "fggods005": "D0717A0151084CF19FD8BBD67",
+      "fggods003": "金3",
+      "fggods002": "200001468808723018",
+      "dealerCode": "",
+      "fggods001": "20000160718GODS000007",
+      "fggods011": "3",
+      "fggods010": "3",
+      "amntTbMatched": "644910.00",
+      "transCode": "20000160719TRTY000004",
+      "containerCode": "20000160713ADDR000001",
+      "fggods009": "3",
+      "fggods008": "RawMaterials"
+    },
+    {
+      "fggods007": "MA",
+      "qtyTbMatched": "12.000000",
+      "fggods006": "A4|A41|A415",
+      "transMatchedCode": "20000160720TRTY000102",
+      "fggods005": "7279D1332137408A9F29C75F2",
+      "fggods003": "T718礼品套装",
+      "fggods002": "200001468809364789",
+      "dealerCode": "",
+      "fggods001": "20000160718GODS000014",
+      "amntTbMatched": "19.92",
+      "transCode": "20000160720TRTY000102",
+      "containerCode": "20000160713ADDR000001",
+      "fggods008": "FG"
+    }
+  ],
+  "tableHead": [
+    {
+      "fieldCode": "transCode",
+      "fieldContent": "",
+      "fieldDataType": "string",
+      "fieldName": "流程实例编码",
+      "fieldSort": "51",
+      "fieldType": "0"
+    },
+    {
+      "fieldCode": "dealerCode",
+      "fieldContent": "",
+      "fieldDataType": "string",
+      "fieldName": "往来名称",
+      "fieldSort": "52",
+      "fieldType": "0"
+    },
+    {
+      "fieldCode": "containerCode",
+      "fieldContent": "",
+      "fieldDataType": "string",
+      "fieldName": "仓库代码",
+      "fieldSort": "53",
+      "fieldType": "0"
+    },
+    {
+      "fieldCode": "qtyTbMatched",
+      "fieldContent": "",
+      "fieldDataType": "string",
+      "fieldName": "数量余额",
+      "fieldSort": "54",
+      "fieldType": "0"
+    },
+    {
+      "fieldCode": "amntTbMatched",
+      "fieldContent": "",
+      "fieldDataType": "string",
+      "fieldName": "金额余额",
+      "fieldSort": "55",
+      "fieldType": "0"
+    }
+  ],
+  "dataCount": 4
+}

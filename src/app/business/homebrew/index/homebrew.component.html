@@ -1,0 +1,117 @@
+<div class="col-md-12">
+    <toolbar customClasses="full-width" 
+             [configList]="toolbarConfigs">
+    </toolbar>
+</div>
+
+<div class="col-md-12" *ngIf="view ==='all'">
+    <p-dataTable    [value]="processingList" 
+                    [emptyMessage]="emptyMessage" 
+                    resizableColumns="true">
+        <p-column   field="orderNo" 
+                    header="订单号">
+        </p-column>
+        <p-column   field="name" 
+                    header="物料名称">
+        </p-column>
+        <p-column   field="measureName" 
+                    header="计量单位"
+                    [style]="{'width':'80px'}">
+        </p-column>
+        <p-column   field="qty" 
+                    styleClass='text-right' 
+                    header="订单数" 
+                    [style]="{'width':'80px'}">
+        </p-column>
+        <p-column   field="finishedQty" 
+                    styleClass='text-right' 
+                    header="完成数"
+                    [style]="{'width':'80px'}">
+        </p-column>
+        <!-- <p-column   field="deliveryDate" 
+                    header="交付日期"
+                    [style]="{'width':'100px'}">
+        </p-column> -->
+        <p-column   header="操作">
+            <template   let-row="rowData" 
+                        pTemplate type="body" >
+                    <a  type="text" 
+                        class="link-a" 
+                        name="name" 
+                        *ngIf="row.qty>row.finishedQty" 
+                        (click)='accept(row)'>入库
+                    </a>
+                    <a  type="text" 
+                        name="name" 
+                        *ngIf="row.qty<=row.finishedQty">入库
+                    </a>
+            </template>
+        </p-column>
+        <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [first] ='first'
+                    [totalRecords]="totalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event)">
+                </p-paginator>
+            </p-footer>
+    </p-dataTable>
+</div>
+
+
+<div class="col-md-12" *ngIf="view !='all'">
+    <p-dataTable    [value]="processingList" 
+                    [emptyMessage]="emptyMessage" 
+                    resizableColumns="true">
+        <p-column   field="orderNo" 
+                    header="订单号">
+        </p-column>
+        <p-column   field="name" 
+                    header="物料名称">
+        </p-column>
+        <p-column   field="measureName" 
+                    header="计量单位"
+                    [style]="{'width':'80px'}">
+        </p-column>
+        <p-column   field="qty" 
+                    styleClass='text-right' 
+                    header="订单数" 
+                    [style]="{'width':'80px'}">
+        </p-column>
+        <!-- <p-column   field="deliveryDate" 
+                    header="交付日期"
+                    [style]="{'width':'100px'}">
+        </p-column> -->
+        <p-column   header="操作">
+            <template   let-row="rowData" 
+                        pTemplate type="body" >
+                    <a  type="text" 
+                        class="link-a" 
+                        name="name" 
+                        *ngIf="row.qty>row.finishedQty" 
+                        (click)='accept(row)'>入库
+                    </a>
+                    <a  type="text" 
+                        name="name" 
+                        *ngIf="row.qty<=row.finishedQty">入库
+                    </a>
+            </template>
+        </p-column>
+        <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [first] ='first'
+                    [totalRecords]="totalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event)">
+                </p-paginator>
+            </p-footer>
+    </p-dataTable>
+</div>

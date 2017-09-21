@@ -1,0 +1,345 @@
+<div>
+  <div class="col-md-12">
+
+    <progresscircle 
+      [percentage]='progressInfo.collectionProgress' 
+      [active]="activeConfig.collectionActive" 
+      ptitle='收款' 
+      (click)="onActive('collectionActive')"
+      [callback]="onCollection.bind(this)" >
+    </progresscircle>
+
+    <progresscircle 
+      [percentage]='progressInfo.wipProgress' 
+      (click)="onActive('wipActive')"
+      [active]="activeConfig.wipActive"  
+      ptitle='完工入库' 
+      [callback]="onWip.bind(this)" >
+    </progresscircle>
+
+    <progresscircle 
+      [percentage]='progressInfo.selloutProgress'
+      [active]="activeConfig.selloutActive"  
+      ptitle='销售出库' 
+      (click)="onActive('selloutActive')"
+      [callback]="onSellout.bind(this)" >
+    </progresscircle>
+
+    <progresscircle 
+      [percentage]='progressInfo.invoiceProgress'
+      [active]="activeConfig.invoiceActive"  
+      ptitle='发票' 
+      (click)="onActive('invoiceActive')"
+      [callback]="onInvoice.bind(this)" >
+    </progresscircle>
+
+    <progresscircle 
+      [percentage]='progressInfo.returnoutProgress'
+      [active]="activeConfig.returnoutActive"  
+      ptitle='退货入库'
+      (click)="onActive('returnoutActive')" 
+      [callback]="onReturnout.bind(this)" >
+    </progresscircle>
+  </div>
+
+ 
+  <div class="col-md-12">
+    <div class="col-md-12">
+      <div class="col-md-12 person_style">
+        <div class="row mb-10">
+          <span class="col-md-3">订单号：{{data.transCode}}</span>
+          <span class="col-md-2">订单金额：{{data.currency=='CNY'?'￥':'$'}}{{data.originalCurrencyAmount}}</span>
+          <span class="col-md-2">已收款金额:{{data.currency=='CNY'?'￥':'$'}}{{data.effectTotalAmount}}</span>
+          <span class="col-md-2">交货日期：{{data.deliveryDate}}</span>
+          <span class="col-md-2">销售员：{{data.handlerName}}</span>
+        </div>
+        <div class="row mb-10">
+          <span class="col-md-3">客户名称：{{data.customerName}}</span>
+          <span class="col-md-2">联系人：{{data.contactName}}</span>
+          <span class="col-md-2">联系方式：{{data.contactMobile}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 收款 -->
+  <div class="col-md-12 top" *ngIf="activeConfig.collectionActive">
+    <div *ngFor="let item of collectionList">
+      <div class="col-md-4">
+        流程编码：{{item.transCode}}
+      </div>
+      <div class="col-md-8">
+        状态：{{item.processInstanceState}}
+      </div>
+      <div class="col-md-12 form_top">
+        <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="item.items" 
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" >
+          <p-column field="accountName" header="账户名称" styleClass='text-center'></p-column>
+          <p-column field="account" header="收款账号" styleClass='text-center'></p-column>
+          <p-column field="cashFlowName" header="现金流类型" styleClass='text-center' ></p-column>
+          <p-column field="amount" header="收款金额" styleClass='text-right'></p-column>
+        </p-dataTable>
+      </div>
+    </div>
+  </div>
+
+  <!-- 完工入库 -->
+  <div class="col-md-12 top" *ngIf="this.activeConfig.wipActive">
+    <div class="col-md-12">
+      <p-dataTable
+          [emptyMessage]="emptyMessage"
+          [value]="data.acceptances" 
+          (onSort)="onSort($event)"
+          [(selection)]="selectedDatas" 
+          resizableColumns="true">
+        <p-column field="name" header="物料名称" styleClass='text-center'></p-column>
+        <p-column field="type" header="类型" styleClass='text-center'></p-column>
+        <p-column field="measureName" header="计量单位" styleClass='text-center' ></p-column>
+        <p-column field="productionMode" header="获取方式" styleClass='text-center'></p-column>  
+        <p-column field="orderQty" header="订单数" styleClass='text-right' ></p-column>
+        <p-column field="finishedQty" header="完工数" styleClass='text-right' ></p-column>
+<!--         <p-column field="estimatedata" header="预计交付日期" ></p-column>
+        <p-column field="status" header="状态" styleClass='text-center'></p-column>  
+        <p-column field="following" header="跟踪" styleClass='text-center'></p-column>  -->
+        <p-footerColumnGroup>
+          <p-row>
+            <p-column footer="合计:" colspan="1" [style]="{'background':'white','font-weight':'bold'}"></p-column>
+            <p-column footer="" [style]="{'background':'white'}"></p-column>
+            <p-column footer="" [style]="{'background':'white'}"></p-column>
+            <p-column footer="" [style]="{'background':'white'}"></p-column>
+            <p-column footer="{{order_total}}" 
+                [style]="{'text-align':'right', 'background-color':'white','font-weight':'bold'}">
+            </p-column>
+            <p-column footer="{{wip_total_num}}" 
+                [style]="{'text-align':'right','background-color':'white','font-weight':'bold'}">
+            </p-column>
+<!--             <p-column footer="" [style]="{'background':'white'}"></p-column>
+            <p-column footer="" [style]="{'background':'white'}"></p-column>
+            <p-column footer="" [style]="{'background':'white'}"></p-column> -->
+          </p-row>    
+        </p-footerColumnGroup>
+      </p-dataTable>
+    </div>
+  </div>
+  <!-- 销售出库 -->
+  <div class="col-md-12 top" *ngIf="activeConfig.selloutActive">
+    <div *ngFor="let sold of data.solds">
+      <div class="col-md-4">
+        流程编码：{{sold.transCode}}
+      </div>
+      <div class="col-md-2">
+        状态：{{sold.status}}
+      </div>
+      <div class="col-md-2" style="float: right;text-align: right;">      
+        <span><a class="glyphicon glyphicon-print" (click)="print(sold)">打印</a></span>
+      </div>
+      <div class="col-md-12 form_top">
+        <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="sold.items" 
+            (onSort)="onSort($event)"
+            resizableColumns="true">
+          <p-column field="name" header="物料名称" styleClass='text-center' ></p-column>
+          <p-column field="type" header="类型" styleClass='text-center'></p-column>
+          <p-column field="cartonQty" header="每件量(PCS)" styleClass='text-right' ></p-column>
+          <p-column field="cartonSize" header="外箱尺寸(CM)" styleClass='text-center'></p-column> 
+          <p-column field="perCartonQty" header="件数(PCS)" styleClass='text-right'  ></p-column>
+          <p-column field="qty" header="数量(PCS)" styleClass='text-right' ></p-column>
+          <p-column field="price" header="单价" styleClass='text-center'>
+            <template pTemplate="header">
+            <span>单价{{data.currency=='CNY'?'￥':'$'}}</span>
+        </template>
+          </p-column>
+          <p-column field="amount" header="金额" styleClass='text-right'>
+            <template pTemplate="header">
+            <span>金额{{data.currency=='CNY'?'￥':'$'}}</span>
+            </template>
+          </p-column>
+          <p-column field="weight" header="重量(KG)" styleClass='text-right'></p-column>  
+          <p-column field="remark" header="说明" ></p-column>
+          <p-footerColumnGroup>
+            <p-row>
+              <p-column footer="合计:" [style]="{'background':'white','font-weight':'bold'}" colspan="1"></p-column>
+              <p-column footer="" [style]="{'background':'white'}"></p-column>
+              <p-column footer="" [style]="{'text-align':'right','background':'white'}" class="qaz"></p-column>
+              <p-column footer="" [style]="{'background':'white'}"></p-column>
+              <p-column footer="{{sold.totalCartonQty}}" [style]="{'text-align':'right','background-color':'white','font-weight':'bold'}"></p-column>
+              <p-column footer="{{sold.totalQty}}" [style]="{'text-align':'right','background-color':'white','font-weight':'bold'}"></p-column>
+              <p-column footer="" [style]="{'background':'white'}"></p-column>
+              <p-column footer="{{sold.totalAmount}}" [style]="{'background':'white','font-weight':'bold','text-align':'right'}"></p-column>
+              <p-column footer="{{sold.totalWeight}}" [style]="{'text-align':'right','background-color':'white','font-weight':'bold'}"></p-column>
+              <p-column footer="" [style]="{'background':'white'}"></p-column>
+            </p-row>              
+          </p-footerColumnGroup>
+        </p-dataTable>
+      </div>
+    </div>
+  </div>
+
+  <!-- 发票 -->
+  <div class="col-md-12 top" *ngIf="isShowType==='invoice_view'">
+    <div class="col-md-12" *ngFor="let item of invoiceList">
+      <div class="col-md-4">
+        流程编码：TSGDSLOD4E4592221AFB43D90AB6
+      </div>
+      <div class="col-md-8">
+        状态：已生效
+      </div>
+    </div>
+    <div class="col-md-12 form_top">
+      <p-dataTable
+          [emptyMessage]="emptyMessage"
+          [value]="item" 
+          (onSort)="onSort($event)"
+          [(selection)]="selectedDatas" 
+          resizableColumns="true">
+        <p-column field="invoicenumber" header="发票号码"  ></p-column>
+        <p-column field="billingdate" header="开票日期" ></p-column>
+        <p-column field="servicename" header="货物或应税劳务、服务名称" ></p-column>
+        <p-column field="money" header="金额" styleClass='text-right' ></p-column> 
+        <p-column field="taxrate" header="税率"  ></p-column>
+        <p-column field="tax" header="税额" ></p-column> 
+        <p-column field="describe" header="备注"  ></p-column>
+      </p-dataTable>
+    </div>
+  </div>
+  <!-- 退货入库 -->
+  <div class="col-md-12 top" *ngIf="isShowType==='returnout_view'">
+    <div class="col-md-12" *ngFor="let item of returnList">
+      <div class="col-md-4">
+          流程编码：TSGDSLOD4E4592221AFB43D90AB6
+      </div>
+      <div class="col-md-2">
+          状态：已生效
+      </div>
+      <div class="col-md-12 form_top">
+        <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="item" 
+            [(selection)]="selectedDatas">
+          <p-column field="name" header="物料名称"></p-column>
+          <p-column field="type" header="类型"></p-column>
+          <p-column field="cTn" header="装箱量" styleClass='text-right'></p-column>
+          <p-column field="boxsize" header="外箱尺寸"></p-column>   
+          <p-column field="boxnumber" header="箱数" styleClass='text-right'></p-column>
+          <p-column field="number" header="数量" styleClass='text-right'></p-column>
+          <p-column field="measurement" header="计量单位"></p-column>
+          <p-column field="weight" header="重量(KG)"></p-column>  
+          <p-column field="describe" header="说明"></p-column>
+        </p-dataTable>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <!-- 收款提示 -->
+  <div class="col-md-12" *ngIf='activeConfig.collectionActive' style="font-size: 16px;
+    margin-bottom: 10px;text-align: center;">
+      <div class="col-md-12 " 
+      *ngIf="collection_balance>0&&collectionList.length>0">
+      <span>还有<strong>{{data.currency=='CNY'?'￥':'$'}}{{collection_balance}}</strong>
+      没收款哦！<a (click)="goCollect()">去收款>></a></span>
+    </div>
+    <div class="col-md-12 " *ngIf="collection_balance<=0">
+      <span>已全部收款</span>
+    </div>
+    <div class="col-md-12 " *ngIf="collectionList.length==0">
+      <span>未发生收款，<a (click)="goCollect()">去收款>></a></span>
+    </div>
+  </div>
+  <!-- 出库提示 -->
+  <div class="col-md-12" *ngIf='activeConfig.selloutActive' style="font-size: 16px;
+    margin-bottom: 10px;text-align: center;">
+      <div class="col-md-12 " *ngIf="sellout_balance<data.originalCurrencyAmount&&data.solds.length>0 && sellout_balance!=0">
+      <span>还有<strong>{{data.currency=='CNY'?'￥':'$'}}{{sellout_balance}}</strong>待出库！<a (click)="checkOut()">去出库>></a></span>
+    </div>
+    <div class="col-md-12 " *ngIf="sellout_balance==0">
+      <span>已全部出库</span>
+    </div>
+    <div class="col-md-12 " *ngIf="data.solds.length==0">
+      <span>未发生出库，<a (click)="checkOut()">去出库>></a></span>
+    </div>
+  </div>
+
+
+<p-dialog 
+    header="打印"
+    width="900" 
+    modal="true"
+    responsive="true"
+    resizable="true"
+    closable="true"
+    [(visible)]="printer">
+  <div id="printData">
+    <p style="text-align: center;font-size: 25px;font-weight: bold;">富榕包装制品有限公司</p>
+    <p style="text-align: center;font-size: 25px;font-weight: bold;">产品(加工)出库单</p>
+    <div class="col-md-4">
+      客户:{{data.customerName}}
+    </div>
+    <div class="col-md-12 dialog_form">
+
+      <table class="" style='margin-top: 6px !important;margin-bottom: 6px !important;max-width: none !important;width: 100%;background-color: transparent;border-spacing: 0;'>
+            <thead>
+                <tr>
+                    <th style='border-left: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;width: 80px;'>订单号</th>
+                    <th style='border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;'>货号</th>
+                    <th style='border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;'>数量</th>
+                    <th style='border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;'>装箱细码</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let p of curOutStoragePritData;'>
+                    <td style='border-left: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;width: 80px;'>{{p.transCode}}</td>
+                    <td style='border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;'>{{p.name}}</td>
+                    <td style='border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;'>{{p.qty}}</td>
+                    <td style='border-bottom: 1px solid black;border-right: 1px solid black;padding: 8px;'>
+                      <div id ='boxInputs' name='boxInputs' style="display: block;">
+                        <div *ngFor="let item of p.boxItems;let i ='index';">
+                          <input type="number" name="qty" style="width: 100px;" [(ngModel)]="item.qty" (change)="calcPackingTotal()">
+                          <span>*</span>
+                          <input type="number" name="num" style="width: 100px" [(ngModel)]="item.num" (change)="calcPackingTotal()">
+                          <span>件</span>
+                          <span class="glyphicon glyphicon-plus" style="color: #6886BE" (click)="onBox(p)"></span>
+                          <span class="glyphicon glyphicon-remove" style="color: #6886BE" (click)="onClose(p,i)" *ngIf="i>0"></span>
+                        </div>
+                      </div>
+
+                      <div id ='boxLabel' name='boxLabel' style="display: none;">
+                        <p *ngFor="let item of p.boxItems;let i ='index';" >
+                          <span 
+                          *ngIf='item.qty!=""&&item.num!=""&&item.qty!=null&&item.num!=null'>{{item.qty}}*{{item.num}}件</span>
+                        </p>
+                      </div>
+                    </td>
+                </tr>
+          </tbody>
+      </table>
+    </div>     
+    <div><label style="float: right;">共计{{data.packingTotal || 0}}件</label></div>
+    <div style="display: flex;flex-direction: inherit;margin-top: 30px;font-size: 14px;width: 100%;">
+      <div style='width: 25%;height: 30px;'>申请人:</div>
+      <div style='width: 25%;height: 30px;'>仓管:</div>
+      <div style='width: 25%;height: 30px;'>财务(盖章):</div>
+      <div style='width: 25%;height: 30px;'>日期:</div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <input 
+        class="btn btn-default" 
+        type="button" 
+        value="取消" 
+        (click)="onCancel()" 
+        style="float: right;margin-left: 7px;">
+    <input 
+        class="btn btn-default" 
+        type="button" 
+        value="打印" 
+        (click)="printes('printData')" 
+        style="float: right;">
+  </div>
+</p-dialog>

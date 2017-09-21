@@ -1,0 +1,32 @@
+
+.progresscircle{
+	width: 140px;
+    height: 140px;
+    float: left;
+    cursor: pointer;
+}
+.percentage{
+	position: relative;
+    top: -74px;
+    left: 48px;
+    font-weight: bold;
+}
+
+.ptitle{
+	width: 120px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: -25px;
+}
+
+.zero-percentage{
+    left: 54px;
+}
+.hundred-percentage{
+    left: 45px;
+}
+
+.active{
+    font-weight: bold;
+    color: #009900;
+}

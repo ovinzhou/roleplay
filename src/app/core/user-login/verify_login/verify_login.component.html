@@ -1,0 +1,105 @@
+<div class="container user-login-container" style="margin-top: 100px;">
+  <div class="panel panel-default" style="width: 450px;margin: auto;">
+    <div class="panel-heading">
+       <h3 class="panel-title">用户登录</h3>
+    </div>
+    <div class="panel-body">     
+      <div>
+        <div class="form-group">
+          <form class="form-horizontal" #loginForm="ngForm" novalidate  (ngSubmit)="doLogin(loginForm)">
+            <div class="form-group" [ngClass]="{ 'has-error': loginForm.submitted && !userCode.valid }"> 
+              <div class="input-group col-md-12" style="padding-left: 30px; padding-right: 30px;">
+                <span class="input-group-addon"><i class="fa fa-mobile" style="width: 15px;"></i></span>
+                <input type="text" #userCode="ngModel" name="userCode" [(ngModel)]="data.userCode" class="form-control"  
+                  placeholder="请输入手机号码"
+                  required
+                  pattern="^0?(13|15|18|14|17)[0-9]{9}$" 
+                  />
+              </div>
+              <div *ngIf="loginForm.submitted && !userCode.valid" class="text-danger" style="margin-left: 30px;">
+                      <div [hidden]="!userCode.errors.required">
+                        手机号码必填
+                      </div>
+                      <div [hidden]="!userCode.errors.pattern">
+                        手机号码格式不对
+                      </div>
+              </div>
+            </div>
+            <!-- 图片验证码 -->
+<!--             <div class="input-group col-md-12" style="padding-left: 15px;" 
+              [ngClass]="{ 'has-error': loginForm.submitted &&   !verifycode.valid }">
+              <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+              <input type="text"
+                name="verifycode"
+                #verifycode="ngModel"
+                placeholder="请输入验证码"
+                class="form-control width-plss"
+                (input)="onInput($event)"
+                required
+                [(ngModel)]='data.verifycode'/>
+              <span class="col-md-3" style="border-radius: 0px; padding-left: 0;">
+                  <img [src]="verify.src"
+                    width="95px"
+                    height="34px" 
+                    (click)="getAuthCode()"
+                    class='verify-code'/>
+              </span>
+            </div>
+            <div *ngIf="loginForm.submitted && !verifycode.valid" class="text-danger" style="margin-left: 15px;">
+                <div [hidden]="!verifycode.errors.required">
+                  图片验证码必填
+                </div>
+            </div> -->
+            <!-- 手机验证码 -->
+            <div class="form-group" > 
+              <div class="input-group col-md-12" style="padding-left: 30px;" 
+                [ngClass]="{ 'has-error': loginForm.submitted && !messageCode.valid }">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="text" 
+                  #messageCodeInput
+                  #messageCode="ngModel"
+                  name="messageCode"
+                  placeholder="请输入短信验证码"
+                  class="form-control form-width"
+                  [(ngModel)]="data.messageCode"
+                  required />
+                  <span>
+                     <button class="btn" 
+                      *ngIf="!countdown"
+                     [disabled]="!userCode.valid"
+                     (click)='sendVerifyCode(messageCodeInput)' 
+                      type="button" 
+                     [ngClass]="{ 'btn-primary': userCode.valid  }"
+                      style="border-radius: 0 3px 3px 0;">获取验证码
+                    </button>
+                    <span *ngIf="countdown" class="countdown">
+                      {{countdown}}
+                    </span>
+                 </span>     
+              </div>
+              <div *ngIf="loginForm.submitted && !messageCode.valid" class="text-danger" style="margin-left: 30px;">
+                <div [hidden]="!messageCode.errors.required">
+                  短信验证码必填
+                </div>
+              </div> 
+            </div> 
+            <div class="form-group">
+                <div class="col-sm-3 toPassword-margin">
+                  <button type="button" class="btn btn-link pull-right"  (click)="toPassword()">通过密码登录</button>
+                </div>
+            </div>
+<!--             <div *ngIf="isVerifycode" class="text-top text-danger">
+                {{this.errorMessage}}
+            </div> -->
+            <div class="form-group">
+                <div style="width: 65%; margin: 0 auto;">
+                    <button type="submit" class="btn btn-primary" style="width:100%;height:40px;">登录</button>
+                </div>
+            </div>   
+          </form>   
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

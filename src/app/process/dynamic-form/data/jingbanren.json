@@ -1,0 +1,57 @@
+[
+    {
+        "creator": "jack",
+        "crtTime": "2016-05-04 14:49:34",
+        "email": "1101@163.com",
+        "entity": {
+            "entityId": "rfd-001"
+        },
+        "firstName": "三",
+        "gender": 0,
+        "mobile": "13713777064",
+        "nickname": "张三",
+        "officePhone": "1131",
+        "photo": "21",
+        "secondName": "张",
+        "status": 1,
+        "userCode": "13713777064",
+        "userId": "20111160429PLEN020002"
+    },
+    {
+        "creator": "jack",
+        "crtTime": "2016-05-04 14:49:34",
+        "email": "1101@163.com",
+        "entity": {
+            "entityId": "rfd-001"
+        },
+        "firstName": "四",
+        "gender": 0,
+        "mobile": "13713777064",
+        "nickname": "李四",
+        "officePhone": "1131",
+        "photo": "21",
+        "secondName": "李",
+        "status": 1,
+        "userCode": "13713777064",
+        "userId": "20111160429PLEN020003"
+    },
+    {
+        "creator": "jack",
+        "crtTime": "2016-05-04 14:49:34",
+        "email": "1101@163.com",
+        "entity": {
+            "entityId": "rfd-001"
+        },
+        "firstName": "无",
+        "gender": 0,
+        "mobile": "13713777064",
+        "nickname": "王五",
+        "officePhone": "1131",
+        "photo": "21",
+        "secondName": "王",
+        "status": 1,
+        "userCode": "13713777064",
+        "userId": "20111160429PLEN020004"
+    }
+
+]

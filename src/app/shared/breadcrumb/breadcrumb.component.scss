@@ -1,0 +1,22 @@
+.rp-breadcrumb {
+	display: inline-block;
+    height: 40px;
+    margin-left: 15px;
+}
+	
+.rp-breadcrumb > ul {
+	line-height: 40px;
+}
+
+.rp-breadcrumb.ui-widget-header {
+	background-color: white;
+	border: none;
+}
+
+.rp-breadcrumb.ui-breadcrumb {
+   	padding: 0;
+}
+
+a:hover {
+	color: #1ab394;
+}

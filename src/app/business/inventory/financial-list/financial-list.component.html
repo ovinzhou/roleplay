@@ -1,0 +1,183 @@
+<!-- 财务库存 -->
+<div class="col-md-12">
+    <p-dataTable [value]="inventoryList" [emptyMessage]="emptyMessage" (onSort)="onSort($event)" sortable="custom" resizableColumns="true">
+        <p-column field="calcName" header="科目" [sortable]="true"></p-column>
+        <p-column field="containerName" header="仓库" [sortable]="true"></p-column>
+        <p-column field="transObjName" header="物料" [sortable]="true"></p-column>
+        <p-column field="skuClassify" header="分类" [sortable]="true"></p-column>
+        <p-column field="measureunit" header="计量单位" [sortable]="true"></p-column>
+        <p-column field="qtyTbMatched" header="数量余额" styleClass='text-right' [sortable]="true">
+            <!--  <template let-attr="rowData" pTemplate type="body" >
+                <a type="text" name="qtyTbMatched" class="interlinkage" (click)="onBalancenumber(attr)">
+                    {{attr.qtyTbMatched}}
+                </a>
+            </template> -->
+        </p-column>
+        <p-column field="qtyLocked" header="占用数量" styleClass='text-right' [sortable]="true">
+            <!-- <template let-attr="rowData" pTemplate type="body" >
+                <a type="text" name="qtyLocked" class="interlinkage" (click)="onOccupancy(attr)">
+                    {{attr.qtyLocked}}
+                </a>
+            </template>   -->
+        </p-column>
+        <p-column field="qtyAvailable" header="可用数量" [sortable]="true" styleClass='text-right'></p-column>
+        <p-column field="amntTbMatched" header="金额余额" [sortable]="true" styleClass='text-right'>
+            <template let-attr="rowData" pTemplate type="body">
+                <a type="text" name="amntTbMatched" class="interlinkage" (click)="onBalancemoneyDetail(attr)">
+                    {{attr.amntTbMatched}}
+                </a>
+            </template>
+        </p-column>
+        <!-- 
+        <p-column field="oldLibrary" header="账龄" [sortable]="true" styleClass='text-right'></p-column> 
+        -->
+        <p-column field="invnAgingDays" header="库龄" [sortable]="true" styleClass='text-right'>
+            <template let-attr="rowData" pTemplate type="body">
+                <a type="text" name="invnAgingDays" class="interlinkage" (click)="onInvnAgingeDetail(attr)">
+                    {{attr.invnAgingDays}}
+                </a>
+            </template>
+        </p-column>
+        <p-footer>
+            <div class="total-style">
+                共{{totalRecords}}条记录
+            </div>
+            <p-paginator rows="10" [first]="first" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)">
+            </p-paginator>
+        </p-footer>
+    </p-dataTable>
+</div>
+<p-dialog width="900" modal="true" header="物料数量流水" [(visible)]="balancenumber">
+    <p-dataTable [value]="orderItems" [emptyMessage]="emptyMessage" resizableColumns="true" scrollHeight="330px" scrollWidth="950px" resizableColumns="true">
+        <p-column field="flowname" header="流程名称" [sortable]="true"></p-column>
+        <p-column field="flownumber" header="单号" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="producetime" header="生效时间" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="Warehouse" header="仓库" [sortable]="true"></p-column>
+        <p-column field="materiel" header="物料" [sortable]="true"></p-column>
+        <p-column field="measurement" header="计量单位" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="addnumber" header="数量增加" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="lessennumber" header="数量减少" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="qtyTbMatched" header="数量余额" styleClass='text-right' [sortable]="true"></p-column>
+    </p-dataTable>
+</p-dialog>
+<p-dialog width="900" modal="true" header="占用记录" [(visible)]="occupancy">
+    <p-dataTable [value]="orderItems" [emptyMessage]="emptyMessage" resizableColumns="true" scrollHeight="330px" scrollWidth="950px" resizableColumns="true">
+        <p-column field="flowname" header="流程名称" [sortable]="true"></p-column>
+        <p-column field="flownumber" header="单号" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="producetime" header="生效时间" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="Warehouse" header="仓库" [sortable]="true"></p-column>
+        <p-column field="materiel" header="物料" [sortable]="true"></p-column>
+        <p-column field="measurement" header="计量单位" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="addnumber" header="数量增加" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="lessennumber" header="数量减少" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="qtyTbMatched" header="数量余额" styleClass='text-right' [sortable]="true"></p-column>
+    </p-dataTable>
+</p-dialog>
+<!-- 库龄 -->
+<p-dialog width="980" modal="true" header="库龄" [(visible)]="isShowInvnAgingeDetail">
+    <p-dataTable [value]="invnAgingeDetailList" [emptyMessage]="emptyMessage" resizableColumns="true" scrollHeight="330px" scrollWidth="950px" resizableColumns="true">
+        <p-column field="transName" header="流程名称" [sortable]="true"></p-column>
+        <p-column field="transCode" header="单号" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="effectiveTime" header="生效时间" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="containerName" header="仓库" [sortable]="true"></p-column>
+        <p-column field="transObjName" header="物料" [sortable]="true"></p-column>
+        <p-column field="qtyTbMatched" header="数量余额" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="measureunit" header="计量单位" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="amntTbMatched" header="金额余额(￥)" styleClass='text-right' [sortable]="true"></p-column>
+        <p-column field="agingDays" header="库龄" styleClass='text-right' [sortable]="true"></p-column>
+        <p-footerColumnGroup>
+            <p-row>
+                <p-column footer="小计 或 加权平均" colspan="5" [style]="{'text-align':'left'}"></p-column>
+                <p-column [footer]="qtyTbMatched" [style]="{'text-align':'right'}"></p-column>
+                <p-column></p-column>
+                <p-column [footer]="amntTbMatched" [style]="{'text-align':'right'}"></p-column>
+                <p-column [footer]="sumAgingDays" [style]="{'text-align':'right'}"></p-column>
+            </p-row>
+        </p-footerColumnGroup>
+    </p-dataTable>
+</p-dialog>
+<p-dialog width="1000" header="物料成本流水" [(visible)]="isShowOrigAmountDetail" [resizable]="false" modal="true">
+    <div>
+        <div>
+            <p-dataTable [rows]="10" [emptyMessage]="emptyMessage" [value]="moneyDetailList" columnResizeMode="fit" scrollable="true" scrollHeight="330px" scrollWidth="950px" resizableColumns="true" (onSort)="onSort($event,'detail')" [(selection)]="selectedDetailDatas">
+                <p-column [style]="{'width':'80px'}" field="transName" header="流程名称">
+                </p-column>
+                <p-column [style]="{'width':'200px'}" field="transCode" header="单号" [sortable]="true">
+                </p-column>
+                <p-column [style]="{'width':'150px'}" field="transType" header="交易类型">
+                </p-column>
+                <p-column [style]="{'width':'150px'}" field="effectiveTime" header="生效时间">
+                </p-column>
+                <!--  <p-column [style]="{'width':'90px'}" field="name" header="客户">
+                </p-column> -->
+                <p-column [style]="{'width':'90px'}" field="qtyAugment" header="数量增加">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="qtyReduce" header="数量减少">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="qtyRemainder" header="数量余额">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountAugment" header="成本借方(￥)" styleClass='text-right'>
+                    <template let-attr="rowData" pTemplate type="body">
+                        <a type="text" name="amountReduce" class="interlinkage" (click)="amoutDetail(attr)">
+                    {{attr.amountAugment}}
+                </a>
+                    </template>
+                </p-column>
+                <p-column [style]=" { 'width': '90px'} " field="amountReduce " header="成本贷方(￥) " styleClass='text-right'>
+                    <template let-attr="rowData" pTemplate type="body">
+                        <a type="text" name="amountReduce" class="interlinkage" (click)="amoutDetail(attr)">
+                    {{attr.amountReduce}}
+                </a>
+                    </template>
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountRemainder" header="成本余额(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span class="interlinkage">{{ccl.amountRemainder}}</span>
+                    </template>
+                </p-column>
+                <p-footer>
+                    <div class="total-style">
+                        共{{detailTotalRecords}}条记录
+                    </div>
+                    <p-paginator [first]="detailFirst" [rows]="detailQuery.pageSize" [totalRecords]="detailTotalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'detail')">
+                    </p-paginator>
+                </p-footer>
+            </p-dataTable>
+        </div>
+    </div>
+</p-dialog>
+<p-dialog width="1000" header="查看成本-核销记录" [(visible)]="isShowAmoutDetail" [resizable]="false" modal="true">
+    <div>
+        <div>
+            <p-dataTable [rows]="10" [emptyMessage]="emptyMessage" [value]="amoutDetailList" columnResizeMode="fit" scrollable="true" scrollHeight="330px" scrollWidth="950px" resizableColumns="true" (onSort)="onSort($event,'detail')" [(selection)]="selectedDetailDatas">
+                <p-column [style]="{'width':'80px'}" field="transName" header="流程名称">
+                </p-column>
+                <p-column [style]="{'width':'200px'}" field="transCode" header="单号" [sortable]="true">
+                </p-column>
+                <p-column [style]="{'width':'150px'}" field="transType" header="被核销单号">
+                </p-column>
+                <p-column [style]="{'width':'150px'}" field="effectiveTime" header="交易类型">
+                </p-column>
+                <!--  <p-column [style]="{'width':'90px'}" field="name" header="客户">
+                </p-column> -->
+                <p-column [style]="{'width':'90px'}" field="qtyAugment" header="生效时间">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="qtyReduce" header="仓库">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="qtyRemainder" header="物料">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountAugment" header="借方(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span>{{ccl.amountAugment}}</span>
+                    </template>
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountReduce" header="贷方(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span>{{ccl.amountReduce}}</span>
+                    </template>
+                </p-column>
+
+            </p-dataTable>
+        </div>
+    </div>
+</p-dialog>

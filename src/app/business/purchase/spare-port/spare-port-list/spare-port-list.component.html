@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="sparePortList" 
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" 
+            resizableColumns="true"
+            >
+            <p-column   field="name" 
+                        header="物料名称" >
+            </p-column>
+            <p-column   field="type" 
+                        header="物料分类">
+            </p-column>
+            <p-column   field="unit" 
+                        header="单位" >
+            </p-column>
+            <p-column   field="inventory" 
+                        header="库存数"
+                        styleClass='text-right'>
+                <template let-ccl="rowData" pTemplate="body" >
+                    <span [ngClass]="{'colorred' : ccl.inventory_compare < ccl.safetyStock_compare }">{{ccl.inventory}}</span>
+                </template>
+            </p-column>
+            <p-column   field="safetyStock" 
+                        header="安全库存" 
+                        styleClass='text-right'>
+            </p-column>
+            <p-column   field="purchase" 
+                        header="待入库数量"
+                        styleClass='text-right'>
+                <template let-ccl="rowData" pTemplate="body" >
+                    <a (click)="onDetail(ccl)"
+                    class="interlinkage" 
+                    *ngIf="ccl.purchase != '0'">{{ccl.purchase}}</a>
+                    <span *ngIf="ccl.purchase == '0'">{{ccl.purchase}}</span>
+                </template>
+            </p-column>
+            <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [totalRecords]="totalRecords"
+                    [rowsPerPageOptions]="[10,20,30]"
+                    (onPageChange)="paginate($event)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+<p-dialog header="备品采购明细" [(visible)]="display" [resizable]="false" modal="true">
+    <div >
+        <div style="width: 1100px;max-height: 380px;">
+            <p-dataTable
+                [emptyMessage]="emptyMessage"
+                [value]="detailList" 
+                (onSort)="onSort($event,'detail')"
+                resizableColumns="true"
+                [(selection)]="selectedDetailDatas" >
+                    <p-column   field="transName" 
+                                header="流程名称" >
+                    </p-column>
+                    <p-column   field="effectiveTime" [style]="{'width':'130px'}"
+                                header="生效时间">
+                    </p-column>
+                    <p-column   field="transType" 
+                                header="交易类型" >
+                    </p-column>
+                    <p-column   field="transCode" [style]="{'width':'200px'}"
+                                header="单号" >
+                    </p-column>
+                    <p-column   field="providerName" [style]="{'width':'150px'}"
+                                header="供应商" >
+                    </p-column>
+                    <p-column   field="skuName" [style]="{'width':'200px'}"
+                                header="物料名称" >
+                    </p-column>
+                    <p-column   field="qty" [style]="{'width':'60px'}"
+                                header="数量" >
+                    </p-column>
+                    <p-column   field="measureName" 
+                                header="计量单位" >
+                    </p-column>
+                    <p-column   field="deliveryTime" [style]="{'width':'130px'}"
+                                header="交付日期" >
+                    </p-column>
+                    <p-footer >
+                        <div class="total-style">
+                            共{{detailTotalRecords}}条记录
+                        </div>
+                        <p-paginator 
+                            [first]="detailFirst"
+                            [rows]="detailQuery.pageSize" 
+                            [totalRecords]="detailTotalRecords"
+                            [rowsPerPageOptions]="[10,20,30]"
+                            (onPageChange)="paginate($event,'detail')">
+                        </p-paginator>
+                    </p-footer>
+                </p-dataTable>
+        </div>
+    </div>
+</p-dialog>
+

@@ -1,0 +1,54 @@
+<div class="surface" >
+	<!-- 顶部标题 -->
+	<div class="header" *ngIf="isShowHeader()" style="min-height: 40px;">
+	    <!-- TO DO -->
+	    <!-- <div class="header-logo">
+	       <img [src]="logo" alt="主体图片" width="120px" height="50px">
+	    </div> -->  
+	  	<div class="left-options">
+		    <div class="header-search">
+		        <!-- <input class="header-search-input js-search-input js-disable-on-dialog" type="text" value="">
+		        	<span class="header-search-icon icon-lg icon-search light">
+		        		<i class="fa fa-search fa-fw" aria-hidden="true"></i>
+		        	</span> -->
+		    </div>
+		</div>
+		<div class="text-center">
+	        <a style="line-height: 30px;font-size: 20px;color: #f3f3f3;" routerLink="/main/entity">{{name}}</a>
+	    </div>
+        <div class="right-options">
+	    	<div class="dropdown" >
+	    		<a class="header-btn">
+		    		<img alt="image" width="24px" height="24px" style="vertical-align: baseline;" 
+		    		class="img-circle" [src]="currentUserInfo.photo">
+	    		</a>
+		    	<ul class="dropdown-menu">
+				    <li>
+				    	<a class="iframe" (click)='personInfo()' >个人信息</a>
+				    </li>
+				    <li>
+				    	<a class="iframe" (click)='modifyPassword()'>更改密码</a>
+				    </li>
+				    <li>
+				    	<a class="iframe" (click)='doLogout()'>退出</a>
+				    </li>
+				</ul>
+	    	</div>
+
+	    	<a class="header-btn">
+	    		<span class="header-btn-icon icon-lg icon-notification light">
+	    			<i class="fa fa-gear fa-lg" aria-hidden="true"></i>
+	    		</span>
+    		</a>
+    		<a class="header-btn">
+    			<span class="header-btn-icon icon-lg icon-notification light">
+    				<i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+    			</span>
+    		</a>
+	    </div>
+	</div>
+
+	<div class="content gray-bg" >
+		<router-outlet></router-outlet>
+	</div>
+</div>

@@ -1,0 +1,350 @@
+<!-- <rp-dyna-form [init]="initializeFormData"
+                type="create"
+                [actions]="createContext.actions"
+                actionsPosition="footer">
+</rp-dyna-form> -->
+
+<!-- 表单属性 section -->
+<rp-panel title="表单属性">
+	<rp-row-container layout="grid" >
+
+      <rp-input label="流程类型名称" type="text" [(ngModel)]="formAttribute.processTypeName"></rp-input>
+      <rp-input label="流程实例编码" type="text" [(ngModel)]="formAttribute.processCode"></rp-input>
+      <rp-calendar showIcon="true" label="流程生效时间" [(ngModel)]="formAttribute.processStartTime">
+    	</rp-calendar>
+
+    	<rp-input label="状态" type="text" readonly="true" [(ngModel)]="formAttribute.status"></rp-input>
+
+      <rp-select defaultSelectIndex="0" label="经办人" required="true" [options]="userList"
+               [(ngModel)]="formAttribute.dealerName">
+      </rp-select>
+      <rp-select defaultSelectIndex="0" label="经办组织" [options]="orgList"
+               [(ngModel)]="formAttribute.dealerOrg">
+      </rp-select>
+ 		  <rp-select defaultSelectIndex="0" label="经办角色" [options]="roleList"
+               [(ngModel)]="formAttribute.dealerRole">
+      </rp-select>
+
+      <rp-input label="创建人" type="text"
+                (change)="formAttribute.modifier = formAttribute.creator"
+                [(ngModel)]="formAttribute.creator">
+    	</rp-input>
+
+    	<rp-calendar showIcon="true" label="创建时间" [(ngModel)]="formAttribute.createTime">
+    	</rp-calendar>
+
+		  <rp-input label="修改人" type="text" [(ngModel)]="formAttribute.modifier">
+    	</rp-input>
+
+    	<rp-calendar showIcon="true" label="修改时间" [(ngModel)]="formAttribute.modifyTime">
+    	</rp-calendar>
+	</rp-row-container>
+</rp-panel>
+
+<!-- 普通section -->
+<rp-panel title="外部主体">
+    <rp-row-container layout="grid" >
+        <rp-input 
+                  label="客户"
+                  type="text"
+                  subType="selector"
+                  showIcon="true"
+                  [(ngModel)]="customerInfo.customerName"
+                  (click)="showCustomerSelector($event)"
+        ></rp-input>
+
+        <p-dialog [(visible)]="customerSelectorVisible"
+                   modal="modal"
+                   width="800"
+                   *ngIf="customerSelectorVisible">
+            <p-header>
+                请选择用户
+            </p-header>
+            <rp-dataTable
+                    scrollable="true"
+                    scrollWidth="100%"
+                    selectionMode="single"
+                    [value]="customerList?.tableContent"
+                    >
+                <rp-column *ngFor="let columnItem of customerList?.tableHead"
+                		   [field]="columnItem.fieldCode"
+                           [header]="columnItem.fieldName"
+                           [style]="{'width':'200px'}"
+                ></rp-column>
+            </rp-dataTable>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button pButton
+                            type="button"
+                            icon="fa-close"
+                            label="关闭"
+                    ></button>
+                    <button pButton
+                            icon="fa-check"
+                            type="button"
+                            label="确定"
+                    ></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+
+        <rp-input colSpan="4"
+                  label="办公地址"
+                  type="text"
+                  subType="selector"
+                  showIcon="true"
+                  [(ngModel)]="customerInfo.customerAddr"
+                  (click)="($event)"
+        ></rp-input>
+
+        <p-dialog [(visible)]="customerAddrSelectorVisible"
+                   modal="modal"
+                   width="800"
+                   *ngIf="customerAddrSelectorVisible">
+            <p-header>
+                请选择用户
+            </p-header>
+            <rp-dataTable
+                    scrollable="true"
+                    scrollWidth="100%"
+                    selectionMode="single"
+                    [value]="customerAddrList?.tableContent"
+                    >
+                <rp-column *ngFor="let columnItem of customerAddrList?.tableHead"
+                		   [field]="columnItem.fieldCode"
+                           [header]="columnItem.fieldName"
+                           [style]="{'width':'200px'}"
+                ></rp-column>
+            </rp-dataTable>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button pButton
+                            type="button"
+                            icon="fa-close"
+                            label="关闭"
+                    ></button>
+                    <button pButton
+                            icon="fa-check"
+                            type="button"
+                            label="确定"
+                    ></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+        <rp-input colSpan="6" label="详细地址" type="text" [(ngModel)]="customerInfo.addrDetail"></rp-input>
+        <rp-input label="办公电话" type="text" [(ngModel)]="customerInfo.officePhone"></rp-input>
+        <rp-input label="用户名称" type="text" [(ngModel)]="customerInfo.customerName"></rp-input>
+        <rp-input label="手机号" type="text" 
+                  [(ngModel)]="customerInfo.cellPhone" 
+                  [rpStaticValidator]="cellPhoneValidator">
+        </rp-input>
+        <rp-input colSpan="4" label="手机号" type="text" [(ngModel)]="customerInfo.email"></rp-input>
+    </rp-row-container>
+</rp-panel>
+
+<!-- grid类型的section -->
+<rp-panel title="交易明细">
+    <rp-dataTable scrollable="true"
+                  scrollHeight="200px"
+                  scrollWidth="100%"
+                  showAggregationRow="true"
+                  [value]="transDetails">
+
+        <rp-column [style]="{'width':'38px'}"selectionMode="single"></rp-column>
+
+        <!-- 物料名称 -->
+      	<rp-column hidden="false">
+      		<template pTemplate="header">
+                <span>物料名称<span class="ui-label-required">*</span></span>
+            </template>
+
+      		<template let-col
+		              let-rowIndex="rowIndex"
+		              let-item="rowData"
+		              pTemplate="body">
+		        <rp-input 
+		                  type="text"
+		                  subType="selector"
+		                  readonly="true"
+		                  showIcon="true"
+		                  inGrid="true"
+		                  [(ngModel)]="item.goodsName"
+		                  (click)="onOpenGridGoodsSelector(rowIndex)"
+		        ></rp-input>
+
+		        <p-dialog
+		                [(visible)]="goodsListSelectorVisible"
+		                modal="modal"
+		                width="800"
+		                *ngIf="goodsListSelectorVisible">
+		            <p-header>
+		                请选择物料名称
+		            </p-header>
+		            <rp-dataTable
+		                    scrollable="true"
+		                    scrollWidth="100%"
+		                    selectionMode="single"
+		                    [value]="goodsList?.tableContent">
+		                <rp-column [field]="columnItem.fieldCode"
+		                           [header]="columnItem.fieldName"
+		                           [hidden]="!columnItem.fieldDisplay"
+		                           [style]="{'width':'200px'}"
+		                           *ngFor="let columnItem of goodsList?.tableHead"
+		                ></rp-column>
+		            </rp-dataTable>
+		            <p-footer>
+		                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+		                    <button pButton
+		                            type="button"
+		                            icon="fa-close"
+		                            (click)="onSelectGridGoods(rowIndex)"
+		                            label="关闭"
+		                    ></button>
+		                    <button pButton
+		                            icon="fa-check"
+		                            type="button"
+		                            (click)="goodsListSelectorVisible = false;"
+		                            label="确定"
+		                    ></button>
+		                </div>
+		            </p-footer>
+		        </p-dialog>
+	    	  </template>
+      	</rp-column>
+
+      	<!-- 物料类型 -->
+        <rp-column field="goodsType" [style]="{'width':'200px'}">
+            <template pTemplate="header">
+                <span>物料类型<span class="ui-label-required">*</span></span>
+            </template>
+
+            <template let-col
+                      let-rowIndex="rowIndex"
+                      let-item="rowData"
+                      pTemplate="body">
+                <rp-input 
+                      inGrid="true"
+                      [type]="'text'"
+                      [(ngModel)]="item.goodsType">
+                </rp-input>
+            </template>
+      	</rp-column>
+
+        <!-- 数量（汇总列） -->
+    	  <rp-column [field]="qty"
+                   aggregationFunc="sum"
+                   flatten="true"
+                   [style]="{'width':'200px'}">
+            <template pTemplate="header">
+                <span>数量<span class="ui-label-required">*</span></span>
+            </template>
+            <template let-col
+                      let-rowIndex="rowIndex"
+                      let-item="rowData"
+                      pTemplate="body">
+                <rp-input 
+                      type="number"
+                      inGrid="true"
+                      [(ngModel)]="item.qty"
+                ></rp-input>
+            </template>
+        </rp-column>
+
+      	<!-- 单价 -->
+      	<rp-column [field]="unitPrice" [style]="{'width':'200px'}">
+            <template pTemplate="header">
+                <span>单价<span class="ui-label-required">*</span></span>
+            </template>
+            <template let-col let-rowIndex="rowIndex" let-item="rowData" pTemplate="body">
+                <rp-input type="number" inGrid="true" [(ngModel)]="item.unitPrice"></rp-input>
+            </template>
+        </rp-column>
+
+        <!-- 原币金额 -->
+      	<rp-column [field]="originalAmount" [style]="{'width':'200px'}">
+            <template pTemplate="header">
+                <span>原币金额<span class="ui-label-required">*</span></span>
+            </template>
+            <template let-col let-rowIndex="rowIndex" let-item="rowData" pTemplate="body">
+                <rp-input type="number" inGrid="true" [(ngModel)]="item.originalAmount" ></rp-input>
+            </template>
+        </rp-column>
+
+        <!-- 汇率 -->
+      	<rp-column [field]="exRate" [style]="{'width':'200px'}">
+            <template pTemplate="header">
+                <span>汇率<span class="ui-label-required">*</span></span>
+            </template>
+            <template let-col let-rowIndex="rowIndex" let-item="rowData" pTemplate="body">
+                <rp-input type="number" inGrid="true" [(ngModel)]="item.exRate"></rp-input>
+            </template>
+        </rp-column>
+
+        <!-- 金额 -->
+      	<rp-column [field]="amount" [style]="{'width':'200px'}">
+            <template pTemplate="header">
+                <span>金额<span class="ui-label-required">*</span></span>
+            </template>
+            <template let-col let-rowIndex="rowIndex" let-item="rowData" pTemplate="body">
+                <rp-input type="number" inGrid="true" [(ngModel)]="item.amount"></rp-input>
+            </template>
+        </rp-column>
+
+      	<!-- 交付日期 -->
+      	<rp-column field="deliverDate"
+                   [style]="{'width':'200px'}">
+
+            <template pTemplate="header">
+                <span>交付日期<span class="ui-label-required">*</span></span>
+            </template>
+
+            <template let-col
+                      let-rowIndex="rowIndex"
+                      let-item="rowData"
+                      pTemplate="body">
+                <rp-calendar 
+		                     appendTo="body"
+		                     showIcon="true"
+                         inGrid="true"
+		                     [style]="{'width':'100%'}"
+		                     [(ngModel)]="item.deliverDate">
+		        </rp-calendar>
+            </template>
+      	</rp-column>
+
+
+      	<!-- 说明 -->
+      	<rp-column field="description" header="说明" [style]="{'width':'200px'}">
+      		 <template let-col let-rowIndex="rowIndex" let-item="rowData" pTemplate="body">
+                <rp-input type="text" inGrid="true" [(ngModel)]="item.description"></rp-input>
+            </template>
+      	</rp-column>
+
+    </rp-dataTable>
+
+    <rp-actionbar [style]="{'margin-top':'10px'}">
+        <button pButton
+                type="button"
+                label="新增"
+                (click)="addGoodsDetail()"
+        ></button>
+        <button pButton
+                type="button"
+                label="删除"
+                (click)="removeGoodsDetail()"
+        ></button>
+    </rp-actionbar>
+</rp-panel>
+
+<rp-panel tital="综合">
+	<rp-textarea colSpan="12" label="备注" [(ngModel)]="misc.commet"></rp-textarea>
+</rp-panel>
+
+<rp-panel>
+    <rp-actionbar>
+        <button pButton type="button" label="提交"></button>
+        <button pButton type="button" label="保存草稿"></button>
+        <button pButton type="button" label="取消"></button>
+    </rp-actionbar>
+</rp-panel>
+

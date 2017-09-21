@@ -1,0 +1,1293 @@
+{
+    "viewId": "20000160712FOTV000002",
+    "name": "货物销售订单",
+    "id": "00000010160707FOTE000002", 
+    "options": [
+        {"name":"submitForm","text":"提交","value":"2","url":"/entities/{entityId}/tasks/submit/{instanceId}/{operateFlag}"},{"name":"cancel","text":"取消","value":"","url":""},{"name":"saveDraft","text":"保存草稿","value":"","url":"/entities/{entityId}/tasks/save/{instanceId}/{taskId}"}],
+    "sections": [
+        {
+            "layout": {
+                "multiple": false,
+                "type": "flow"
+            },
+            "display":true,
+            "name": "表单属性",
+            "checked": "always",
+            "id": "c3c1ca18-1805-4067-9473-efd9996e6554",
+            "fields": [
+                {
+                    "init": {
+                        "pathVar": {
+                            "taskId": "global-parameter"
+                        },
+                        "url":"data/processInstance.json",
+                        "url2": "../H_roleplay-si/form/view/getViewInit/{taskId}",
+                        "name": "webservice-init",
+                        "render": {
+                            "name": "default-init"
+                        },
+                        "key": "process.formTempName",
+                        "url": "data/processInstance.json"
+                    },
+                    "fieldCode": "fgattr.fgattr000",
+                    "display": true,
+                    "label": "流程类型",
+                    "type": "text",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "4ABB199672E44A66BAA302BF2",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr001",
+                    "display": true,
+                    "label": "流程实例编码",
+                    "type": "text",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "F2FF7FF70A2A4714A9B2F3D64",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                     "init": {
+                        "pathVar": {
+                            "taskId": "global-parameter"
+                        },
+                        "url":"data/processInstance.json",
+                        "url2": "../H_roleplay-si/form/view/getViewInit/{taskId}",
+                        "name": "webservice-init",
+                        "render": {
+                            "name": "default-init"
+                        },
+                        "key": "process.tranType",
+                        "url": "data/processInstance.json"
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr003",
+                    "display": true,
+                    "format": "Y/m/d H:i:s",
+                    "label": "流程生效时间",
+                    "type": "datetime",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "3AB307FF1A8F4BC4B36341548",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr004",
+                    "display": true,
+                    "label": "状态",
+                    "type": "text",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "CD9269D9DA0F4EBEBAE119A7C",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr005",
+                    "display": true,
+                    "label": "经办主体",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-2",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "readonly": false,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "558A65DB44C44823998746785",
+                    "correlators": [
+                        {
+                            "field": "fgattr.fgattr000",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.done,change",
+                            "render": {
+                                "v": "entityName",
+                                "name": "combobox-init",
+                                "k": "entityId"
+                            },
+                            "key": "tradeEntities"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr006",
+                    "display": true,
+                    "label": "经办人",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-2",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "readonly": false,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "A3D3542E9C2141A4AABD2838D",
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr005",
+                            "url":"data/jingbanren.json",
+                            "url2": "../H_roleplay-si/entities/{entityId}/users",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "v": "nickname",
+                                "name": "combobox-init",
+                                "k": "userId"
+                            },
+                            "url": "data/jingbanren.json"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr007",
+                    "display": true,
+                    "label": "经办组织",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": false,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "8938E809D1D340C680A83A9D8",
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "other-field:fgattr.fgattr005",
+                                "userId": "field-value"
+                            },
+                            "field": "fgattr.fgattr006",
+                            "url":"data/group.json",
+                            "url2": "../H_roleplay-si/entities/{entityId}/users/{userId}/units",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "v": "name",
+                                "name": "combobox-init",
+                                "k": "id"
+                            },
+                            "url": "data/group.json"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr008",
+                    "display": true,
+                    "label": "经办角色",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": false,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "F362BE4D58674FEE89F1034B0",
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "other-field:fgattr.fgattr005",
+                                "userId": "field-value"
+                            },
+                            "field": "fgattr.fgattr006",
+                            "url":"data/role.json",
+                            "url2": "../H_roleplay-si/entities/{entityId}/users/{userId}/roles",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "v": "name",
+                                "name": "combobox-init",
+                                "k": "id"
+                            },
+                            "url": "data/role.json"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr009",
+                    "display": true,
+                    "label": "创建人",
+                    "type": "text",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "FC75263262F44F8EADC714078",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr010",
+                    "display": true,
+                    "format": "Y/m/d H:i:s",
+                    "label": "创建时间",
+                    "type": "datetime",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "3012BB0A8881421CAE04C5F16",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr011",
+                    "display": true,
+                    "label": "修改人",
+                    "type": "text",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "C244ECF3795A4601B3DBCD19E",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": []
+                },
+                {
+                    "fieldCode": "fgattr.fgattr012",
+                    "display": true,
+                    "format": "Y/m/d H:i:s",
+                    "label": "修改时间",
+                    "type": "datetime",
+                    "fieldClass": "col-md-2",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "表单属性",
+                    "readonly": true,
+                    "width": "13.67%",
+                    "checked": true,
+                    "id": "182DCA11780145C08595AB31E",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                }
+            ]
+        },
+        {
+            "layout": {
+                "multiple": false,
+                "type": "flow"
+            },
+            "display":true,
+            "name": "客户",
+            "checked": "always",
+            "id": "4c1d5cad-6375-4e90-9b09-0225d5293307",
+            "fields": [
+                {
+                    "fieldCode": "fgencm.fgenty001",
+                    "display": false,
+                    "label": "客户ID",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": "always",
+                    "id": "A998F091929142E0A19F236F4",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fgenty003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "refEntityId"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fgenty002",
+                    "display": false,
+                    "label": "客户编码",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": "always",
+                    "id": "1B647BACCABF4AC5911F5C5E7",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fgenty003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "refEntityCode"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fgenty003",
+                    "display": true,
+                    "label": "客户名称",
+                    "type": "selector",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "客户",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "width": "25%",
+                    "checked": true,
+                    "id": "9EE7A49B065D4D10BE1951B5C",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr005",
+                            "url":"data/wbzt.json",
+                            "url2": "../H_roleplay-si/entities/{entityId}/bizRel?type=Customer",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "k": "refEntityName"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fgadrs001",
+                    "display": false,
+                    "label": "客户地址ID",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": "always",
+                    "id": "1C0B86877B4240B6A293BD914",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fgadrs003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "id"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fgadrs002",
+                    "display": false,
+                    "label": "客户地址编码",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": "always",
+                    "id": "00544091863E420FA691222E1",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fgadrs003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "addressCode"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fgadrs003",
+                    "display": true,
+                    "label": "客户地址",
+                    "type": "selector",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "客户",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "width": "25%",
+                    "checked": true,
+                    "id": "1E834D169C00418980C1971B0",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgencm.fgenty001",
+                            "url":"data/address.json",
+                            "url2": "../H_roleplay-si/entities/{entityId}/addrs",
+                            "name": "depend-field-remote",
+                            "eventType": "rfd.done,change",
+                            "render": {
+                                "k": "addressName"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fgadrs005",
+                    "display": true,
+                    "label": "详细地址",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": true,
+                    "id": "517CD9D3C59F4B10AF69386E5",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fgadrs003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "address"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fgadrs006",
+                    "display": true,
+                    "label": "地址电话",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": true,
+                    "id": "484E7E78092847EFB3A6973AC",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgencm.fguser001",
+                    "display": false,
+                    "label": "联系人ID",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": "always",
+                    "id": "AA7BC9779C2644F4B9C3E7795",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fguser003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "userId"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fguser002",
+                    "display": false,
+                    "label": "联系人编码",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": "always",
+                    "id": "6D18F2D3601A438DB7AA5D9F8",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgencm.fguser003",
+                    "display": true,
+                    "multiple": false,
+                    "label": "联系人",
+                    "type": "selector",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": true,
+                    "id": "FD7611485A3E47DBB85617268",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "multiple": false,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "resourceId": "other-field:fgencm.fgenty001",
+                                "entityId": "field-value"
+                            },
+                            "field": "fgencm.fgadrs001",
+                            "url":"data/contacts.json",
+                            "url2": "../H_roleplay-si/entities/{entityId}/resources/{resourceId}/contacts",
+                            "name": "depend-field-remote",
+                            "eventType": "rfd.done,change",
+                            "render": {
+                                "k": "nickname"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fguser007",
+                    "display": true,
+                    "label": "手机号",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": true,
+                    "id": "78D21AB898C54850ABBF0F0D8",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fguser003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "mobile"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgencm.fguser008",
+                    "display": true,
+                    "label": "邮箱",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "客户",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": true,
+                    "id": "7AF79B5643504E76A739216D6",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgencm.fguser003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "email"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "layout": {
+                "summary": [],
+                "multiple": true,
+                "type": "grid"
+            },
+            "display":true,
+            "name": "订单商品明细",
+            "checked": "always",
+            "id": "e05c5607-3b7f-4f6d-8d9f-c8daec2f31cd",
+            "fields": [
+                {
+                    "fieldCode": "fgordr.fggods001",
+                    "display": true,
+                    "label": "商品ID",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": "always",
+                    "id": "7BE12F129B8D453B875569F2D",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgordr.fggods003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "fginvn001"
+                        },
+                        {
+                            "field": "fgordr.fgtrns008",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "fginvn001"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgordr.fggods002",
+                    "display": false,
+                    "label": "商品编码",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": true,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": "always",
+                    "id": "587E7B4ED9EC4851AF056F783",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgordr.fggods003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "fginvn002"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgordr.fggods003",
+                    "display": true,
+                    "multiple": true,
+                    "label": "商品名称",
+                    "type": "selector",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "width": "120",
+                    "checked": true,
+                    "id": "C3CC25C147204EC798661F333",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "multiple": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr005",
+                            "url":"data/ch.json",
+                            "url2": "../H_roleplay-si/entities/{entityId}/inventories?title=true",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "k": "fginvn003"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgordr.fgtrns008",
+                    "display": true,
+                    "label": "核销方流程实例编码",
+                    "type": "selector",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "3E4F381CA5504598B46E98EAF",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators":[
+                        {
+                            "name":"manual-cancel-after-verification",
+                            "eventType":"rfd.selected",
+                            "transObj":"fgordr.fggods003",
+                            "url":"data/ch2.json?ck={ck}&transObjCode={transObjCode}&a={a}",
+                            "pathVar":{
+                                "ck":"other-field:fgencm.fgenty001",
+                                "a":"other-field:fgattr.fgattr006",
+                                "transObjCode":"cur-row-field:fgordr.fggods001"
+                            },
+                            "render":{
+                                "k":"fginvn001"
+                            }
+                        }
+                    ]
+                },
+                {
+                   
+                    "fieldCode": "fgordr.fggods004",
+                    "display": true,
+                    "label": "计量单位",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "9F9B978FCE274EA49A3DFCDC8",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "name":"depend-field-remote",
+                            "field":"fgordr.fggods003",
+                            "eventType":"rfd.selected",
+                            "url":"data/unit.json",
+                            "render":{
+                                "v": "measureunitName",
+                                "k": "measureunitCode" 
+                            }
+                        }
+                    ]
+                },
+                {
+                    "init": {
+                        "v": "name",
+                        "name": "combobox-init",
+                        "k": "id",
+                        "value": [
+                            {
+                                "name": "绒盒",
+                                "id": "type1"
+                            }
+                        ]
+                    },
+                    "fieldCode": "fgordr.fggods005",
+                    "display": true,
+                    "label": "商品类型",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "DD07D705C72A4837AB51185EE",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "init": {
+                        "v": "name",
+                        "name": "combobox-init",
+                        "k": "id",
+                        "value": [
+                            {
+                                "name": "192X198X39",
+                                "id": "gg1"
+                            },
+                            {
+                                "name": "161X163X36",
+                                "id": "gg2"
+                            }
+                        ]
+                    },
+                    "fieldCode": "fgordr.fggods008",
+                    "display": true,
+                    "label": "规格",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "B0ABA9B02E124B5EBC2EB0DB4",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgordr.fggods009",
+                    "display": true,
+                    "label": "型号",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "96014427A16D47C79702296A3",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "init": {
+                        "v": "name",
+                        "name": "combobox-init",
+                        "k": "id",
+                        "value": [
+                            {
+                                "name": "红色",
+                                "id": "color1"
+                            },
+                            {
+                                "name": "粉色",
+                                "id": "color2"
+                            },
+                            {
+                                "name": "白色",
+                                "id": "color3"
+                            },
+                            {
+                                "name": "绿色",
+                                "id": "color4"
+                            }
+                        ]
+                    },
+                    "fieldCode": "fgordr.fggods010",
+                    "display": true,
+                    "label": "颜色",
+                    "type": "selectsingle",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "DB6E1F2421BC40E4856CD3FD3",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgordr.fgtrns001",
+                    "display": true,
+                    "label": "数量",
+                    "type": "number",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "readonly": false,
+                    "width": "120",
+                    "checked": "always",
+                    "id": "A4FE232E8DFD45B8978AF803E",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgordr.fgtrns002",
+                    "display": true,
+                    "label": "单价",
+                    "type": "number",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "readonly": false,
+                    "width": "120",
+                    "checked": "always",
+                    "id": "A8C4F88F100B4F8DA9D25DC61",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgordr.fgtrns003",
+                    "display": true,
+                    "label": "税率",
+                    "type": "number",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "F0C74DB12576412B8F4439031",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgordr.fgtrns004",
+                    "display": true,
+                    "label": "金额",
+                    "type": "number",
+                    "fieldClass": "col-md-3",
+                    "required": true,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "readonly": false,
+                    "width": "120",
+                    "checked": "always",
+                    "id": "83983A6E9A37478B999E4B29A",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "name": "multiplication",
+                            "eventType": "change,rfd.done",
+                            "fields": [
+                                "fgordr.fgtrns001",
+                                "fgordr.fgtrns002"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgordr.fgtrns005",
+                    "display": true,
+                    "label": "税金",
+                    "type": "number",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "1CD347556A0D40B1AAE9389C8",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "money": "fgordr.fgtrns004",
+                            "rate": "fgordr.fgtrns003",
+                            "name": "taxation",
+                            "eventType": "change,spinstop,rfd.done"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgordr.fgtrns012",
+                    "display": true,
+                    "label": "说明",
+                    "type": "text",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "订单商品明细",
+                    "validaters": [],
+                    "readonly": false,
+                    "width": "120",
+                    "checked": true,
+                    "id": "6C8389D6E2C1481F875DEA28B",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": []
+                }
+            ]
+        },
+        {
+            "layout": {
+                "multiple": false,
+                "type": "flow"
+            },
+            "display":true,
+            "name": "综合",
+            "checked": true,
+            "id": "133ec718-3692-40b4-891d-b05e0912b08b",
+            "fields": [
+                {
+                    "fieldCode": "fgcmpr.fgcmpr001",
+                    "display": true,
+                    "label": "附件",
+                    "type": "attachment",
+                    "fieldClass": "col-md-3",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "综合",
+                    "readonly": false,
+                    "width": "25%",
+                    "checked": true,
+                    "id": "7CA5457DDA3840B992D8D143A",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgcmpr.fgcmpr002",
+                    "display": true,
+                    "label": "备注",
+                    "type": "textarea",
+                    "fieldClass": "col-md-12",
+                    "required": false,
+                    "setConfig": false,
+                    "isSystem": false,
+                    "sectionName": "综合",
+                    "readonly": false,
+                    "width": "100%",
+                    "checked": true,
+                    "id": "BB96C4A891A94329BA581BFFD",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                }
+            ]
+        }
+    ]
+}

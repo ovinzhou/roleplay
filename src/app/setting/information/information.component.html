@@ -1,0 +1,147 @@
+<div class="col-md-12">
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-9">
+	            <form class="form-horizontal" #userForm="ngForm" novalidate (ngSubmit)="onSubmit(userForm)">
+            	<div class="form-group" [ngClass]="{ 'has-error': userForm.submitted && !nickName.valid }">
+	           		<label class="col-md-2 control-label mt-5">姓名<span class='text-danger'>*</span>：</label>
+		            <div class="col-md-9">
+		                <input type="text" #nickName="ngModel" name="nickName" [(ngModel)]="data.nickName" class="form-control"  required  minlength="2" maxlength="24" pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+			       		<div *ngIf="userForm.submitted && !nickName.valid" class="text-danger">
+				            <div [hidden]="!nickName.errors.required">
+				              姓名必填
+				            </div>
+				            <div [hidden]="!nickName.errors.maxlength">
+				              姓名最大长度为24
+				            </div>
+				            <div [hidden]="!nickName.errors.maxlength">
+				              姓名最小长度为2
+				            </div>
+				            <div [hidden]="!nickName.errors.pattern">
+				              姓名只能输入中文，英文，数字,及一些特殊字符
+				            </div>
+			       		</div>
+		            </div>
+	       		</div>
+	       		<div class="form-group mt-10" >
+	           		<label class="col-md-2 control-label mt-5">账号<span class='text-danger'>*</span>：</label>
+		            <div class="col-md-9">
+		                <input type="text" #userCode="ngModel" name="userCode" [(ngModel)]="data.userCode" class="form-control" disabled="true" />
+		            </div>
+	       		</div>
+
+	       		<div class="form-group mt-10" [ngClass]="{ 'has-error': userForm.submitted && !englishName.valid }">
+	           		<label class="col-md-2 control-label mt-5">英文名：</label>
+		            <div class="col-md-9">
+		                <input type="text" #englishName="ngModel" name="englishName" [(ngModel)]="data.englishName" class="form-control"  minlength="4" maxlength="24" pattern="^[\w\d@\.\-_]+$" />
+		                <div *ngIf="userForm.submitted && !englishName.valid" class="text-danger">
+					            <div [hidden]="!englishName.errors.maxlength">
+					              英文名最大长度为24
+					            </div>
+					            <div [hidden]="!englishName.errors.minlength">
+					              英文名最小长度为4
+					            </div>
+					            <div [hidden]="!englishName.errors.pattern">
+					              英文名只能输入英文，数字,及一些特殊字符
+					            </div>
+			       		</div>
+		            </div>
+	       		</div>
+	       		<div class="form-group mt-10">
+	           		<label class="col-md-2 control-label" >性别：</label>
+                	<div class="col-md-10">
+                    	<div class="radio-inline" >
+	                        <input type='radio' id="male"   [(ngModel)]='data.gender' name='gender' value='MAN' checked> <label for="male"> 男</label>
+                    	</div>
+                    	<div class="radio-inline" >
+	                       <input type='radio' id="female"  [(ngModel)]='data.gender' name='gender' value='FEMALE'><label for="female"> 女</label>
+                    	</div>
+                    </div>
+	       		</div>
+	       		<div class="form-group mt-10" [ngClass]="{ 'has-error': userForm.submitted && !mobile.valid }">
+	           		<label class="col-md-2 control-label mt-5">手机<span class='text-danger'>*</span>：</label>
+		            <div class="col-md-9">
+		                <input type="text" name="mobile" class="form-control"  pattern="^0?(13|15|18|14|17)[0-9]{9}$"  #mobile="ngModel"  [(ngModel)]='data.mobile' required   />
+		                <div *ngIf="userForm.submitted && !mobile.valid" class="text-danger">
+				            <div [hidden]="!mobile.errors.required">
+				              	手机号必填
+				            </div>
+				            <div [hidden]="!mobile.errors.pattern">
+				              请输入正确的手机号
+				            </div>
+			       		</div>
+		            </div>
+	       		</div>
+	       		<div class="form-group mt-10" [ngClass]="{ 'has-error': userForm.submitted && !officePhone.valid }">
+	           		<label class="col-md-2 control-label mt-5">座机：</label>
+		            <div class="col-md-9">
+		                <input type="text" name="officePhone" [(ngModel)]='data.officePhone' class="form-control" 
+		                	 pattern="^0\d{2,3}-?\d{7,8}$" #officePhone="ngModel"  />
+		                <div *ngIf="userForm.submitted && !officePhone.valid" class="text-danger">
+					            <div [hidden]="!officePhone.errors.pattern">
+					             	请输入正确的电话号码
+					            </div>
+			       		</div>
+		            </div>
+	       		</div>
+	       		<div class="form-group mt-10" [ngClass]="{ 'has-error': userForm.submitted && !email.valid }">
+	           		<label class="col-md-2 control-label mt-5">邮箱<span class='text-danger'>*</span>：</label>
+		            <div class="col-md-9">
+		                <input type="text" #email="ngModel"  required [(ngModel)]='data.email'  name="email" class="form-control"  pattern="^[\w\-\.]+@[\w\-]+(\.[\w\-]+)+$"  />
+		                <div *ngIf="userForm.submitted && !email.valid" class="text-danger">
+				            <div [hidden]="!email.errors.required">
+				              	邮箱必填
+				            </div>
+				            <div [hidden]="!email.errors.pattern">
+				              请输入正确的邮箱
+				            </div>
+			       		</div>
+		            </div>
+	       		</div>
+	       		<div class="form-group mt-10">
+	           		<label class="col-md-2 control-label mt-5">组织：</label>
+		            <div class="col-md-9">
+		            	<div class="mt-10 line-all" >
+		        			<span class="span_style"  *ngFor="let unit of units; let i=index">
+		        				{{unit.name}}
+					    	</span>
+			        	</div>
+		            </div>
+	       		</div>
+	       		<div class="form-group mt-10">
+	           		<label class="col-md-2 control-label mt-5">角色：</label>
+		            <div class="col-md-9">
+		            	<div class="mt-10 line-all" >
+		        			<span class="span_style"  *ngFor="let role of roles; let i=index">
+		        				{{role.name}}
+					    	</span>
+			        	</div>
+		            </div>
+	       		</div>
+	       		<div class="form-group mt-10">
+	       			<div  class="col-md-2"></div>
+			        <div  class="col-md-8">
+					    <button type="submit" class="btn btn-primary" >确定</button>
+			        	<button type="button" class="btn btn-default" (click)="onCancel()" data-dismiss="modal">取消</button>
+			        </div>
+			    </div>
+	            </form>
+        	</div>
+        	<div class="col-md-3">
+        		<img  [src]="data.files" alt="用户头像" width="100" height="100" >
+        		<div style="width: 100px;">
+	            	<div style="display : block;width: 80px; margin: 5px auto;">
+	                    <span class='file'>更换图片
+	                            <input
+	                                type='file'
+	                                accept="image/gif,image/jpg,image/jpeg,image/png"
+	                                name='file'
+	                                (change)='onFileChange($event)'
+	                            />
+	                    </span>
+	            	</div>
+	            </div>
+        	</div>
+    	</div>
+    </div>
+</div>

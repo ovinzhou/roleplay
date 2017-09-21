@@ -1,0 +1,295 @@
+<div class="col-md-12">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal" #bomCreateForm="ngForm" novalidate (ngSubmit)="onSubmit(bomCreateForm)">
+                    <div class="form-group" [ngClass]="{ 'has-error': bomCreateForm.submitted && !bomName.valid }">
+                        <label class="col-md-1 control-label mt-5">名称
+                            <span class='text-danger'>*</span>：
+                        </label>
+                        <div class="col-md-3">
+                            <input type="text" placeholder="请输入BOM名称" #bomName="ngModel" name="capName" [(ngModel)]="data.bomName" class="form-control" required maxlength="16" pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$">
+                            <div *ngIf="bomCreateForm.submitted && !bomName.valid" class="text-danger">
+                                <div [hidden]="!bomName.errors.required">
+                                    名称必填
+                                </div>
+                                <div [hidden]="!bomName.errors.maxlength">
+                                    名称最大长度为16
+                                </div>
+                                <div [hidden]="!bomName.errors.pattern">
+                                    名称只能输入中文，英文，数字,及一些特殊字符
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-10">
+                        <label class="col-md-1 control-label mt-5">SPU
+                            <span class='text-danger'>*</span>：
+                        </label>
+                        <div class="col-md-9">
+                            <div class="mt-10 line-all">
+                                <span class="span_style" *ngFor="let spu of spus; let i=index">
+                                {{spu.name}}
+                                <a (click)="removeSeletedSpu(i,spu)">
+                                   <i class="fa fa-times" aria-hidden="true"></i>
+                                </a>
+                            </span>
+                            </div>
+                            <span class="btn">
+                            <a (click)="addSPU()">选择</a>
+                        </span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group mt-10">
+                            <p-treeTable [value]="list">
+                                <p-column [style]="{'width':'200px', 'border-right': '1px solid #d9d9d9'} " field="name" header="SPU名称">
+                                    <template let-attr="rowData" pTemplate type="body">
+                                        <span *ngIf="!attr.data.isBom">{{attr.data.name}}</span>
+                                        <a (click)="lookBom(attr)" *ngIf="attr.data.isBom" class="interlinkage">{{attr.data.name}}</a>
+                                    </template>
+                                </p-column>
+                                <p-column [style]="{'width':'160px', 'border-right': '1px solid #d9d9d9'} " field="type" header="类型"></p-column>
+                                <p-column [style]="{'border-right': '1px solid #d9d9d9'} " field="userGroupName" header="组织"></p-column>
+                                <p-column [style]="{'border-right': '1px solid #d9d9d9'} " field="measureName" header="计量单位"></p-column>
+                                <p-column field="quantityNum" [style]="{'width':'120px'}" header="数量">
+                                    <template let-attr="rowData" style="width: 90px;" pTemplate type="body">
+                                        <input type="text" disabled=false value={{attr.tmplInfo.bom.qty}} *ngIf="attr.edit && (!attr.tmplInfo.bom.qty)" style="width: 90px; border-color: red;border-width: 1px" />
+                                        <input type="text" disabled=false *ngIf="!attr.edit || (attr.edit && (attr.tmplInfo.bom.qty))" value={{attr.tmplInfo.bom.qty}} style="width: 90px;" />
+                                        <img *ngIf="attr.edit" src="src/assets/img/edit.png" width="20px" height="20px" (click)="quantity(attr)" />
+                                        <img *ngIf="!attr.edit" src="src/assets/img/edit_disable.png" width="20px" height="20px" />
+                                    </template>
+                                </p-column>
+                                <p-column [style]="{'width':'80px', 'border-right': '1px solid #d9d9d9'} " field="" header="物料属性">
+                                    <template let-attr="rowData" pTemplate type="body">
+                                        <a type="text" name="attribute" *ngIf="attr.tmplInfo.attrs && (attr.edit)" class="interlinkage" (click)="setProductAttribute(attr)">
+                                         设置
+                                         </a>
+                                        <a type="text" name="attribute" *ngIf="(!attr.tmplInfo.attrs && (!attr.edit)) " class="intergay">
+                                         设置
+                                         </a>
+                                        <a type="text" name="attribute" *ngIf="!attr.tmplInfo.attrs && (attr.edit)" class="colorred" (click)="setProductAttribute(attr)">
+                                         设置
+                                         </a>
+                                    </template>
+                                </p-column>
+                                <p-column field="" [style]="{'width':'120px', 'border-right': '1px solid #d9d9d9'} " header="SKU名称规则">
+                                    <template let-attr="rowData" pTemplate type="body">
+                                        <input type="text" disabled=false value={{attr.tmplInfo.skuName}} style="width: 90px;" />
+                                        <img *ngIf="attr.data.isBom" src="src/assets/img/edit_disable.png" width="20px" height="20px" />
+                                        <img src="src/assets/img/edit.png" *ngIf="!attr.data.isBom" width="20px" height="20px" (click)="nameRule(attr)" />
+                                    </template>
+                                </p-column>
+                                <p-column field="" [style]="{'width':'120px', 'border-right': '1px solid #d9d9d9'} " header="SKU编码规则">
+                                    <template let-attr="rowData" pTemplate type="body">
+                                        <input type="text" disabled=false value={{attr.tmplInfo.skuCode}} style="width: 90px;" />
+                                        <img *ngIf="attr.data.isBom" src="src/assets/img/edit_disable.png" width="20px" height="20px" />
+                                        <img src="src/assets/img/edit.png" *ngIf="!attr.data.isBom" width="20px" height="20px" (click)="codeRule(attr)" />
+                                    </template>
+                                </p-column>
+                                <p-column header="操作" [style]="{'width':'120px', 'border-right': '1px solid #d9d9d9'} ">
+                                    <template let-rowData="rowData" pTemplate type="body">
+                                        <a *ngIf="!rowData.data.isBom" (click)="addBomOrSpu(rowData)" class="interlinkage">添加</a>
+                                        <a *ngIf="rowData.data.isBom" class="intergay">添加</a>
+                                        <a (click)="delBomOrSpu(rowData)" *ngIf="rowData.edit" class="interlinkage">删除</a>
+                                        <a *ngIf="!rowData.edit" class="intergay">删除</a>
+                                    </template>
+                                </p-column>
+                            </p-treeTable>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="footer-button ">
+                            <button class="btn btn-primary" type="submit">
+                                确定
+                            </button>
+                            <button type="button" class="btn btn-default" (click)='onCancel()'>
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog header='选择SPU' [(visible)]="display" [resizable]="false" modal="true">
+    <div style="width: 600px">
+        <div>
+            <toolbar customClasses="full-width" [configList]="toolbarConfigspu"></toolbar>
+        </div>
+        <p-dataTable [value]="spuList" [(selection)]="selectSpuList" [resizableColumns]="true" (click)="selectSpu()"  scrollable="true" scrollHeight="330px" [reorderableColumns]="true" (onSort)="orderBy($event,'addGroupUser')" [style]="{'width':'100%'}" [emptyMessage]="emptyMessage" #dt>
+
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+            <p-column field="name" header="SPU" [style]="setTextOverFlowStyle()">
+            </p-column>
+            <p-column field="firstLevel" header="一级分类"></p-column>
+            <p-column field="secondLevel" header="二级分类" [style]="setTextOverFlowStyle()"></p-column>
+            <p-column field="thirdLevel" header="三级分类"></p-column>
+            <p-column field="measureName" header="计量单位" [style]="setTextOverFlowStyle()"></p-column>
+            <p-column field="userGroupName" header="组织"></p-column>
+            
+        </p-dataTable>
+        <p-footer>
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]="first" [style]="{'border':'none','padding' : '0px'}" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'selectSpuList')"></p-paginator>
+            </p-footer>
+        <div style="min-height: 80px;margin-top: 10px;border: 1px solid #dddddd;">
+            <div style="margin: 5px;">您已选中:</div>
+            <div id="selected" style="margin: 5px; line-height: 240%;">
+                <span *ngFor="let item of selectSpuList ; let i = index; " class="btn btn-sm default ml-10" style="background-color: #d6d1d1;">
+                    {{item.name}}
+                    <a (click)="removeSeletedItem(i,'spu')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="footer-button">
+            <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" (click)="chooseConfirm('spu')">确定</button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header='选择BOM' [(visible)]="isShowBomList" [resizable]="false" modal="true">
+    <div>
+        <div>
+            <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+        </div>
+        
+        <p-dataTable *ngIf="isSpu" [value]="bomList" [(selection)]="selectBomList" [resizableColumns]="true" scrollable="true" scrollWidth="600px" scrollHeight="300px" [reorderableColumns]="true" (onSort)="orderBy($event,'addGroupUser')" [style]="{'width':'100%'}" [emptyMessage]="emptyMessage">
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+            <p-column field="name" header="名称" [style]="setTextOverFlowStyle()">
+            </p-column>
+            <p-column field="firstLevel" header="一级分类"></p-column>
+            <p-column field="secondLevel" header="二级分类" [style]="setTextOverFlowStyle()"></p-column>
+            <p-column field="thirdLevel" header="三级分类"></p-column>
+            <p-column field="measureName" header="计量单位" [style]="setTextOverFlowStyle()"></p-column>
+            <p-column field="userGroupName" header="组织"></p-column>
+            <p-footer>
+                <div class="total-style">
+                    共{{bomTotalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]="bomfirst" [style]="{'border':'none','padding' : '0px'}" [totalRecords]="bomTotalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'selectBomList')"></p-paginator>
+            </p-footer>
+        </p-dataTable>
+
+        <p-dataTable *ngIf="!isSpu" [value]="bomList" [(selection)]="selectBomList" [resizableColumns]="true" scrollable="true" scrollWidth="600px" scrollHeight="300px" [reorderableColumns]="true" (onSort)="orderBy($event,'addGroupUser')" [style]="{'width':'100%'}" [emptyMessage]="emptyMessage">
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+            <p-column field="name" header="名称" [style]="setTextOverFlowStyle()">
+            </p-column>
+            <p-footer>
+                <div class="total-style">
+                    共{{bomTotalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]="bomfirst" [style]="{'border':'none','padding' : '0px'}" [totalRecords]="bomTotalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'selectBomList')"></p-paginator>
+            </p-footer>
+        </p-dataTable>
+
+        <div style="min-height: 80px;margin: 10px;border: 1px solid #dddddd;">
+            <div style="margin: 5px;padding-left: 10px">您已选中:</div>
+            <div id="selected" style="margin: 5px; line-height: 240%;">
+                <span *ngFor="let item of selectBomList ; let i = index; " class="btn btn-sm default ml-10" style="background-color: #d6d1d1;">
+                    {{item.name}}
+                    <a (click)="removeSeletedItem(i,'bom')">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="footer-button">
+            <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" (click)="chooseConfirm('bom')"><i class="fa fa-check"></i>确定</button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header='设置物料属性值' [(visible)]="isShowSetProductAttribute" [resizable]="false" modal="true">
+    <div style="width: 550px" class="pt-10">
+        <div style="display:inline">
+            <label class="text-alig" style="width: 15% ">SPU名称:
+            </label>
+            <div class=".ml-10" style="width: 80% ;float:right;">
+                <input type="text" disabled=false #spuName="ngModel" [(ngModel)]="SpuName">
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 550px" [ngClass]="{'mt-10':i==0,'mt-60':i!=0}" *ngFor="let attr of spuAttrs;let i = index">
+        <div style="display:inline">
+            <div style="width: 15% ">
+                <label class="text-alig" style="width: 100% ">{{attr.attrName}}
+                    <span class='text-danger'>*</span>:
+                </label>
+            </div>
+            <div class=".ml-10 ml-21" style="width: 80% ;float:right;">
+                <textarea pInputTextarea [(ngModel)]="attr.value" (click)="OnEdit(attr)" (input)="OnInput(attr)" style="width: 100%;outline:none;resize:none ">{{attr.value}}</textarea>
+            </div>
+            <label class="ml-111 intergay" style="width: 80% ;float:left;">{{attr.tempValue}}</label>
+        </div>
+    </div>
+    <div style="width: 550px" class="pl-110 pb-20">
+        <p-dataTable  class="table-top-width" (onRowDblclick)="rowClick($event)" [value]="attrList" [(selection)]="selectBomList" [emptyMessage]="emptyMessage">
+            <p-column field="name" header="名称" [style]="setTextOverFlowStyle()">
+            </p-column>
+            <p-column field="code" header="code"></p-column>
+        </p-dataTable>
+    </div>
+    <div>
+        <div class="footer-button ">
+            <button type="button " class="btn btn-primary " (click)="setConfirm('attr') ">确定</button>
+            <button type="button " class="btn btn-default " (click)="close() " data-dismiss="modal ">取消</button>
+        </div>
+    </div>
+</p-dialog>
+<p-dialog header='设置数量表达式' [(visible)]="isShowQuantitySetting " [resizable]="false " modal="true ">
+    <div style="width: 550px ">
+        <div style="width: 100% ">
+            <textarea pInputTextarea [(ngModel)]="quantityNum " style="width: 100% "></textarea>
+        </div>
+        <label>插入函数:
+        </label>
+        <div style="width: 100% ">
+            <textarea pInputTextarea rows="5 " cols="30 " style="width: 100% "></textarea>
+        </div>
+        <div class="footer-button ">
+            <button type="button " class="btn btn-primary " (click)="setConfirm('quantity') ">确定</button>
+            <button type="button " class="btn btn-default " (click)="close() " data-dismiss="modal ">取消</button>
+        </div>
+    </div>
+</p-dialog>
+<p-dialog header='设置SKU命名规则' [(visible)]="isShowNameSetting " [resizable]="false " modal="true ">
+    <div style="width: 550px ">
+        <div style="width: 100% ">
+            <textarea pInputTextarea [(ngModel)]="tempNameInfo " style="width: 100% "></textarea>
+        </div>
+        <div class="footer-button ">
+            <button type="button " class="btn btn-primary " (click)="setConfirm( 'name') ">确定</button>
+            <button type="button " class="btn btn-default " (click)="close() " data-dismiss="modal ">取消</button>
+        </div>
+    </div>
+</p-dialog>
+<p-dialog header='设置SKU编码规则' [(visible)]="isShowCodeSetting " [resizable]="false " modal="true ">
+    <div style="width: 550px ">
+        <div style="width: 100% ">
+            <textarea pInputTextarea [(ngModel)]="tempCodeInfo " style="width: 100% "></textarea>
+        </div>
+
+        <div class="footer-button ">
+            <button type="button " class="btn btn-primary " (click)="setConfirm( 'code') ">确定</button>
+            <button type="button " class="btn btn-default " (click)="close() " data-dismiss="modal ">取消</button>
+        </div>
+    </div>
+</p-dialog>
+<p-dialog header='查看设计BOM' width="1120" selectionMode="single"  [(visible)]="isShowBomOranizationDetail"  modal="true">
+    <p-treeTable [value]="bomOrganizationList" selectionMode="single">
+        <p-column field="name" header="SPU名称" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="type" header="类型" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="userGroupName" header="组织" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="measureName" header="计量单位" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="num" header="数量" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+    </p-treeTable>
+</p-dialog>

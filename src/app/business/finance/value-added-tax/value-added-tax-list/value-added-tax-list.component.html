@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+        <p-dataTable [emptyMessage]="emptyMessage" [value]="valueAddedTaxList" (onSort)="onSort($event)" [(selection)]="selectedDatas" resizableColumns="true">
+            <p-column field="name" header="税项名称" sortable="custom"></p-column>
+            <p-column field="amntTbMatched" header="余额(￥)" [sortable]="true" styleClass='text-right'>
+                <template let-ccl="rowData" pTemplate="body">
+                    <a (click)="onDetail(ccl)" class="interlinkage" *ngIf="ccl.amntTbMatched != '-'">{{ccl.amntTbMatched}}</a>
+                    <span *ngIf="ccl.amntTbMatched == '-'">{{ccl.amntTbMatched}}</span>
+                </template>
+            </p-column>
+            <!-- <p-footer >
+
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)">
+                </p-paginator>
+            </p-footer> -->
+        </p-dataTable>
+    </div>
+</div>
+<p-dialog [header]="headerName" [(visible)]="isShowAmountDetail" [resizable]="false" modal="true">
+    <div>
+        <div>
+            <p-dataTable [rows]="10" [emptyMessage]="emptyMessage" [value]="detailList" columnResizeMode="fit" scrollable="true" scrollHeight="330px" scrollWidth="950px" resizableColumns="true" (onSort)="onSort($event,'detail')" [(selection)]="selectedDetailDatas">
+                <p-column [style]="{'width':'80px'}" field="transName" header="流程名称">
+                </p-column>
+                <p-column field="transCode" header="单号" [sortable]="true">
+                </p-column>
+                <p-column [style]="{'width':'80px'}" field="transType" header="交易类型">
+                </p-column>
+                <p-column [style]="{'width':'150px'}" field="effectiveTime" header="生效时间">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="name" header="增值税">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountAugment" header="借方(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span>{{ccl.amountAugment}}</span>
+                    </template>
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountReduce" header="贷方(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span>{{ccl.amountReduce}}</span>
+                    </template>
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountRemainder" header="余额(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span class="interlinkage">{{ccl.amountRemainder}}</span>
+                    </template>
+                </p-column>
+                <p-footer>
+                    <div class="total-style">
+                        共{{detailTotalRecords}}条记录
+                    </div>
+                    <p-paginator [first]="detailFirst" [rows]="detailQuery.pageSize" [totalRecords]="detailTotalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'detail')">
+                    </p-paginator>
+                </p-footer>
+            </p-dataTable>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,144 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+        <p-dataTable [emptyMessage]="emptyMessage" [value]="supplierContactList" (onSort)="onSort($event)" [(selection)]="selectedDatas">
+            <p-column [style]="{'width':'250px'}" field="providerName" header="供应商" sortable="custom"></p-column>
+            <p-column field="princinalName" header="负责人" [sortable]="true"></p-column>
+            <p-column  field="origAmount" header="原币余额" [sortable]="true">
+                <template let-ccl="rowData" pTemplate="body">
+                    <a (click)="onDetail(ccl)" class="interlinkage" *ngIf="ccl.origAmount != '-'">{{ccl.origAmount}}</a>
+                    <span *ngIf="ccl.amount == '-'">{{ccl.amount}}</span>
+                </template>
+            </p-column>
+            <p-column field="currency" header="币种" [sortable]="true"></p-column>
+            <p-column field="amount" header="本币余额(￥)" [sortable]="true" styleClass='text-right'>
+            </p-column>
+            <p-column field="agingDays" header="账龄(天)" [sortable]="true" styleClass='text-right'>
+                <template let-rowData="rowData" pTemplate type="body">
+                    <a (click)="onAgingDaysDetail(rowData)" class="interlinkage" *ngIf="rowData.agingDays != '-'">{{rowData.agingDays}}</a>
+                    <span *ngIf="rowData.agingDays == '-'">{{rowData.agingDays}}</span>
+                </template>
+            </p-column>
+            <p-column header="操作" [style]="{'width':'100px'}">
+                <template let-rowData="rowData" pTemplate type="body">
+                    <!-- <a  type="text" 
+                        (click)="onTspvdpcd(rowData)"
+                        class="interlinkage">收款</a> -->
+                    <a type="text" (click)="onTspvdpcdDynamic(rowData)" class="interlinkage">收款</a>
+                    <a type="text" (click)="onTspvdpmtDynamic(rowData)" class="interlinkage">付款</a>
+                </template>
+            </p-column>
+            <p-footer>
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]="first" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+<p-dialog width="1000" header="供应商往来流水" [(visible)]="isShowAmountDetail" [resizable]="false" modal="true">
+    <div>
+        <div>
+            <p-dataTable [rows]="10" [emptyMessage]="emptyMessage" [value]="detailList" columnResizeMode="fit" scrollable="true" scrollHeight="330px" scrollWidth="950px" resizableColumns="true" (onSort)="onSort($event,'detail')" [(selection)]="selectedDetailDatas">
+                <p-column [style]="{'width':'80px'}" field="transName" header="流程名称">
+                </p-column>
+                <p-column [style]="{'width':'200px'}" field="transCode" header="单号" [sortable]="true">
+                </p-column>
+                <p-column [style]="{'width':'80px'}" field="transType" header="交易类型">
+                </p-column>
+                <p-column [style]="{'width':'150px'}" field="effectiveTime" header="生效时间">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="name" header="供应商">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="qtyAugment" header="原币借方">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="qtyReduce" header="原币贷方">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="qtyRemainder" header="原币余额">
+                </p-column>
+                <p-column [style]="{'width':'50px'}" field="currency" header="币种">
+                </p-column>
+                <p-column [style]="{'width':'50px'}" field="exRate" header="汇率">
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountAugment" header="本币借方(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span>{{ccl.amountAugment}}</span>
+                    </template>
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountReduce" header="本币贷方(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span>{{ccl.amountReduce}}</span>
+                    </template>
+                </p-column>
+                <p-column [style]="{'width':'90px'}" field="amountRemainder" header="本币余额(￥)" styleClass='text-right'>
+                    <template let-ccl="rowData" pTemplate="body">
+                        <span class="interlinkage">{{ccl.amountRemainder}}</span>
+                    </template>
+                </p-column>
+                <p-footer>
+                    <div class="total-style">
+                        共{{detailTotalRecords}}条记录
+                    </div>
+                    <p-paginator [first]="detailFirst" [rows]="detailQuery.pageSize" [totalRecords]="detailTotalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'detail')">
+                    </p-paginator>
+                </p-footer>
+            </p-dataTable>
+        </div>
+    </div>
+</p-dialog>
+<!-- 账龄追溯 -->
+<p-dialog header="账龄追溯" width="1100" [(visible)]="isShowAgingDaysDetail" [resizable]="false" modal="true">
+    <div style="max-height: 330px;">
+        <p-dataTable [emptyMessage]="emptyMessage" [value]="agingDaysDetailList"  resizableColumns="true"  (onSort)="onSortAgingDaysDetail($event)" [(selection)]="selectedAgingDaysDetail" [style]="{'margin-bottom':'15px'}">
+            <p-column [style]="{'width':'80px'}" field="transName" header="流程名称">
+            </p-column>
+            <p-column [style]="{'width':'180px'}" field="transCode" header="单号">
+            </p-column>
+            <p-column [style]="{'width':'100px'}" field="transType" header="交易类型">
+            </p-column>
+            <p-column [style]="{'width':'140px'}" field="effectiveTime" header="生效时间">
+            </p-column>
+            <p-column [style]="{'width':'150px'}" field="name" header="供应商">
+            </p-column>
+            <p-column [style]="{'width':'80px'}" field="origAmount" header="原币金额" styleClass='text-right'>
+            </p-column>
+            <p-column [style]="{'width':'80px'}" field="currency" header="币种">
+            </p-column>
+            <p-column [style]="{'width':'80px'}" field="exRate" header="汇率" styleClass='text-right'>
+            </p-column>
+            <p-column [style]="{'width':'80px'}" field="amount" header="本币金额(￥)" styleClass='text-right'>
+            </p-column>
+            <p-column [style]="{'width':'80px'}" field="agingDays" header="账龄(天)" styleClass='text-right'>
+            </p-column>
+            <p-footerColumnGroup>
+                <p-row>
+                    <p-column footer="小计 或 加权平均" colspan="5" [style]="{'text-align':'left'}"></p-column>
+                    <p-column [footer]="sumOrigAmount" [style]="{'text-align':'right'}"></p-column>
+                    <p-column footer="" colspan="2"></p-column>
+                    <p-column [footer]="sumAmount" [style]="{'text-align':'right'}"></p-column>
+                    <p-column [footer]="sumAgingDays" [style]="{'text-align':'right'}"></p-column>
+                </p-row>
+            </p-footerColumnGroup>
+            <!--             <p-footerColumnGroup>
+                <p-row>
+                    <p-column footer="小计 或 加权平均" colspan="4" [style]="{'text-align':'left'}"></p-column>
+                    <p-column footer="$531,020"></p-column>
+                    <p-column footer="" colspan="2"></p-column>
+                    <p-column footer="$506,202"></p-column>
+                    <p-column footer="$506,202"></p-column>
+                </p-row>
+            </p-footerColumnGroup> -->
+            <!--  <p-footer>
+                <div class="total-style">
+                    共{{detailTotalRecords}}条记录
+                </div>
+                <p-paginator [first]="detailFirst" [rows]="agingDaysDetail.pageSize" [totalRecords]="agingDaysDetailRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'detail')">
+                </p-paginator>
+            </p-footer> -->
+        </p-dataTable>
+    </div>
+</p-dialog>

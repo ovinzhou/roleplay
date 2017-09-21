@@ -1,0 +1,181 @@
+#page-wrapper {
+	@extend .gray-bg;
+	// height: 100%;
+    margin-top: 50px;
+    padding: 0px;
+}
+
+.surface {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    position: relative;
+    overflow-y: auto;
+}
+
+.gray-bg {
+    background-color: rgb(243, 243, 244);
+}
+
+/*.dashboard-header {
+    padding: 20px 5px 0px 0px;
+}*/
+
+.nav > li > a {
+    /*padding: 14px 20px 14px 25px;*/
+    padding: 10px 15px;
+}
+
+.ml-0 { margin-left: 0px !important; }
+.pr-0 { padding-right: 0px; }
+.pl-0 { padding-left: 0px; }
+.pt-5 { padding-top: 5px; } .pt-10 { padding-top: 10px; }
+
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.clearfix { 
+	display: block; 
+}
+
+
+.panel-body label{
+	font-weight: 500;
+    font-size: 14px;
+}
+
+/* datatable样式重定义 */
+
+.ui-dialog.ui-widget .ui-dialog-titlebar{
+    padding: .5em .75em;
+    background: #2b7baf;
+    color: white;
+    font-size: 13px;
+}
+
+body .ui-datatable .ui-datatable-footer{
+    padding: 0 0;
+}
+
+.ui-datatable .ui-datatable-footer {
+    padding: 0 0;
+}
+
+.ui-datatable .ui-datatable-thead>tr>th,
+.ui-datatable .ui-datatable-tfoot>tr>td,
+.ui-datatable .ui-datatable-data>tr>td {
+    padding: 6px 5px;
+    line-height: 18px;
+}
+
+.ui-datatable .ui-paginator {
+    //padding: 5px;
+    border: none;
+}
+
+/**
+ * add by snack 
+ * 2017-4-13
+ */
+.ui-datatable td{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* datatable样式重定义（结束） */
+
+.panel-body label{
+	font-weight: 500;
+    font-size: 14px;
+}
+
+.column-required:first-letter{
+	color:red;
+}
+
+.total-style{
+    position: absolute;
+    right: 70px;
+    padding-top: 7px;
+}
+
+[data-balloon]:after{
+    background:rgba(228,18,18,.9);
+}
+
+[data-balloon]:before {
+    background: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%28228,%2018,%2018,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E') no-repeat;
+    background-size: 100% auto;
+    height: 6px;
+    width: 18px;
+    content: "";
+    margin-bottom: 5px;
+}
+
+a {
+    cursor: pointer;
+}
+
+.main-content-area {
+    height: 100vh;
+}
+
+
+p-dialog .ui-widget-content{
+    background: #ffffff;
+    color: #222222;
+    border:none;
+}
+
+rp-confirm-dialog .ui-widget-content{
+    background: #ffffff;
+    color: #222222;
+    border:none;
+}
+
+
+.ui-treetable-tablewrapper .ui-treetable-row{
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.ui-treetable tbody td{
+    border-right: 1px solid #d9d9d9;
+   
+}
+
+
+.ui-treetable{
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+}
+
+
+.ui-dialog .ui-dialog-buttonpane {
+    text-align: left;
+    border-width: 1px 0 0 0;
+    background-image: none;
+    margin: 0;
+    padding: 0 1em .5em .4em;
+}

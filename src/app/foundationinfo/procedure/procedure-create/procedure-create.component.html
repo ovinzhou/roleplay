@@ -1,0 +1,149 @@
+<div class="col-md-12">
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-12">
+        		 <form class="form-horizontal" 
+        		 		#procedureForm="ngForm" 
+        		 		novalidate 
+        		 		(ngSubmit)="onSubmit(procedureForm)">
+						<div class="form-group" 
+							[ngClass]="{ 'has-error': procedureForm.submitted && !proName.valid }">
+			           		<label class="col-md-2 control-label mt-5">工序名称
+			           			<span class='text-danger'>*</span>：
+			           		</label>
+				            <div class="col-md-10">
+				                <input type="text" 
+				                		#proName="ngModel" 
+				                		name="proName" 
+				                		[(ngModel)]="data.proName" 
+				                		class="form-control"  
+				                		required  
+				                		maxlength="10" 
+				                		pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+					       		<div *ngIf="procedureForm.submitted && !proName.valid" 
+					       			class="text-danger">
+							            <div [hidden]="!proName.errors.required">
+							              属性名称必填
+							            </div>
+							            <div [hidden]="!proName.errors.maxlength">
+							              名称最大长度为10
+							            </div>
+							            <div [hidden]="!proName.errors.pattern">
+							              名称只能输入中文，英文，数字,及一些特殊字符
+							            </div>
+					       		</div>
+				            </div>
+			       		</div>
+
+			       		<div class="form-group">
+		       				<label class=" col-md-2 control-label mt-5 control-label">计费类型
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-10">
+			       				<ng-select 
+						      		[allowClear]="true"
+						      		[active]="activeItem"
+					              	[items]="chargeTypeList"
+					              	(data)="refreshValue($event)"
+					              	(removed)="removed($event)"
+					              placeholder="选择计费类型">
+					  			</ng-select>
+					  			<div *ngIf="procedureForm.submitted && !this.data.billing" 
+					       			class="text-danger">
+							        计费类型必选
+					       		</div>
+			       			</div>
+			       		</div>
+
+			       		<div class="form-group">
+		       				<label class=" col-md-2 control-label mt-5 control-label">工序组
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-10">
+			       				<div class="input-group">
+							      <input type="text" 
+							      		class="form-control" placeholder="选择工序组"
+							      		name="procedureGroup"
+							      		[(ngModel)]="procedureGroup.name"
+							      		disabled="true" 
+							      		>
+							      <span class="input-group-btn">
+							        <button class="btn btn-info" type="button" (click)='onProcedureGroup()'>选择</button>
+							      </span>
+							    </div>
+							    <div *ngIf="procedureForm.submitted && procedureGroup.name == ''" 
+					       			class="text-danger">
+							        属性名称必填
+					       		</div>
+			       			</div>
+			       		</div>
+
+			       		<div class="form-group" >
+			           		<label class="col-md-2 control-label mt-5 control-label">备注:</label>
+				            <div class="col-md-10">
+				                <textarea 	rows="6" 
+				                			class="form-control"  
+				                			cols="82" 
+				                			[(ngModel)]="data.comment" 
+				                			name="comment" >
+				                </textarea>
+				            </div>
+			       		</div>
+
+			       		<div  class="form-group">
+				         	<div class="col-md-2">
+					         	
+					        </div>
+					        <div class="col-md-10">
+					         	<button  
+					         		class="btn btn-primary" 
+						    		type="submit">
+						    		确定
+						    	</button>
+						    	<button 
+						    		type="button" 
+						    		class="btn btn-default" 
+						    		(click)='onCancel()'>
+						    		取消
+						    	</button>
+					        </div>
+			        </div>
+        		 </form>
+        	</div>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog 
+	header="选择工序组"
+    width="600" 
+    modal="true"
+    [resizable]="false"
+    [(visible)]="isShowProcedureGroup"> 
+    <!-- 选择工序组 -->
+    <div style="width: 500px;">
+		<p-tree [value]="orgs" selectionMode="single" [(selection)]="selectedOrg"
+    			(onNodeSelect)="nodeSelect($event)"
+    			[style]="getStyles()"
+    			(onNodeExpand)="nodeExpand($event)"
+    			>
+    	</p-tree>
+    	<div  class="border-box" style="position: absolute;right: 19px;top: 15px;width: 240px;border:1px solid #D5D5D5;height: 300px;overflow: auto;">
+        	已选的工序组：
+        	<div class="mt-10 line-all" >
+        		<ul class="list-group" >
+        			<li class="li_style ml-10" >{{modifyGroup.name}}
+        				<a (click)="removeSeletedItem()" *ngIf="modifyGroup.name">
+			               <i class="fa fa-times pull-right" aria-hidden="true" ></i>
+			            </a>
+			    	</li>
+        		</ul>
+        	</div>
+        </div>
+        <div class="footer-button">
+		    <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">取消</button>
+		    <button type="button" class="btn btn-primary" (click)="chooseConfirm()"><i class="fa fa-check"></i>确定</button>
+		</div>
+	</div>
+</p-dialog>

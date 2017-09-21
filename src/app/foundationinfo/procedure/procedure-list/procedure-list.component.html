@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable 
+            [emptyMessage]="emptyMessage"
+            [value]="procedureData" 
+            (onRowClick)="onViewDetail($event)"
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" 
+            resizableColumns="true"
+            sortable="custom">
+            <p-column   [style]="{'width':'38px'}" 
+                        selectionMode="multiple">
+            </p-column>
+            <p-column   field="name" 
+                        header="工序名称" 
+                        [sortable]="true">
+            </p-column>
+            <p-column   field="billingName" 
+                        header="计费类型" 
+                        [sortable]="true">
+            </p-column>
+            <p-column   field="procedureGroupName" 
+                        header="工序组" 
+                        [sortable]="true">
+            </p-column>
+            <p-column   field="comment" 
+                        header="描述" 
+                        [sortable]="true">
+            </p-column>
+            <p-footer >
+                <div style="float: right;">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]="first" [style]="{'border':'none','padding' : '0px'}" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'listUser')"></p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+
+
+

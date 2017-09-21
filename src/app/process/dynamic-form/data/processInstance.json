@@ -1,0 +1,36 @@
+{
+    "process": {
+        "comment": "<extentions><extend><id>isChanged</id><value>N</value></extend></extentions>",
+        "createdBy": "20111160429PLEN020007",
+        "createdTime": "2016-05-21 13:18:16",
+        "deploymentId": "2077509",
+        "entityId": "rfd-001",
+        "formTempId": "E20093-1160521PLEN020251",
+        "formTempName": "货物销售订单",
+        "groupId": "4",
+        "id": "rfd-001160521PLEN020044",
+        "inherited": 1,
+        "owner": "160520PLUS00000001",
+        "ownerGroup": "rfd-001",
+        "procdefId": "E20093-1160521PLEN020250:1:2077512",
+        "processCode": "",
+        "processExt": "<extentions/>",
+        "processName": "货物销售订单",
+        "status": 1,
+        "stockLockTime": 48,
+        "taskCount": 0,
+        "tranType": "tsfgbvin",
+        "version": 1,
+        "workflowTempId": "E20093-1160521PLEN020249"
+    },
+    "tradeEntities": [
+        {
+            "entityName": "瑞福登信息技术服务有限公司",
+            "entityId": "rfd-001"
+        },
+        {
+            "entityName": "敢死队",
+            "entityId": "rfd-002"
+        }
+    ]
+}

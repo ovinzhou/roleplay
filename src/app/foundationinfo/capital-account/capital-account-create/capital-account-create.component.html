@@ -1,0 +1,160 @@
+<div class="col-md-12">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-horizontal" 
+						#chargeCreateForm="ngForm" 
+						novalidate 
+						(ngSubmit)="onSubmit(chargeCreateForm)">
+					<div class="form-group" 
+							[ngClass]="{ 'has-error': chargeCreateForm.submitted && !account.valid }">
+						<label class="col-md-2 control-label mt-5">资金账户
+							<span class='text-danger'>*</span>：
+						</label>
+						<div class="col-md-10">
+							<input type="text" 
+								placeholder="Capital account" 
+								#account="ngModel" 
+								name="account" 
+								[(ngModel)]="data.account" 
+								class="form-control"  
+								required  
+								maxlength="16" 
+								pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" >
+							<div *ngIf="chargeCreateForm.submitted && !account.valid" class="text-danger">
+								<div [hidden]="!account.errors.required">
+								  资金账户必填
+								</div>
+								<div [hidden]="!account.errors.maxlength">
+								  资金账户最大长度为16
+								</div>
+					            <div [hidden]="!account.errors.pattern">
+					              资金账户只能输入中文，英文，数字,及一些特殊字符
+					            </div>
+							</div>
+						</div>
+					</div>
+		       		<div class="form-group" [ngClass]="{ 'has-error': chargeCreateForm.submitted &&!data.bank}">
+						<label class=" col-md-2 control-label mt-5 control-label">开户银行
+							<span class='text-danger'>*</span>：
+						</label>
+		       			<div class="col-md-10">
+		       				<ng-select 
+		       					name="bank"
+					      		[allowClear]="true"
+					      		[active]="activeItem"
+				              	[items]="bankList"
+				              	(data)="refreshValue($event)"
+				              	(removed)="removed($event)"
+				              	required
+				                placeholder="Choose a bank">
+				  			</ng-select>
+				  			<div  *ngIf="chargeCreateForm.submitted && !data.bank" class="text-danger">
+					            <div>
+					            	开户银行必选
+					            </div>
+				       		</div>
+		       			</div>
+					</div>
+					<div class="form-group" 
+							[ngClass]="{ 'has-error': chargeCreateForm.submitted && !bankname.valid }">
+						<label class="col-md-2 control-label mt-5">开户名
+							<span class='text-danger'>*</span>：
+						</label>
+						<div class="col-md-10">
+							<input type="text" 
+								placeholder="To open an account name" 
+								#bankname="ngModel" 
+								name="bankname" 
+								[(ngModel)]="data.bankname" 
+								class="form-control"  
+								required  
+								maxlength="16" 
+								pattern="^[a-zA-Z\u4e00-\u9fa5]+$" >
+							<div *ngIf="chargeCreateForm.submitted && !bankname.valid" class="text-danger">
+								<div [hidden]="!bankname.errors.required">
+								  开户名必填
+								</div>
+								<div [hidden]="!bankname.errors.maxlength">
+								  开户名最大长度为12
+								</div>
+					            <div [hidden]="!bankname.errors.pattern">
+					              开户名只能输入中文，英文
+					            </div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" 
+							[ngClass]="{ 'has-error': chargeCreateForm.submitted && !code.valid }">
+						<label class="col-md-2 control-label mt-5">账号
+							<span class='text-danger'>*</span>：
+						</label>
+						<div class="col-md-10">
+							<input type="text" 
+								placeholder="Account" 
+								#code="ngModel" 
+								name="code" 
+								[(ngModel)]="data.code" 
+								class="form-control"  
+								required  
+								maxlength="36" 
+								pattern="^[1-9]\d*$" >
+							<div *ngIf="chargeCreateForm.submitted && !code.valid" class="text-danger">
+								<div [hidden]="!code.errors.required">
+								  账号必填
+								</div>
+								<div [hidden]="!code.errors.maxlength">
+								  账号最大长度为36
+								</div>
+					            <div [hidden]="!code.errors.pattern">
+					              账号只能输入数字
+					            </div>
+							</div>
+						</div>
+					</div>
+		       		<div class="form-group" [ngClass]="{ 'has-error': chargeCreateForm.submitted &&!data.currency}">
+						<label class=" col-md-2 control-label mt-5 control-label">币值
+							<span class='text-danger'>*</span>：
+						</label>
+		       			<div class="col-md-10">
+		       				<ng-select 
+		       					name="currency"
+					      		[allowClear]="true"
+					      		[active]="activeItem"
+				              	[items]="currencyList"
+				              	(data)="refreshValue($event)"
+				              	(removed)="removed($event)"
+				              	required
+				                placeholder="Choose a currency">
+				  			</ng-select>
+				  			<div  *ngIf="chargeCreateForm.submitted && !data.currency" class="text-danger">
+					            <div>
+					            	币值必选
+					            </div>
+				       		</div>
+		       			</div>
+					</div>
+					<div  class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-10">
+				         	<button  
+				         		class="btn btn-primary" 
+					    		type="submit">
+					    		确定
+					    	</button>
+					    	<button 
+					    		type="button" 
+					    		class="btn btn-default" 
+					    		(click)='onCancel()'>
+					    		取消
+					    	</button>
+					    </div>
+				    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

@@ -1,0 +1,1594 @@
+{
+    "name": "销售出库",
+    "sections": [
+        {
+            "layout": {
+                "multiple": false,
+                "type": "flow"
+            },
+            "name": "表单属性",
+            "checked": "always",
+            "id": "109b6448-6d5c-4749-960f-2d2925c65852",
+            "fields": [
+                {
+                    "sectionName": "表单属性",
+                    "init": {
+                        "pathVar": {
+                            "taskId": "global-parameter"
+                        },
+                        "url2": "../H_roleplay-si/form/view/getViewInit/{taskId}",
+                        "name": "webservice-init",
+                        "render": {
+                            "name": "default-init"
+                        },
+                        "key": "process.tranType",
+                        "url": "data/processInstance.json"
+                    },
+                    "fieldCode": "fgattr.fgattr001",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000001",
+                    "label": "流程类型",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr002",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000002",
+                    "label": "流程实例编码",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr003",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000003",
+                    "label": "流程生效时间",
+                    "type": "datetime",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr004",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000004",
+                    "label": "状态",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "fieldCode": "fgattr.fgattr005",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "经办人",
+                    "type": "selectsingle",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "表单属性",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000005",
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr008",
+                            "url2": "../H_roleplay-si/entities/{entityId}/users",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "v": "nickname",
+                                "name": "combobox-init",
+                                "k": "userId"
+                            },
+                            "url": "data/jingbanren.json"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr006",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "经办角色",
+                    "type": "selectsingle",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "表单属性",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000006",
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "global-parameter",
+                                "userId": "field-value"
+                            },
+                            "field": "fgattr.fgattr005",
+                            "url2": "../H_roleplay-si/entities/{entityId}/users/{userId}/roles",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "v": "name",
+                                "name": "combobox-init",
+                                "k": "id"
+                            },
+                            "url": "data/role.json"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr007",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "经办组织",
+                    "type": "selectsingle",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "表单属性",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000007",
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "global-parameter",
+                                "userId": "field-value"
+                            },
+                            "field": "fgattr.fgattr005",
+                            "url2": "../H_roleplay-si/entities/{entityId}/users/{userId}/units",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "v": "name",
+                                "name": "combobox-init",
+                                "k": "id"
+                            },
+                            "url": "data/group.json"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "fieldCode": "fgattr.fgattr008",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "交易主体",
+                    "type": "selectsingle",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "表单属性",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000008",
+                    "correlators": [
+                        {
+                            "field": "fgattr.fgattr001",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.done",
+                            "render": {
+                                "v": "entityName",
+                                "name": "combobox-init",
+                                "k": "entityId"
+                            },
+                            "key": "tradeEntities"
+                        }
+                    ],
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr009",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000009",
+                    "label": "创建人",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr010",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000010",
+                    "label": "创建时间",
+                    "type": "datetime",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr011",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000011",
+                    "label": "修改人",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr012",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000012",
+                    "label": "修改时间",
+                    "type": "datetime",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "表单属性",
+                    "fieldCode": "fgattr.fgattr013",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000013",
+                    "label": "唯一标识",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                }
+            ]
+        },
+        {
+            "layout": {
+                "multiple": false,
+                "type": "flow"
+            },
+            "name": "客户",
+            "checked": true,
+            "id": "eecd65e1-7f90-4615-85a0-06c2dca94d28",
+            "fields": [
+                {
+                    "fieldCode": "fgewio.fgouty001",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "客户ID",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "客户",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000068",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgewio.fgouty003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "refEntityId"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgewio.fgouty002",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "客户编码",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "客户",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000069",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgewio.fgouty003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "refEntityCode"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgewio.fgouty003",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "客户名称",
+                    "type": "selector",
+                    "required": true,
+                    "setConfig": false,
+                    "multiple":false,
+                    "sectionName": "客户",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000070",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr008",
+                            "url2": "../H_roleplay-si/entities/{entityId}/bizRel?type=Customer",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "k": "refEntityName"
+                            },
+                            "url":"data/wbzt.json"
+                        }
+                    ]
+                },
+                {
+                    "init": {
+                        "v": "",
+                        "name": "combobox-init",
+                        "value": "[     {         \"id\": \"Customer\",         \"name\": \"客户\"     },     {         \"id\": \"Provider\",         \"name\": \"供应商\"     },     {         \"id\": \"Partner\",         \"name\": \"合作伙伴\"     } ]"
+                    },
+                    "fieldCode": "fgewio.fgouty004",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "客户标签",
+                    "type": "selectmulti",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "客户",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000071",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgewio.fgouty003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "relationType"
+                        }
+                    ]
+                },
+                {
+                    "sectionName": "客户",
+                    "fieldCode": "fgewio.fgouty005",
+                    "display": false,
+                    "id": "00000010160422FGFI000072",
+                    "label": "是否设置仓位",
+                    "type": "selectsingle",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                }
+            ]
+        },
+        {
+            "layout": {
+                "multiple": false,
+                "type": "flow"
+            },
+            "name": "出库仓",
+            "checked": true,
+            "id": "2c931f04-5bf8-48cf-90ae-2a057724884a",
+            "fields": [
+                {
+                    "fieldCode": "fgewio.fgwrhs001",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "仓库ID",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "出库仓",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000120",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgewio.fgwrhs003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "id"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgewio.fgwrhs002",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "仓库编码",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "出库仓",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000121",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgewio.fgwrhs003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "addressCode"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgewio.fgwrhs003",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "仓库名称",
+                    "type": "selector",
+                    "required": true,
+                    "setConfig": true,
+                    "sectionName": "出库仓",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000122",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr008",
+                            "url2": "../H_roleplay-si/entities/{entityId}/addrs?type=Storehouse",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "k": "addressName"
+                            },
+                            "url":"data/ck.json"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "layout": {
+                "summary": [
+                    "fgewio.fgtrns005",
+                    "fgewio.fgtrns006",
+                    "fgewio.fgtrns008",
+                    "fgewio.fgtrns009"
+                ],
+                "multiple": true,
+                "type": "grid"
+            },
+            "name": "出库存货明细",
+            "checked": "always",
+            "id": "58ab0d93-816f-4682-8ff5-4fe61680cd6e",
+            "fields": [
+                {
+                    "fieldCode": "fgewio.fginvn001",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "存货ID",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "出库存货明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000061",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgewio.fginvn003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "fginvn001"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgewio.fginvn002",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "存货编码",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "出库存货明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000062",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fgewio.fginvn003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "fginvn002"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fgewio.fginvn003",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "存货名称",
+                    "type": "selector",
+                    "required": true,
+                    "setConfig": true,
+                    "multiple":true,
+                    "sectionName": "出库存货明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000063",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr008",
+                            "url2": "../H_roleplay-si/entities/{entityId}/inventories?title=true&objCate=",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "k": "fginvn003"
+                            },
+                            "url":"data/ch.json"
+                        }
+                    ]
+                },
+                {
+                    "init": {
+                        "name": "combobox-init",
+                        "value": [
+                            {                                 
+                                "id": "dict121",
+                                "name": "千克" 
+                            },                             
+                            {                                 
+                                "id": "dict122",
+                                "name": "克"
+                            }
+                        ]
+                    },
+                    "fieldCode": "fgewio.fginvn004",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "计量单位",
+                    "type": "selectsingle",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "出库存货明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000064",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "summary": true,
+                    "fieldCode": "fgewio.fgtrns005",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "数量",
+                    "type": "number",
+                    "required": true,
+                    "setConfig": true,
+                    "sectionName": "出库存货明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000106",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "init":{
+                        "value":100
+                    }
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "fieldCode": "fgewio.fgtrns004",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000105",
+                    "label": "单价",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": true,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "fieldCode": "fgewio.fgtrns007",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000108",
+                    "label": "税率",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": true,
+                    "setConfig": true
+                },
+                {
+                    "summary": true,
+                    "fieldCode": "fgewio.fgtrns006",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "金额",
+                    "type": "number",
+                    "required": true,
+                    "setConfig": false,
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "sectionName": "出库存货明细",
+                    "checked": "always",
+                    "id": "00000010160422FGFI000107",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "name": "multiplication",
+                            "eventType": "change,spinstop,rfd.done",
+                            "fields": [
+                                "fgewio.fgtrns004",
+                                "fgewio.fgtrns005"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns012",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000113",
+                    "label": "明细ID",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "summary": true,
+                    "fieldCode": "fgewio.fgtrns008",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "税金",
+                    "type": "number",
+                    "required": true,
+                    "setConfig": false,
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "sectionName": "出库存货明细",
+                    "checked": "always",
+                    "id": "00000010160422FGFI000109",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "money": "fgewio.fgtrns006",
+                            "rate": "fgewio.fgtrns007",
+                            "name": "taxation",
+                            "eventType": "change,spinstop,rfd.done"
+                        }
+                    ]
+                },
+                {
+                    "summary": true,
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns009",
+                    "display": true,
+                    "id": "00000010160422FGFI000110",
+                    "label": "成本金额",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns010",
+                    "display": true,
+                    "id": "00000010160422FGFI000111",
+                    "label": "承诺交付时间",
+                    "type": "datetime",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns011",
+                    "display": true,
+                    "id": "00000010160422FGFI000112",
+                    "label": "说明",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns003",
+                    "display": true,
+                    "id": "00000010160422FGFI000104",
+                    "label": "被核销交易号",
+                    "type": "selector",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns001",
+                    "display": true,
+                    "id": "00000010160422FGFI000102",
+                    "label": "批次号",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns002",
+                    "display": true,
+                    "id": "00000010160422FGFI000103",
+                    "label": "批次时间",
+                    "type": "datetime",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns013",
+                    "display": false,
+                    "id": "00000010160422FGFI000114",
+                    "label": "损耗率",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns014",
+                    "display": false,
+                    "id": "00000010160422FGFI000115",
+                    "label": "子表ID",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "出库存货明细",
+                    "fieldCode": "fgewio.fgtrns015",
+                    "display": false,
+                    "id": "00000010160422FGFI000116",
+                    "label": "父ID",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                }
+            ]
+        },
+        {
+            "layout": {
+                "summary": [
+                    "fggvts.fgtrns005",
+                    "fggvts.fgtrns006",
+                    "fggvts.fgtrns008",
+                    "fggvts.fgtrns009"
+                ],
+                "multiple": false,
+                "type": "grid"
+            },
+            "name": "政府往来明细",
+            "checked": "always",
+            "id": "f629b665-be9e-4459-afaa-9024efd7a5d8",
+            "fields": [
+                {
+                    "fieldCode": "fggvts.fggvrn001",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "政府(税费)ID",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000048",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fggvts.fggvrn003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "id"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fggvts.fggvrn002",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": false,
+                    "label": "政府(税费)编码",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000049",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fggvts.fggvrn003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "code"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fggvts.fggvrn003",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "政府(税费)",
+                    "type": "selector",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000050",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "pathVar": {
+                                "entityId": "field-value"
+                            },
+                            "field": "fgattr.fgattr008",
+                            "url2": "../H_roleplay-si/entities/{entityId}/cost",
+                            "name": "depend-field-remote",
+                            "eventType": "change,rfd.done",
+                            "render": {
+                                "k": "name"
+                            },
+                            "url":"data/zfsf.json"
+                        }
+                    ]
+                },
+                {
+                    "fieldCode": "fggvts.fggvrn004",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "政府(税费)类型",
+                    "type": "text",
+                    "required": true,
+                    "setConfig": false,
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "checked": "always",
+                    "id": "00000010160422FGFI000051",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "correlators": [
+                        {
+                            "field": "fggvts.fggvrn003",
+                            "name": "depend-field-object",
+                            "eventType": "rfd.selected",
+                            "key": "typeName"
+                        }
+                    ]
+                },
+                {
+                    "summary": true,
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "fieldCode": "fggvts.fgtrns005",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "id": "00000010160422FGFI000106",
+                    "label": "数量",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": true,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "fieldCode": "fggvts.fgtrns004",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "id": "00000010160422FGFI000105",
+                    "label": "单价",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": true,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "fieldCode": "fggvts.fgtrns007",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "id": "00000010160422FGFI000108",
+                    "label": "税率",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": true,
+                    "setConfig": true
+                },
+                {
+                    "summary": true,
+                    "fieldCode": "fggvts.fgtrns006",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "label": "金额",
+                    "type": "number",
+                    "required": true,
+                    "setConfig": false,
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "sectionName": "政府往来明细",
+                    "checked": "always",
+                    "id": "00000010160422FGFI000107",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    }
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns012",
+                    "display": false,
+                    "checked": "always",
+                    "id": "00000010160422FGFI000113",
+                    "label": "明细ID",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "summary": true,
+                    "sectionName": "政府往来明细",
+                    "validaters": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "fieldCode": "fggvts.fgtrns008",
+                    "validators": [
+                        {
+                            "name": "required-validater"
+                        }
+                    ],
+                    "display": true,
+                    "id": "00000010160422FGFI000109",
+                    "label": "税金",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": true,
+                    "setConfig": false
+                },
+                {
+                    "summary": true,
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns009",
+                    "display": true,
+                    "id": "00000010160422FGFI000110",
+                    "label": "成本金额",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns010",
+                    "display": true,
+                    "id": "00000010160422FGFI000111",
+                    "label": "承诺交付时间",
+                    "type": "datetime",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns011",
+                    "display": true,
+                    "id": "00000010160422FGFI000112",
+                    "label": "说明",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns003",
+                    "display": true,
+                    "id": "00000010160422FGFI000104",
+                    "label": "被核销交易号",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns001",
+                    "display": true,
+                    "id": "00000010160422FGFI000102",
+                    "label": "批次号",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns002",
+                    "display": true,
+                    "id": "00000010160422FGFI000103",
+                    "label": "批次时间",
+                    "type": "datetime",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns013",
+                    "display": false,
+                    "id": "00000010160422FGFI000114",
+                    "label": "损耗率",
+                    "type": "number",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns014",
+                    "display": false,
+                    "id": "00000010160422FGFI000115",
+                    "label": "子表ID",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                },
+                {
+                    "sectionName": "政府往来明细",
+                    "fieldCode": "fggvts.fgtrns015",
+                    "display": false,
+                    "id": "00000010160422FGFI000116",
+                    "label": "父ID",
+                    "type": "text",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": false
+                }
+            ]
+        },
+        {
+            "layout": {
+                "multiple": false,
+                "type": "flow"
+            },
+            "name": "综合",
+            "checked": true,
+            "id": "af8e16ac-21ac-4754-9e06-49cab0feca68",
+            "fields": [
+                {
+                    "sectionName": "综合",
+                    "fieldCode": "fgcmpr.fgcmpr002",
+                    "display": true,
+                    "checked": true,
+                    "id": "00000010160422FGFI000025",
+                    "label": "附件",
+                    "type": "attachment",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                },
+                {
+                    "sectionName": "综合",
+                    "readonly": false,
+                    "fieldCode": "fgcmpr.fgcmpr001",
+                    "display": true,
+                    "checked": true,
+                    "id": "00000010160422FGFI000024",
+                    "label": "备注",
+                    "type": "textarea",
+                    "configSets": {
+                        "readonly": true,
+                        "display": true,
+                        "required": true
+                    },
+                    "required": false,
+                    "setConfig": true
+                }
+            ]
+        }
+    ]
+}

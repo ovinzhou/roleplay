@@ -1,0 +1,15 @@
+{
+	"tableContent":[
+			{
+			"userId":"1631",
+			"mobile":"13378057165",
+			"nickname":"张三"
+		},
+		{
+			"userId":"1632",
+			"mobile":"15916821390",
+			"nickname":"李四"
+		}
+	]
+
+}

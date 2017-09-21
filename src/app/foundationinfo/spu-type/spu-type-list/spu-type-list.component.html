@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+        <p-treeTable 
+            selectionMode="single" 
+            [value]="spuTypes" 
+            [(selection)]="selectedData"
+            (onNodeExpand)="nodeExpand($event)">
+            <p-column   field="name" header="类型名称" ></p-column>
+            <p-column   field="comment" header="描述" ></p-column>
+        </p-treeTable>
+    </div>
+</div>

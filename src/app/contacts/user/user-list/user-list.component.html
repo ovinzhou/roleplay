@@ -1,0 +1,143 @@
+<div class="col-md-12 container" style="padding: 0 0;">
+    <div class="col-md-2 tree-menu"  *ngIf="isShowTree" 
+    style="display: table-cell; padding-left: 0; vertical-align: top;background-color: #F9FAFC; border-radius: 4px 0 0 4px;
+		float: none; float: left;">
+        <div class="form-md-line-input pt-0">
+            <i class="fa fa-search" style="position: absolute;
+                margin: 6px 2px 4px 18px;
+                color: #ccc;">
+            </i>          
+            <input 
+                type="text" 
+                class="form-control font-size-14"
+                placeholder="搜索..."
+                [(ngModel)]="searchKey"
+                name="searchKey"
+                style=" width: 100%;margin: 10px;height: 27px;font-family: '微软雅黑';
+                        background-color: white;
+                        padding-left: 26px;border: 1px solid #B4BEC8;
+                        border-radius: 5px"
+                (input)="onInput($event)"
+            >
+        </div>
+
+        <div>
+            <!--<a class="pull-right" (click)='toggleHeading()'><i class="fa fa-list"></i></a>
+            <div class="d-menu" *ngIf="showHeading">
+                <ul class="ui-menu-list ul-style">
+                    <li class="ms-hover"><a (click)="addGroup()">添加</a></li>
+                    <li class="ms-hover" *ngIf="groupId != ''"><a (click)="editGroup()">修改</a></li>
+                    <li class="ms-hover" *ngIf="groupId != ''"><a (click)="deleteGroup()">删除</a></li>
+                </ul>
+            </div>-->
+
+            <a class="pull-right" (click)='toggleHeading();$event.stopPropagation();'><i class="fa fa-list"></i></a>
+            <div class="d-menu" *ngIf="showHeading">
+                <ul class="ui-menu-list ul-style">
+                    <li class="ms-hover"><a (click)="addGroup()">添加子{{groupName}}</a></li>
+                    <li class="ms-hover"  *ngIf="groupId != ''"><a (click)="editGroup()">修改</a></li>
+                    <li class="ms-hover"  *ngIf="groupId != ''"><a (click)="deleteGroup()">删除</a></li>
+                </ul>
+            </div>
+        </div>
+        <p-tree [value]="entityInfo" selectionMode="single" [(selection)]="selectedOrg"
+                (onNodeSelect)="nodeSelect($event)"
+                [style]="setStyles()"
+                (onNodeExpand)="nodeExpand($event)"
+                >
+        </p-tree>
+    </div>
+    <div [class]='userListClass'   [ngClass]="{ 'border': isShowBorder }">
+        <div class="full-width">
+            <div class="full-width pt-10">
+                <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+
+                <div class="full-width">
+                    <p-dataTable [value]="users" 
+                                [(selection)]="selectedUser"
+                                [resizableColumns]="true"
+                                [reorderableColumns]="true"
+                                (onSort)="orderBy($event)"
+                                [style]="{'width':'100%'}"
+                                [emptyMessage]="emptyMessage"
+                                #dt
+                                >
+                        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                        <p-column field="name" header="姓名" sortable="true" >
+                            <template let-col let-user="rowData" let-ri="rowIndex" pTemplate="body" >
+                                <a class="interlinkage" (click)="editUser(user)">{{user[col.field]}}</a>
+                            </template>
+                        </p-column>
+                        <p-column field="orgs"  header="组织" sortable="true">
+                                    
+                        </p-column>
+                        <p-column field="roles" header="角色" sortable="true" >
+                        </p-column>
+                        <p-column field="mobile" header="手机" sortable="true"></p-column>
+                        <p-column field="email" header="邮箱" sortable="true"></p-column>
+                        <p-column field="status" header="状态" sortable="true"></p-column>
+                        <p-footer >
+                            <div class="total-style">
+                                共{{totalRecords}}条记录
+                            </div>
+                            <p-paginator rows="10" [first]="first" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'listUser')"></p-paginator>
+                        </p-footer>
+                    </p-dataTable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header='成员选择'[(visible)]="displayDialog" [resizable]="false" modal="true">
+    <div style="width: 600px">
+        <div class="full-width nav-bar-group">
+            <div class="pull-right">
+                <input name='searchKeyWord' [(ngModel)]="groupSearchKeyWord" type="text" />
+                <i class="fa fa-times-circle fa-lg mr-5 mb-8 icon clear-input-value"  (click)="groupSearchKeyWord=''"></i>
+                
+
+                <button type="button" class="font-size-12 transparent-button-style button-search" (click)="groupSearchUsers()">搜索</button>
+            </div>
+        </div>
+        <p-dataTable [value]="groupUsers" 
+                    [(selection)]="addUserList"
+                    [resizableColumns]="true"
+                    scrollable="true"  scrollHeight="300px"
+                    [reorderableColumns]="true"
+                    (onSort)="orderBy($event,'addGroupUser')"
+                    [style]="{'width':'100%'}" 
+                    
+                    [emptyMessage]="emptyMessage"
+                    (onRowClick)="onRowSelect($event)"
+                    #dt
+                    >
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+            <p-column field="name" header="姓名" sortable="true" [style]="setTextOverFlowStyle()" >
+            </p-column>
+            <p-column field="mobile" header="手机" sortable="true"></p-column>
+            <p-column field="email" header="邮箱" sortable="true" [style]="setTextOverFlowStyle()"></p-column>
+            <p-footer >
+                <div class="total-style">
+                    共{{totalGroupRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]="groupFirst" [style]="{'border':'none','padding' : '0px'}" [totalRecords]="totalGroupRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'addGroupUser')"></p-paginator>
+            </p-footer>
+        </p-dataTable>
+        <div style="min-height: 80px;margin-top: 10px;border: 1px solid #dddddd;">
+            <div style="margin: 5px;">您已选中:</div>
+            <div id="selected" style="margin: 5px; line-height: 240%;">
+                <span *ngFor="let item of addUserList ; let i = index; " class="btn btn-sm default" style="background-color: #d6d1d1;" >
+                    {{item.name}}
+                    <a (click)="removeSeletedItem(i)">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="footer-button">
+            <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" (click)="chooseConfirm()"><i class="fa fa-check"></i>确定</button>
+        </div>
+    </div>
+</p-dialog>

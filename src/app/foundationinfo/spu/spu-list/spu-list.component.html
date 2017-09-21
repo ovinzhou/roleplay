@@ -1,0 +1,308 @@
+<p-growl [value]="msgs"></p-growl>
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable 
+            [emptyMessage]="emptyMessage"
+            [value]="spus" 
+            resizableColumns="true"
+            sortMode="multiple"
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" >
+            <p-column   [style]="{'width':'38px'}" 
+                        selectionMode="multiple">
+            </p-column>
+            <p-column   field="name" 
+                        header="SPU名称" 
+                        [style]="{'width':'260px'}"
+                        [sortable]="true">
+                <template let-spu="rowData" pTemplate="body" >
+                    <a  type="text" 
+                        name="name" 
+                        textnowrap
+                        (click)="onEdit(spu)"
+                        class="interlinkage">{{spu.name}}</a>
+                </template>
+            </p-column>
+            <p-column   field="thirdLevel"  
+                        header="类型">
+            </p-column>
+            <p-column   field="measureTypeName" 
+                        header="计量类型">
+            </p-column>
+            <p-column   field="measureName" 
+                        header="默认单位">
+            </p-column>
+            <p-column   field="productMode" 
+                        header="获取方式">
+            </p-column>
+            <p-column   field="handleMode" 
+                        header="交付方式">
+            </p-column>
+            <p-column   field="safeStock" 
+                        header="安全库存">
+            </p-column>
+            <p-column   field="userGroupName" 
+                        header="组织">
+            </p-column>
+            <p-column   field="status" [style]="{'width':'60px'}"
+                        header="状态">
+                        <template let-spu="rowData" pTemplate type="body" >
+                            
+                            <span  
+                                >{{spu.status == 1 ? '启用' : '禁用'}}</span>
+                        </template>
+            </p-column>
+            <p-column   field="hasBom" [style]="{'width':'80px'}"
+                        header="BOM">
+                        <template let-spu="rowData" pTemplate type="body" >
+                            <a  type="text" 
+                                (click)="onSeeBom(spu)"
+                                *ngIf="spu.hasBom==='是'"
+                                class="interlinkage">{{spu.hasBom}}</a>
+                            <a  type="text" 
+                                *ngIf="spu.hasBom==='否'">{{spu.hasBom}}</a>
+                        </template>
+            </p-column>
+            <p-column   header="SKU数量" [style]="{'width':'80px'}">
+                        <template let-spu="rowData" pTemplate type="body" >
+                            <a  type="text" 
+                                *ngIf='spu.skuNumber > 0'
+                                (click)="onOpenSkuNumber(spu)"
+                                class="interlinkage">{{spu.skuNumber}}</a>
+                            <span  type="text" *ngIf='spu.skuNumber == 0'>{{spu.skuNumber}}</span>
+                        </template>
+            </p-column>
+             <p-column   header="操作" [style]="{'width':'120px'}" >
+                        <template let-spu="rowData" pTemplate type="body" >
+                            <a  type="text" 
+                                *ngIf='spu.status===1'
+                                (click)="onOpenSkuModal(spu)"
+                                class="interlinkage">批量生成</a>
+                            <span  type="text" *ngIf='spu.status===-1'>批量生成</span>
+                            <a style="margin-left: 5px;" 
+                                (click)="setStatus(spu)"
+                                class="interlinkage">{{spu.status != 1 ? '启用' : '禁用'}}</a>
+                        </template>
+            </p-column>
+             <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    [rows]="rows"
+                    [first] ="first" 
+                    pageLinkSize="3"
+                    [totalRecords]="totalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+
+<!-- begin dialog -->
+<p-dialog 
+    header="BOM"
+    width="900" 
+    modal="true"
+    [(visible)]="display_bom_modal">
+    <div class="form-group" >
+        <p-treeTable 
+                selectionMode="single" 
+                [value]="bomTree" 
+                [(selection)]="selectedNode"
+                (onNodeSelect) = "onNodeSelect($event)"
+                (onNodeExpand)="nodeExpand($event)">
+                <p-column   field="name" header="物料名称" 
+                [style]="{'width':'300px','border-right': '1px solid #d9d9d9'}"></p-column>
+                <p-column   field="spuType" header="分类" 
+                [style]="{'width':'200px','border-right': '1px solid #d9d9d9'}"></p-column>
+                <p-column   field="userGroupName" header="组织" 
+                [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+                <p-column   field="measureName" header="计量单位"></p-column>
+        </p-treeTable>
+    </div>
+    
+    <div class="form-group">
+        <p-dataTable 
+            [emptyMessage]="emptyMessage"
+            [value]="piffers" >
+            <p-column   field="name" 
+                        header="费用名称" >
+            </p-column>
+            <p-column   field="type" 
+                        header="计费类型" 
+                        class='ui-datatable-odd'>
+            </p-column>
+            <p-column   field="amount" 
+                        header="金额" 
+                        [editable]="true"
+                        class='ui-datatable-odd'>
+            </p-column>
+            <p-column   field="comment" 
+                        [editable]="true"
+                        header="备注" >
+            </p-column>
+        </p-dataTable>
+    </div>
+
+</p-dialog>
+<!-- end dialog -->
+
+
+<p-dialog
+  [(visible)]="display_sku_modal"
+   header="批量生成SKU"
+    width="900" 
+    modal="modal"
+  *ngIf="display_sku_modal">
+  <div class="form-group">
+        <button class="btn btn-default" (click)="onCleanupSkus()">清空</button>
+        <button class="btn btn-default" (click)="showAttrFielter=true">按条件生成</button>
+        <input  type="text" 
+                name="filter" 
+                 (click)="showAttrTree=!showAttrTree"
+                *ngIf ='showAttrFielter'
+                style="width: 235px;height: 31px;" >
+        <p-tree [value]="spuAttrTree" 
+                *ngIf ='showAttrFielter&&showAttrTree'
+                [style]="{'position':'absolute','left':'168px','z-index':'999'}" 
+                selectionMode="checkbox" 
+                [(selection)]="selectedAttrs">
+        </p-tree>
+
+        <button class="btn btn-default" 
+                *ngIf ='showAttrFielter'
+                (click)="onGenerateSkuByFilter()">确定</button>
+        <button class="btn btn-default"
+                *ngIf ='showAttrFielter'
+                (click)="showAttrFielter=false">取消</button>
+    </div>
+   <div class="form-group">
+        <p-dataTable 
+            [value]="skuDataList" 
+            [rows]="10" 
+            [paginator]="true"
+            [pageLinks]="3" 
+            [lazy]='false'
+            [rowsPerPageOptions]="[5,10,20]"
+            [emptyMessage]="emptyMessage"
+            [totalRecords] ='skuTotalRecords'
+            scrollable="true" 
+            scrollHeight="280px"
+            scrollWidth="850px">
+            <p-column   field="name" 
+                        [style]="{'width':'300px'}" 
+                        header="SKU名称" >
+            </p-column>
+            <p-column   field="spuTypeName" 
+                        header="物料类型" 
+                        [style]="{'width':'200px'}">
+            </p-column>
+            <p-column   field="measureName" 
+                        header="计量单位" 
+                        [style]="{'width':'80px'}">
+            </p-column>
+            <p-column   *ngFor="let col of cols" 
+                        [style]="{'width':'100px'}"
+                        [field]="col.field" 
+                        [header]="col.name">
+            </p-column>
+            <p-column   header="操作"  [style]="{'width':'100px'}" >
+            <template let-sku="rowData" pTemplate type="body" >
+                            <a  type="text" 
+                                (click)="onDeleteSku(sku)"
+                                class="interlinkage">删除</a>
+                        </template>
+            </p-column>
+             <p-footer >
+                    <div style="float: right;position: relative;right: 0px;top: -22px;">
+                        共{{skuTotalRecords}}条记录
+                    </div>
+            </p-footer>
+        </p-dataTable>
+    </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <button  
+            class="btn btn-primary" 
+            (click)="saveSkus()"
+            [disabled]='saveSkusDisabled'
+            type="button">
+            确定
+        </button>
+         <button 
+            type="button" 
+            (click)="display_sku_modal=!display_sku_modal;"
+            class="btn btn-default" >
+            取消
+        </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog  [(visible)]="display_sku_number"
+            header="SKU数量"
+            width="900" 
+            modal="modal">
+    <p-dataTable 
+        [emptyMessage]="emptyMessage"
+        [value]="skuNumberList" 
+        sortMode="multiple"
+        (onSort)="onSort($event,'skuNumber')"
+        resizableColumns="true"
+        [(selection)]="selectedSkuDatas" 
+        scrollable="true" scrollHeight="330px">
+        <p-column   field="name" 
+                    styleClass="text-overflow-nowrap"
+                    header="SKU名称" 
+                    [sortable]="true"
+                    [style]="{'width':'360px'}"
+                    >
+            <!-- <template let-sku="rowData" pTemplate type="body" >
+                <a  type="text" 
+                    name="skuName" 
+                    title="{{sku.name}}" 
+                    (click)="onEdit(sku)"
+                    class="interlinkage">{{sku.name}}</a>
+            </template> -->
+        </p-column>
+        <p-column   field="skuType" 
+                    styleClass="text-overflow-nowrap"
+                    [style]="{'width':'140px'}"
+                    header="类型" 
+                    >
+        </p-column>
+        <p-column   field="mrpCalc" 
+                    header="参与计算"
+                    >
+        </p-column>
+        <p-column   field="measureName" 
+                    header="计量单位"
+                    >
+        </p-column>
+        <p-column   field="userGroupName"
+                    styleClass="text-overflow-nowrap" 
+                    header="组织" 
+                    >
+        </p-column>
+         <p-footer >
+            <div class="total-style">
+                共{{skuTotalRecords}}条记录
+            </div>
+            <p-paginator 
+                [rows]="rows"
+                [first] ="skuNumberFirst"
+                [totalRecords]="skuTotalRecords" 
+                [rowsPerPageOptions]="[10,20,30]" 
+                (onPageChange)="onPage($event,'skuNumber')">
+            </p-paginator>
+        </p-footer>
+    </p-dataTable>
+
+</p-dialog>
+

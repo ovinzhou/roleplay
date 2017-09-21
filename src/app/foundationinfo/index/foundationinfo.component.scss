@@ -1,0 +1,21 @@
+.left-menu{
+	display: table-cell;
+	vertical-align: top;
+	border-right: 1px dotted #D2D7DC;
+	border-radius: 4px 0 0 4px;
+	padding-left: 0px;
+	overflow-y: hidden;
+    overflow-x: hidden;
+    min-height: 500px;
+}
+
+.right-container{
+	display: table-cell;
+	background-color: white;
+	float: none;
+	padding: 6px 15px;
+	width: 100%
+}
+.pl-0{
+	padding-left:0px;
+}

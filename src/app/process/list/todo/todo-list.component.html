@@ -1,0 +1,77 @@
+<process-detail [params]='processDetail'></process-detail>
+<div class="col-md-12">
+    <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+</div>
+
+<div class="col-md-12">
+    <p-dataTable [value]="todoList" [emptyMessage]="emptyMessage">
+        <p-column field="nodeName" header="操作名称" *ngIf="view!='processInstance'">
+             <template  let-task="rowData" 
+                        pTemplate 
+                        type="body" 
+                        >
+                    <a  type="text" 
+                        class="link-a"
+                        name="nodeName"
+                        (click)='handleTodo(task)'
+                        *ngIf="view!='finished'">{{task.nodeName}}</a>
+                    <div *ngIf="view=='finished'">{{task.nodeName}}</div>
+            </template>
+        </p-column>
+        <p-column field="processCode" header="单号">
+            <template let-task="rowData" 
+                    pTemplate type="body">
+                <a  type="text" class="link-a" name="id" 
+                    (click)='toDetail(task.processCode,task.processTypeId)'
+                    *ngIf="view=='processInstance'">{{task.processCode}}</a>
+                <div *ngIf="view!='processInstance'">{{task.processCode}}</div>
+            </template>
+        </p-column>
+        <p-column field="processTypeName" header="交易类型"></p-column>
+        <p-column field="processOwnerName" header="发起人"></p-column>
+        <p-column field="statusName" header="状态" *ngIf="view=='processInstance'"></p-column>
+        <p-column field="createTime" header="开始时间"></p-column>
+        <p-column field="consumeTime" header="操作停留时长" *ngIf="view!='processInstance'&&view!='finished'"></p-column>
+        <p-column field="completeTime" header="提交时间" *ngIf="view=='finished'"></p-column>
+        <p-column field="completeTime" header="结束时间" *ngIf="view=='processInstance'"></p-column>
+        <p-column field="timeout" header="是否超时" *ngIf="view!='processInstance'"></p-column>
+        <p-column *ngIf="view=='draft'"
+            field="id"
+            header="操作">
+            <template 
+                    let-task="rowData" 
+                    pTemplate type="body" >
+                    <a  type="text" class="link-a" name="id" (click)='deleteDraft(task.id)'>删除</a>
+            </template>
+        </p-column>
+        <p-column *ngIf="view=='processInstance'"
+            header="操作"
+            field="status">
+            <template 
+                    let-task="rowData" 
+                    pTemplate type="body">
+                    <a  type="text" class="link-a" 
+                    *ngIf="task.status=='SUBMITTED'" 
+                    (click)='terminationProcess(task.processCode)'>
+                        终止
+                    </a>
+                    <a  type="text" class="link-a" 
+                    *ngIf="task.status=='TERMINATED'"
+                    (click)='deleteProcess(task.processCode)'>
+                        删除
+                    </a>
+            </template>
+        </p-column>
+        <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [totalRecords]="totalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event)">
+                </p-paginator>
+            </p-footer>
+    </p-dataTable>
+</div>

@@ -1,0 +1,94 @@
+<div class="col-md-12">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-horizontal" 
+						#chargeCreateForm="ngForm" 
+						novalidate 
+						(ngSubmit)="onSubmit(chargeCreateForm)">
+					<div class="form-group" 
+							[ngClass]="{ 'has-error': chargeCreateForm.submitted && !chargename.valid }">
+						<label class="col-md-2 control-label mt-5">费用名称
+							<span class='text-danger'>*</span>：
+						</label>
+						<div class="col-md-10">
+							<input type="text" 
+								placeholder="Name" 
+								#chargename="ngModel" 
+								name="chargename" 
+								[(ngModel)]="data.chargename" 
+								class="form-control"  
+								required  
+								maxlength="16" 
+								pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" >
+							<div *ngIf="chargeCreateForm.submitted && !chargename.valid" class="text-danger">
+								<div [hidden]="!chargename.errors.required">
+								  名称必填
+								</div>
+								<div [hidden]="!chargename.errors.maxlength">
+								  名称最大长度为16
+								</div>
+					            <div [hidden]="!chargename.errors.pattern">
+					              名称只能输入中文，英文，数字,及一些特殊字符
+					            </div>
+							</div>
+						</div>
+					</div>
+		       		<div class="form-group" [ngClass]="{ 'has-error': chargeCreateForm.submitted &&!data.chargetype}">
+						<label class=" col-md-2 control-label mt-5 control-label">费用类型
+							<span class='text-danger'>*</span>：
+						</label>
+		       			<div class="col-md-10">
+		       				<ng-select 
+		       					name="chargetype"
+					      		[allowClear]="true"
+					      		[active]="activeItem"
+				              	[items]="chargeTypeList"
+				              	(data)="refreshValue($event)"
+				              	(removed)="removed($event)"
+				              	required
+				                placeholder="选择一个类型">
+				  			</ng-select>
+				  			<div  *ngIf="chargeCreateForm.submitted && !data.chargetype" class="text-danger">
+					            <div>
+					            	费用类型必选
+					            </div>
+				       		</div>
+		       			</div>
+					</div>
+					<div class="form-group">
+						<label for="describe" class="col-sm-2 control-label" >描述：</label>
+						<div class="col-md-10">
+							<textarea class="form-control" 
+									rows="3" 
+									placeholder="描述..." 
+									name="describe" 
+									#describe="ngModel"
+									[(ngModel)]="data.describe">
+							</textarea>
+						</div>
+					</div>
+					<div  class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-10">
+				         	<button  
+				         		class="btn btn-primary" 
+					    		type="submit">
+					    		确定
+					    	</button>
+					    	<button 
+					    		type="button" 
+					    		class="btn btn-default" 
+					    		(click)='onCancel()'>
+					    		取消
+					    	</button>
+					    </div>
+				    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

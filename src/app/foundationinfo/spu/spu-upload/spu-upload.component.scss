@@ -1,0 +1,37 @@
+.explain {
+	width: 600px;
+	line-height: 30px; 
+	background-color: #FFFBE2;
+	border:1px solid #F4EDB5;
+	margin: 20px auto;
+	padding-left: 25px;
+}
+.tactics{
+	padding: 10px;
+	width: 600px;
+	height: 220px;
+	border: 1px solid #DADCDB;
+	margin: 20px auto;
+}
+
+.transparent-button-style{
+	background-color: #fdfdfd !important;
+    padding: 3px 11px !important;
+    border: 1px solid #b4bec8 !important;
+    color: #222222 !important;
+    border-radius: 2px !important;
+}
+
+.btn-file>input{
+	position: relative;
+    top: -30px;
+    right: 0;
+    width: 100%;
+    height: 200%;
+    margin: 0;
+    font-size: 23px;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    direction: ltr;
+}

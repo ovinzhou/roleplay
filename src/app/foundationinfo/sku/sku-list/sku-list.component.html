@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable 
+            [emptyMessage]="emptyMessage"
+            [value]="skus" 
+            sortMode="multiple"
+            resizableColumns="true"
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" >
+            <p-column   [style]="{'width':'38px'}" 
+                        selectionMode="multiple">
+            </p-column>
+            <p-column   field="name" 
+                        styleClass="text-overflow-nowrap"
+                        header="SKU名称" 
+                        [style]="{'width':'240px'}"
+                        [sortable]="true">
+                <template let-sku="rowData" pTemplate type="body" >
+                    <!-- <img src="src/assets/imgs/angular2-small.png" style="width: 25px;" > -->
+                    <a  type="text" 
+                        name="skuName" 
+                        title="{{sku.name}}" 
+                        (click)="onEdit(sku)"
+                        class="interlinkage">{{sku.name}}</a>
+                </template>
+            </p-column>
+            <p-column   field="thirdLevel" 
+                        styleClass="text-overflow-nowrap"
+                        header="类型">
+            </p-column>
+            <p-column   field="measureName" 
+                        header="计量单位">
+            </p-column>
+            <p-column   field="productMode" 
+                        header="获取方式">
+            </p-column>
+            <p-column   field="handleMode" 
+                        header="交付方式">
+            </p-column>
+            <p-column   field="mrpCalc" 
+                        header="MRP计算">
+            </p-column>
+            <p-column   field="safeStock" 
+                        header="安全库存">
+            </p-column>
+            <p-column   field="userGroupName"
+                        styleClass="text-overflow-nowrap" 
+                        header="组织" >
+            </p-column>
+            <p-column   field="status" 
+                        header="状态">
+                        <template let-sku="rowData" pTemplate type="body" >
+                            
+                            <span  
+                                >{{sku.status == 1 ? '启用' : '禁用'}}</span>
+                        </template>
+            </p-column>
+            <p-column   field="hasBom" 
+                        header="BOM" >
+                        <template let-sku="rowData" pTemplate type="body" >
+                            <a  type="text" 
+                                (click)="onSeeBom(sku)"
+                                *ngIf="sku.hasBom==='是'"
+                                class="interlinkage">{{sku.hasBom}}</a>
+                            <a  type="text" 
+                                *ngIf="sku.hasBom==='否'">{{sku.hasBom}}</a>
+                        </template>
+            </p-column>
+            <p-column   header="操作" [style]="{'width':'80px'}">
+                        <template let-sku="rowData" pTemplate type="body" >
+                            <a (click)="setStatus(sku)"
+                                class="interlinkage">{{sku.status != 1 ? '启用' : '禁用'}}</a>
+                        </template>
+            </p-column>
+             <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    [rows]="rows"
+                    [first] ="first"
+                    [totalRecords]="totalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event,selectedUser)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+
+
+<!-- begin dialog -->
+<p-dialog 
+    header="BOM"
+    width="900" 
+    modal="true"
+    [(visible)]="display">
+    <div class="form-group" style="height: 400px;">
+        <p-treeTable 
+                selectionMode="single" 
+                [value]="bomTree" 
+                [(selection)]="selectedNode"
+                (onNodeSelect) = "onNodeSelect($event)"
+                (onNodeExpand)="nodeExpand($event)">
+                <p-column   field="name" header="物料名称" 
+                [style]="{'width':'300px','border-right': '1px solid #d9d9d9'}" ></p-column>
+                <p-column   field="spuType" header="分类" 
+                [style]="{'width':'200px','border-right': '1px solid #d9d9d9'}"></p-column>
+                <p-column   field="userGroupName" header="组织"  
+                [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+                <p-column   field="measureName" header="计量单位" 
+                [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+                <p-column   field="qty" header="数量" ></p-column>
+        </p-treeTable>
+    </div>
+</p-dialog>
+<!-- end dialog -->
+
+
+
+

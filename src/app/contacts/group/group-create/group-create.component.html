@@ -1,0 +1,56 @@
+<div class="col-md-12">
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-12">
+	            <form class="form-horizontal" #groupForm="ngForm" novalidate (ngSubmit)="onSubmit(groupForm)">
+	            	<div class="form-group" [ngClass]="{ 'has-error': groupForm.submitted && !groupName.valid }">
+		           		<label class="col-md-2 control-label mt-5">名称<span class='text-danger'>*</span>：</label>
+			            <div class="col-md-6">
+			                <input type="text" #groupName="ngModel" name="groupName" [(ngModel)]="data.groupName" class="form-control"  required  maxlength="24" pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+				       		<div *ngIf="groupForm.submitted && !groupName.valid" class="text-danger">
+
+						            <div [hidden]="!groupName.errors.required">
+						              名称必填
+						            </div>
+						            <div [hidden]="!groupName.errors.maxlength">
+						              名称最大长度为24
+						            </div>
+						            <div [hidden]="!groupName.errors.pattern">
+						              名称只能输入中文，英文，数字,及一些特殊字符
+						            </div>
+				       		</div>
+			            </div>
+		       		</div>
+		       		<div class="form-group" >
+		           		<label class="col-md-2 control-label mt-5">负责人<span class='text-danger'>*</span>：</label>
+			            <div class="col-md-6">
+           					 <ng-select 
+					      		[active]="activeItem"
+				              	[items]="principalList"
+				              	(data)="refreshValue($event)"
+				              	(removed)="removed($event)"
+				              placeholder="选择负责人">
+				  			</ng-select>
+				  			<div *ngIf="groupForm.submitted && !principal" class="text-danger">
+						        负责人必选.
+				       		</div>
+			            </div>
+		       		</div>
+		       		<div class="form-group" >
+		           		<label class="col-md-2 control-label mt-5">简介：</label>
+			            <div class="col-md-6">
+			                <textarea rows="6" style="resize: none;width: 100%" [(ngModel)]="data.description" name="description" ></textarea>
+			            </div>
+		       		</div>
+			        <div  class="form-group">
+			        	<label class="col-md-2 control-label mt-5"></label>
+			        	 <div class="col-md-10">
+				        	<button type="submit" class="btn btn-primary ml-10">确定</button>
+				        	<a href="javascript:history.go(-1);" class="btn btn-default">取消</a>
+				         </div>
+			        </div>
+	            </form>
+        	</div>
+    	</div>
+    </div>
+</div>

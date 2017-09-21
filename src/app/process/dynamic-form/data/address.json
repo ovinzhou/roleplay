@@ -1,0 +1,133 @@
+{
+    "tableContent": [
+        {
+            "address": "广东省 深圳市 龙岗区 招行大厦",
+            "addressCode": "20335160712ADDR000002",
+            "addressName": "保升",
+            "addressType": "Office",
+            "contacts": [
+                {
+                    "contactsType": "self",
+                    "creator": "20111160429PLEN020002",
+                    "crtTime": "2016-07-12 16:05:57",
+                    "entityId": "20335",
+                    "entityResourceId": "20335160712ADDR000001",
+                    "id": "20335160712ECTS000001",
+                    "modTime": "2016-07-12 16:05:57",
+                    "modifier": "20111160429PLEN020002",
+                    "status": 1,
+                    "user": {
+                        "creator": "20111160429PLEN020002",
+                        "crtTime": "2016-07-12 16:05:57",
+                        "firstName": "张三",
+                        "invite": false,
+                        "mobile": "13233335555",
+                        "modTime": "2016-07-12 16:05:57",
+                        "modifier": "20111160429PLEN020002",
+                        "nickname": "张三",
+                        "status": 1,
+                        "userId": "20335160712SYUS000002"
+                    }
+                }
+            ],
+            "creator": "20111160429PLEN020002",
+            "creatorName": "林杰",
+            "crtTime": "2016-07-12 16:05:57",
+            "id": "20335160712ADDR000001",
+            "modTime": "2016-07-12 16:05:57",
+            "modifier": "20111160429PLEN020002",
+            "modifierName": "林杰",
+            "refEnityId": "20335",
+            "version": 0
+        },
+        {
+            "address": "广东省 深圳市 龙岗区 广电大厦",
+            "addressCode": "20335160712ADDR000004",
+            "addressName": "皮革",
+            "addressType": "Sale",
+            "contacts": [
+                {
+                    "contactsType": "self",
+                    "creator": "20111160429PLEN020002",
+                    "crtTime": "2016-07-12 16:05:57",
+                    "entityId": "20335",
+                    "entityResourceId": "20335160712ADDR000003",
+                    "id": "20335160712ECTS000002",
+                    "modTime": "2016-07-12 16:05:57",
+                    "modifier": "20111160429PLEN020002",
+                    "status": 1,
+                    "user": {
+                        "creator": "20111160429PLEN020002",
+                        "crtTime": "2016-07-12 16:05:57",
+                        "firstName": "李四",
+                        "invite": false,
+                        "mobile": "13244446666",
+                        "modTime": "2016-07-12 16:05:57",
+                        "modifier": "20111160429PLEN020002",
+                        "nickname": "李四",
+                        "status": 1,
+                        "userId": "20335160712SYUS000003"
+                    }
+                }
+            ],
+            "creator": "20111160429PLEN020002",
+            "creatorName": "林杰",
+            "crtTime": "2016-07-12 16:05:57",
+            "id": "20335160712ADDR000003",
+            "modTime": "2016-07-12 16:05:57",
+            "modifier": "20111160429PLEN020002",
+            "modifierName": "林杰",
+            "refEnityId": "20335",
+            "version": 0
+        }
+    ],
+    "tableHead": [
+        {
+            "contentProp": {
+                "desc": "详情",
+                "params": [
+                    "id"
+                ]
+            },
+            "fieldCode": "id",
+            "fieldContent": "/contacts/maindetail",
+            "fieldDataType": "string",
+            "fieldName": "详情",
+            "fieldSort": "10",
+            "fieldType": "1"
+        },
+        {
+            "fieldCode": "addressName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "名称",
+            "fieldSort": "1",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "address",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "地址",
+            "fieldSort": "2",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "addressType",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "标签",
+            "fieldSort": "3",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "principalName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "负责人",
+            "fieldSort": "4",
+            "fieldType": "0"
+        }
+    ],
+    "dataCount": 2
+}

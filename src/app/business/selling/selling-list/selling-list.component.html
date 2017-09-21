@@ -1,0 +1,139 @@
+<process-detail [params]='processDetail'></process-detail>
+<!-- 工具栏 -->
+<div class="col-md-12">
+    <toolbar customClasses="full-width" 
+            [configList]="toolbarConfigs">
+    </toolbar>
+</div>
+<!-- 列表 -->
+<div class="col-md-12">
+    <p-dataTable 
+        [value]="orders" 
+        [emptyMessage]="emptyMessage" 
+        resizableColumns="true">
+
+        <p-column 
+            field="transCode" 
+            header="订单号" >
+            <template let-col let-order="rowData" let-ri="rowIndex" pTemplate="body" >
+                <a type="text" class="link-a" name="name" (click)='toDetail(order[col.field])'>{{order[col.field]}}</a>
+            </template>
+        </p-column>
+        <p-column 
+            field="customerName" 
+            header="客户">
+        </p-column>
+        <p-column 
+            field="contactName"  
+            header="联系人"
+            [style]="{'width':'100px'}">
+        </p-column>  
+        <p-column 
+            field="createDate" 
+            header="下单日期"
+            [style]="{'width':'100px'}">
+        </p-column>
+        <p-column 
+            field="originalCurrencyAmount" 
+            styleClass='text-right' 
+            header="订单金额" 
+            [style]="{'width':'80px'}">
+        </p-column>
+        
+        <p-column 
+            field="receiveAmount" 
+            styleClass='text-right' 
+            header="收款金额" 
+            [style]="{'width':'80px'}">
+        </p-column>
+        
+        <p-column 
+            field="currency" 
+            header="币种" 
+            [style]="{'width':'60px'}">
+        </p-column>
+        
+        <p-column 
+            field="status" 
+            header="状态"
+            [style]="{'width':'100px'}">
+        </p-column>
+        <p-column 
+            field="deliveryDate" 
+            header="交货日期"
+            [style]="{'width':'100px'}">
+        </p-column>      
+        <p-column 
+            field="handlerName"  
+            header="经办人"
+            [style]="{'width':'100px'}">
+        </p-column>
+        <p-column 
+            header="操作">
+            <template 
+                    let-order="rowData" 
+                    pTemplate type="body" >
+                    <a  type="text" class="link-a" name="name" (click)='tracking(order)'>跟踪</a>
+                    <!--
+                    <a  
+                        type="text" 
+                        [ngClass]="{ 'link-a':order.status=='待出库'}" 
+                        name="name" (click)='stockout(order)'>出库
+                    </a>
+                     <a 
+                        type="text" 
+                        [ngClass]="{'link-a':order.payStatus!='FINALPAYMENT' && order._status!='CANCEL'}"
+                         (click)='proceed(order)'>收款</a>
+                    <a  type="text" class="link-a" name="name">退货</a>
+                    <a  type="text" class="link-a" name="name">付款</a>
+                    <a  type="text" class="link-a" name="name">取消</a> -->
+            </template>
+        </p-column>
+        <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [first]="first"
+                    [totalRecords]="totalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event)">
+                </p-paginator>
+            </p-footer>
+    </p-dataTable>
+</div>
+<!-- dialog -->
+<p-dialog 
+    width="600" 
+    modal="true"
+    [(visible)]="display">
+    <p-dataTable 
+        [rows]="10"
+        [paginator]="true" 
+        [pageLinks]="3" 
+        [rowsPerPageOptions]="[10,20,30]"
+        [value]="orderItems" 
+        [emptyMessage]="emptyMessage" 
+        resizableColumns="true">
+        <p-column 
+            field="sku.name" 
+            header="物料名称">
+        </p-column>
+        <p-column 
+            field="price" 
+            header="单价" 
+            styleClass='text-right'>
+        </p-column>
+        <p-column 
+            field="qty" 
+            header="订单数量" 
+            styleClass='text-right'>
+        </p-column>
+        <p-column 
+            field="finishedQty" 
+            styleClass='text-right' 
+            header="完成数量">
+        </p-column>
+    </p-dataTable>
+</p-dialog>

@@ -1,0 +1,110 @@
+[
+    {
+        "ratio": "2:1",
+        "taskDetail": {
+            "distributedAmount": 12,
+            "distributedNum": 1200,
+            "distributedTime": "2016-12-01 09:40:44.0",
+            "procedureId": "PROC4CEFB6E0BA06B20C806E",
+            "procedureName": "啤盒-快啤",
+            "transCode": "E1T93P1M1612S1",
+            "worker": "董    海                    亮",
+            "workerId": "PLUS48ABB3757B8A59D2AD7E"
+        },
+        "wage": {
+            "display": 0,
+            "pricing": [
+                {
+                    "deflt": false,
+                    "pricing": 0.018,
+                    "pricingNum": 1,
+                    "range": "1-1000"
+                },
+                {
+                    "deflt": false,
+                    "pricing": 0.015,
+                    "pricingNum": 1,
+                    "range": "2000-10000"
+                }
+            ]
+        }
+    },
+    {
+        "ratio": "3:1",
+        "taskDetail": {
+            "distributedAmount": 12,
+            "distributedNum": 1200,
+            "distributedTime": "2016-12-01 09:40:44.0",
+            "procedureId": "PROC4CEFB6E0BA06B20C806E",
+            "procedureName": "啤盒-快啤",
+            "transCode": "E1T93P1M1612S1",
+            "worker": "董    海                    亮",
+            "workerId": "PLUS48ABB3757B8A59D2AD7E"
+        },
+        "wage": {
+            "display": 0,
+            "pricing": [
+                {
+                    "deflt": false,
+                    "pricing": 0.018,
+                    "pricingNum": 1,
+                    "range": "1-1000"
+                },
+                {
+                    "deflt": false,
+                    "pricing": 0.015,
+                    "pricingNum": 1,
+                    "range": "2000-10000"
+                }
+            ]
+        }
+    },
+    {
+        "ratio": "1:10",
+        "taskDetail": {
+            "distributedAmount": 12,
+            "distributedNum": 1200,
+            "distributedTime": "2016-12-01 09:40:44.0",
+            "procedureId": "PROC4CEFB6E0BA06B20C806E",
+            "procedureName": "啤盒-快啤",
+            "transCode": "E1T93P1M1612S1",
+            "worker": "董    海                    亮",
+            "workerId": "PLUS48ABB3757B8A59D2AD7E"
+        },
+        "wage": {
+            "display": 0,
+            "pricing": [
+                {
+                    "deflt": false,
+                    "pricing": 0.018,
+                    "pricingNum": 1,
+                    "range": "1-1000"
+                }
+            ]
+        }
+    },
+    {
+        "ratio": "1:5",
+        "taskDetail": {
+            "distributedAmount": 12,
+            "distributedNum": 1200,
+            "distributedTime": "2016-12-01 09:40:44.0",
+            "procedureId": "PROC4CEFB6E0BA06B20C806E",
+            "procedureName": "啤盒-快啤",
+            "transCode": "E1T93P1M1612S1",
+            "worker": "董    海                    亮",
+            "workerId": "PLUS48ABB3757B8A59D2AD7E"
+        },
+        "wage": {
+            "display": 0,
+            "pricing": [
+                {
+                    "deflt": false,
+                    "pricing": 0.018,
+                    "pricingNum": 1,
+                    "range": "1-1000"
+                }
+            ]
+        }
+    }
+]

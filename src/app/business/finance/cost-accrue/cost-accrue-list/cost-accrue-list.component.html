@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="costAccrueList" 
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" 
+            resizableColumns="true"
+            sortable="custom">
+            <p-column [style]="{'width':'30px'}" selectionMode="multiple"></p-column>
+            <p-column  [style]="{'width':'230px'}" field="transCode" header="计提单号" sortable="custom" [sortable]="true"></p-column>
+            <p-column field="type" header="计提类型" [sortable]="true" ></p-column>
+            <p-column field="amount" header="计提金额(￥)" [sortable]="true" styleClass="text-right">
+                <template let-ccl="rowData" pTemplate="body" >
+                    <span class="interlinkage">{{ccl.amount}}</span>
+                </template> 
+            </p-column>
+            <p-column field="status" header="计提状态" [sortable]="true" styleClass="text-center">
+               <template let-ccl="rowData" pTemplate="body" >
+                    <span class="interlinkage">{{ccl.status}}</span>
+                </template> 
+            </p-column>
+            <p-column field="applicant" header="计提人" [sortable]="true" ></p-column>
+            <p-column field="applicationTime" header="计提日期" [sortable]="true" ></p-column>
+            <!-- <p-column   header="操作" [style]="{'width':'100px'}">
+            <template let-rowData="rowData" pTemplate type="body" >
+                <a  type="text" 
+                    (click)="onTspvdpcd(rowData)"
+                    class="interlinkage">跟踪</a>
+                <a  type="text" 
+                    (click)="onTspvdpmt(rowData)"
+                    class="interlinkage">取消</a>
+            </template>
+        </p-column> -->
+            <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [first]="first"
+                    [totalRecords]="totalRecords"
+                    [rowsPerPageOptions]="[10,20,30]"
+                    (onPageChange)="paginate($event)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+        
+    </div>
+</div>
+

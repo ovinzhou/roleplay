@@ -1,0 +1,29 @@
+"use strict";
+export const processingList  = {
+    "data":[
+    	{
+    		skuName:"J-751寸布_米黄",
+    		orderTransCode:'E1T103P1M1635X3',
+    		skuType:'半成品>寸布>寸布',
+    		measurement:'片',
+    		planQty:'6,000',
+    		completeQty:'6,000',
+    		deliveryMode:'备品',
+    		deliveryDate:'2017/03/17',
+    		completeTime:'2017/03/17',
+    		status:'已完成'
+    	},
+    	{
+    		skuName:"888机压纱顶布_白色",
+    		orderTransCode:'E1T103P1M1702S',
+    		skuType:'半成品>内顶>内顶布',
+    		measurement:'片',
+    		planQty:'100',
+    		completeQty:'-',
+    		deliveryMode:'按单',
+    		deliveryDate:'2017/03/17',
+    		completeTime:'',
+    		status:'待加工'
+    	}
+    ]
+}

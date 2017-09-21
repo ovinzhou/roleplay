@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+        <p-dataTable [emptyMessage]="emptyMessage" (onSort)="onSort($event)" [value]="warehouses"  [(selection)]="selectedDatas" sortable="custom" resizableColumns="true">
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple">
+            </p-column>
+            <p-column field="name" header="名称" [sortable]="true">
+                <template let-attr="rowData" pTemplate type="body">
+                    <a type="text" name="name" class="interlinkage" (click)="onEdit(attr)">
+                        {{attr.name}}
+                    </a>
+                </template>
+            </p-column>
+            <p-column field="content" header="地址" [sortable]="true">
+            </p-column>
+            <p-column field="officeTel" header="办公电话" [sortable]="true">
+            </p-column>
+            <p-footer>
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]='first' [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPage($event,selectedDatas)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>

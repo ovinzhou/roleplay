@@ -1,0 +1,248 @@
+<div class="col-md-12">
+<!--     <div class="ml-20 mt-10"  >
+    	<button class="transparent-button-style" type="button" (click)="toReturn()">返回</button>  
+    </div> -->
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-9">
+	            <form class="form-horizontal" #bizForm="ngForm" novalidate (ngSubmit)="onSubmit(bizForm)">
+	            	<div class="form-group" [ngClass]="{ 'has-error': bizForm.submitted && !entityName.valid }">
+		           		<label class="col-md-2 control-label">主体名称<span class='text-danger'>*</span>：</label>
+			            <div class="col-md-6 pl-0">
+			                <input type="text" #entityName="ngModel" name="entityName" [(ngModel)]="data.entityName" class="form-control"  required  maxlength="24" pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+				       		<div *ngIf="bizForm.submitted && !entityName.valid" class="text-danger">
+
+						            <div [hidden]="!entityName.errors.required">
+						              名称必填
+						            </div>
+						            <div [hidden]="!entityName.errors.maxlength">
+						              名称最大长度为24
+						            </div>
+						            <div [hidden]="!entityName.errors.pattern">
+						              名称只能输入中文，英文，数字,及一些特殊字符
+						            </div>
+				       		</div>
+			            </div>
+		       		</div>
+		       		<div class="form-group" [ngClass]="{ 'has-error': bizForm.submitted && !shortName.valid }">
+		           		<label class="col-md-2 control-label">主体简称：</label>
+			            <div class="col-md-6 pl-0">
+			                <input type="text" #shortName="ngModel" name="shortName" [(ngModel)]="data.shortName" class="form-control"  maxlength="24" pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+				       		<div *ngIf="bizForm.submitted && !shortName.valid" class="text-danger">
+						            <div [hidden]="!shortName.errors.maxlength">
+						              简称最大长度为24
+						            </div>
+						            <div [hidden]="!shortName.errors.pattern">
+						              简称只能输入中文，英文，数字,及一些特殊字符
+						            </div>
+				       		</div>
+			            </div>
+		       		</div>
+		       		<div class="form-group" >
+		           		<label class="col-md-2 control-label">负责人<span class='text-danger'>*</span>：</label>
+			            <div class="col-md-6 pl-0">
+			                <ng-select 
+					      		[active]="activeItem"
+				              	[items]="principalList"
+				              	(data)="setPrincipal($event)"
+				              placeholder="选择负责人">
+				  			</ng-select>
+			            </div>
+		       		</div>
+		       		<div class="form-group" >
+		           		<label class="col-md-2 control-label">主体签名：</label>
+			            <div class="col-md-6 pl-0">
+			                <textarea rows="6" style="resize: none;width: 100%;"  [(ngModel)]="data.description" name="description"></textarea>
+			            </div>
+		       		</div>
+
+					<!-- <div class="form-group">
+						<label class="col-md-2 control-label fontWeight">资金账户列表:</label>
+						<div class="col-md-9 pl-0 mt-10">
+							<a class="transparent-button-style" (click)='addFinanceAccount(addr)'>添加</a>
+							<a class="transparent-button-style" (click)="deleteFinanceAccount(addr)">删除</a>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label class="col-md-2 control-label"></label>
+						<div class="col-md-9 pl-0">
+							<p-dataTable [value]="financeAccountList" [editable]="true" 
+										[style]="setStyles()"
+											[(selection)]="selectedAccount" [emptyMessage]="emptyMessage" #dt>
+								<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+							    <p-column field="capName" header="资金账户" [editable]="true"  [style]="{'width':'140px'}"></p-column>
+							    <p-column field="bankCode" header="开户行"  [style]="setAccountStyles()">
+							        <template let-index let-col let-account="rowData" pTemplate="body" let-ri="rowIndex">
+							            <p-dropdown [(ngModel)]="account[col.field]" [options]="banks" [autoWidth]="false" [style]="{'width':'100%'}" name="bank{{ri}}"></p-dropdown>
+							        </template>
+							    </p-column>
+							    <p-column field="ownerName" header="开户名" [editable]="true"></p-column>
+							    <p-column field="accountNumber" header="账号" [editable]="true"></p-column>
+							    <p-column field="currency" header="币种"  [style]="setAccountStyles()">
+							        <template let-index let-col let-account="rowData" pTemplate="body" let-ri="rowIndex">
+							            <p-dropdown [(ngModel)]="account[col.field]" [options]="currencyList" [autoWidth]="false" [style]="{'width':'100%'}" name="currency{{ri}}"></p-dropdown>
+							        </template>
+							    </p-column>
+							</p-dataTable>
+						</div>
+		       		</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label pr-30 fontWeight">主体地址:</label>
+						<div class="col-md-9 mt-10 pl-0">
+							<a class="transparent-button-style" (click)='addAddr(addr)'>添加</a>
+						</div>
+					</div>
+
+					<div *ngIf="isAddr">
+						<div *ngFor="let addr of addressList; let i=index; " >
+							<div class="form-group">
+				           		<label class="col-md-2 control-label">地址名称<span class='text-danger'>*</span>:</label>
+					            <div class="col-md-7 pl-0">
+					                <input type="text"  name="addressName{{i}}" [(ngModel)]="addr.addressName" class="form-control"  required  maxlength="30" placeholder="请输入主体地址名称"  />
+						       		<div *ngIf="bizForm.submitted && (addr.addressName===''||addr.addressName===undefined)" class="text-danger">
+								         名称不能为空  
+						       		</div>
+					            </div>
+					            <div class="col-md-2">
+					            	<a class="transparent-button-style pull-right" (click)="deleteAddr(i,addr)">删除</a>
+					            </div>
+				       		</div>
+							<div class="form-group ">
+				           		<label class="col-md-2 control-label">详细地址<span class='text-danger'>*</span>:</label>
+				           		<div class="radio-inline" >
+			                        <input type='radio' id="china{{i}}"   [(ngModel)]='addr.addressRange' name='addressRange{{i}}' value='CHINA' (change)="addr.addrDetail=''"> <label for="china{{i}}">国内</label>
+		                    	</div>
+		                    	<div class="radio-inline" >
+			                       <input type='radio' id="female{{i}}"  [(ngModel)]='addr.addressRange' name='addressRange{{i}}' value='ABROAD' (change)="addr.addrDetail=''"><label for="female{{i}}">国外</label>
+		                    	</div>
+							</div>
+							<div class="form-group" *ngIf="addr.addressRange == 'CHINA'">
+				           		<label class="col-md-2 control-label"></label>
+					            <div class="col-md-3" style="padding-left: 0;">
+				            		<ng-select 
+							      		[active]="addr.activeProvince"
+						              	[items]="provinceList"
+						              	(data)="refreshValue('province',$event,addr)"
+						              placeholder="请选择省份">
+						  			</ng-select>
+	               					 <div *ngIf="bizForm.submitted && (addr.province===''||addr.province===undefined)" class="text-danger">
+								            <div>
+								              省份不能为空
+								            </div>
+					
+						       		</div>
+					            </div>
+					            <div class="col-md-3">
+	               					 <ng-select 
+							      		[active]="addr.activeCity"
+						              	[items]="addr.citiesList"
+						              	(data)="refreshValue('city',$event,addr)"
+						              placeholder="请选择城市">
+						  			</ng-select>
+	               					 <div *ngIf="bizForm.submitted && (addr.cities===''||addr.cities===undefined)" class="text-danger">
+								            <div>
+								              城市不能为空
+								            </div>
+					
+						       		</div>
+					            </div>
+					            <div class="col-md-3">
+	               					 <ng-select 
+							      		[active]="addr.activeArea"
+						              	[items]="addr.areaList"
+						              	(data)="refreshValue('area',$event,addr)"
+						              placeholder="请选择区县">
+						  			</ng-select>
+	               					 <div *ngIf="bizForm.submitted && (addr.area===''||addr.area===undefined)" class="text-danger">
+								            <div>
+								              地区不能为空
+								            </div>
+					
+						       		</div>
+					            </div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label"></label>
+								<div class="col-md-9 pl-0">
+									<input type="text" name="addrDetail{{i}}" class="form-control" placeholder="请输入详细地址" [(ngModel)]="addr.addrDetail"  />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">办公电话:</label>
+								<div class="col-md-9 pl-0">
+									<input type="text" name="officeTel{{i}}" class="form-control" placeholder="请输入办公电话" [(ngModel)]="addr.officeTel"  />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">传真:</label>
+								<div class="col-md-9 pl-0">
+									<input type="text" name="fax{{i}}" class="form-control" placeholder="请输入传真" [(ngModel)]="addr.fax"  />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">地址类型:<span class="text-danger">*</span>:</label>
+								<div class="col-md-9 pl-0">
+									<div class="ui-g-12">
+					                	<p-checkbox name="relationType{{i}}" value="Office" label="办公" [(ngModel)]="addr.selectedAddrType" ></p-checkbox>
+					                	<p-checkbox name="relationType{{i}}" value="Storehouse" label="仓库" [(ngModel)]="addr.selectedAddrType" ></p-checkbox>
+					                	<p-checkbox name="relationType{{i}}" value="Outlet" label="门店" [(ngModel)]="addr.selectedAddrType" ></p-checkbox>
+					                	<p-checkbox name="relationType{{i}}" value="Factory" label="工厂" [(ngModel)]="addr.selectedAddrType" ></p-checkbox>
+					                </div>
+					                <div *ngIf="bizForm.submitted && addr.selectedAddrType.length == 0" class="text-danger">
+			                		地址类型不能为空.
+			                		</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-2 control-label fontWeight">联系人:</label>
+								<div class="col-md-9 pl-0 mt-10">
+									<a class="transparent-button-style" (click)='addConstacts(addr)'>添加</a>
+									<a class="transparent-button-style" (click)="deleteContacts(addr)">删除</a>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label"></label>
+								<div class="col-md-9 pl-0">
+									<p-dataTable [value]="addr.contactList" [editable]="true" 
+										[(selection)]="addr.selectedUser" [emptyMessage]="emptyMessage" #dt>
+										<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+									    <p-column field="nickName" header="名称*" [editable]="true"></p-column>
+									    <p-column field="mobile" header="手机号" [editable]="true"></p-column>
+									    <p-column field="email" header="邮箱" [editable]="true"></p-column>
+									</p-dataTable>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="form-group">
+						<label class="col-md-2 control-label"></label>
+						<div class="col-md-9 pl-0">
+							<button type="submit" class="btn btn-default" >确定</button>
+        					<button type="button" class="btn btn-default" (click)="toReturn()" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+	            </form>
+        	</div>
+    	</div>
+    </div>
+    <div style="position: absolute;top:80px;right:300px; width:150px;height:140px">
+		<img  [src]="data.files" alt="用户头像" width="230" height="100" >
+		<div style="width: 100px;">
+        	<div style="display : block;width: 230px; margin: 5px auto;">
+                <span class='file' style="display: block;margin:0 auto;">更换图片
+                    <input
+                        type='file'
+                        accept="image/gif,image/jpg,image/jpeg,image/png"
+                        name='file'
+                        (change)='onFileChange($event)'
+                    />
+                </span>
+        	</div>
+        </div>
+            
+    </div>
+</div>

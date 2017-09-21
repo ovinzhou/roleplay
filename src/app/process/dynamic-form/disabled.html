@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="rfd.css" rel="stylesheet" type="text/css"/>
+		<link href="jquery-ui/all.css" rel="stylesheet" type="text/css"/>
+		<link href="validationEngine.jquery.css" rel="stylesheet" type="text/css"/>
+		<link href="fine-uploader/fine-uploader-new.css" rel="stylesheet" type="text/css"/>
+		<link href="/src/assets/bootstrap/bootstrap.min.css"/>
+		<link href="/src/assets/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="/src/assets/components-rounded.css" rel="stylesheet" type="text/css">
+		<link href="/src/assets/layout.css" rel="stylesheet" type="text/css">
+		<script src="jquery.js"></script>
+		<script>
+		console.log(window.top.params);
+			$(function(){
+				var get = window.top.localStorage.getItem("baseUrl")+"/bpm/processInstance/"+
+						  window.top.localStorage.getItem("processCode")+"/form"
+				$("body").rfd({disabled:true,
+								showButton:false,
+								get:get
+							});
+
+			});
+		</script>
+	</head>
+	<body style="padding-top:0px !important">
+		
+	</body>
+
+	<script src="core.js"></script>
+	<script src="widget.js"></script>
+	<script src="validater.js"></script>
+	<script src="initializer/webservice-init.js"></script>
+	<script src="initializer/combobox-init.js"></script>
+	<script src="initializer/default-init.js"></script>
+	<script src="initializer/number-init.js"></script>
+	<script src="initializer/selector-init.js"></script>
+	<script src="initializer/datetime-init.js"></script>
+	<script src="initializer/bom-init.js"></script>
+	<script src="initializer/grid-init.js"></script>
+	<script src="initializer/flow-init.js"></script>
+	<script src="initializer/selectormultistep-init.js"></script>
+	<script src="initializer/form-init.js"></script>
+	<script src="correlators/depend-field-remote.js"></script>
+	<script src="correlators/manual-cancel-after-verification.js"></script>
+	<script src="correlators/depend-field-object.js"></script>
+	<script src="correlators/multiplication.js"></script>
+	<script src="correlators/division.js"></script>
+	<script src="correlators/taxation.js"></script>
+	<script src="correlators/depend-grid-aggregate.js"></script>
+	<script src="correlators/expend-expenses-aggregate.js"></script>
+	<script src="correlators/bom.js"></script>
+	<script src="correlators/bom-aggregate.js"></script>
+	<script src="correlators/bom-createexpenses-aggregate.js"></script>
+	<script src="correlators/cost.js"></script>
+	<script src="correlators/procedure.js"></script>
+	<script src="correlators/column-depend-field.js"></script>
+	<script src="correlators/section-depend-field-remote.js"></script>
+	<script src="transtype-customized/procedure-validater-inject.js"></script>
+	<script src="transtype-customized/goods-validater-inject.js"></script>
+	<script src="transtype-customized/depot-auto-stuff.js"></script>
+	<script src="transtype-customized/task-acceptance.js"></script>
+	<script src="transtype-customized/planbom.js"></script>
+	<script src="transtype-customized/valid-transcode.js"></script>
+	<script src="correlators/wages.js"></script>
+	<script src="rfd.js"></script>
+	<script src="section.js"></script>
+	<script src="field.js"></script>
+	<script src="label.js"></script>
+	<script src="image.js"></script>
+	<script src="text.js"></script>
+	<script src="combobox.js"></script>
+	<script src="choice.js"></script>
+	<script src="layout-flow.js"></script>
+	<script src="jquery-ui/jquery.mousewheel.js"></script>
+	<script src="jquery-ui/jquery.datetimepicker.full.js"></script>
+	<script src="jquery-ui/i18n/globalize.js"></script>
+	<script src="jquery-ui/spinner.js"></script>
+	<script src="jquery-ui/button.js"></script>
+	<script src="jquery-ui/mouse.js"></script>
+	<script src="jquery-ui/slider.js"></script>
+	<script src="jquery-ui/position.js"></script>
+	<script src="jquery-ui/tooltip.js"></script>
+	<script src="jquery-ui/resizable.js"></script>
+	<script src="jquery-ui/draggable.js"></script>
+	<script src="jquery-ui/dialog.js"></script>
+	<script src="datetime.js"></script>
+	<script src="number.js"></script>
+	<script src="grid.js"></script>
+	<script src="bom-generator.js"></script>
+	<script src="layout-grid.js"></script>
+	<script src="layout-column.js"></script>
+	<script src="validaters/required-validater.js"></script>
+	<script src="validaters/number-range-validater.js"></script>
+	<script src="validaters/string-length-validater.js"></script>
+	<script src="validaters/datetime-compare.js"></script>
+	<script src="validaters/number-compare.js"></script>
+	<script src="validaters/_biz-proceduretime-compare.js"></script>
+	<script src="fine-uploader/fine-uploader.js"></script>
+	<script src="file-upload.js"></script>
+	<script src="fine-uploader/jquery.binarytransport.js"></script>
+	<script src="multi-step-choice.js"></script>
+</html>

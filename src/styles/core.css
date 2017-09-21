@@ -1,0 +1,19 @@
+div.invalid{
+	background: red;
+}
+
+.ui-dialog.ui-widget .ui-dialog-titlebar{
+	padding: .5em .75em;
+}
+
+body .ui-datatable .ui-datatable-footer{
+	padding: 0 0;
+}
+
+.ui-datatable .ui-datatable-footer {
+    padding: 0 0;
+}
+
+.dashboard-header {
+    padding: 20px 5px 0px 0px;
+}

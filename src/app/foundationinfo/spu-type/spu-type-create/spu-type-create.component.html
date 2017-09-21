@@ -1,0 +1,69 @@
+<div class="col-md-12" >
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-12">
+        		 <form class="form-horizontal" 
+        		 		#spuTypeForm="ngForm" 
+        		 		novalidate 
+        		 		(ngSubmit)="onSubmit(spuTypeForm)">
+						<div class="form-group" 
+							[ngClass]="{ 'has-error': spuTypeForm.submitted && !name.valid }">
+			           		<label class="col-md-2 control-label mt-5">类型名称
+			           			<span class='required'>*</span>：
+			           		</label>
+				            <div class="col-md-10">
+				                <input type="text" 
+				                		#name="ngModel" 
+				                		name="name" 
+				                		[(ngModel)]="spuType.name" 
+				                		class="form-control"  
+				                		required  
+				                		maxlength="10" 
+				                		pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+					       		<div *ngIf="spuTypeForm.submitted && !name.valid" 
+					       			class="text-danger">
+
+							            <div [hidden]="!name.errors.required">
+							              类型名称必填
+							            </div>
+							            <div [hidden]="!name.errors.maxlength">
+							              名称最大长度为10
+							            </div>
+							            <div [hidden]="!name.errors.pattern">
+							              名称只能输入中文，英文，数字,及一些特殊字符
+							            </div>
+					       		</div>
+				            </div>
+			       		</div>
+			       		<div class="form-group" >
+			           		<label class="col-md-2 control-label mt-5">描述:</label>
+				            <div class="col-md-10">
+				                <textarea 	rows="6" 
+				                			class="form-control"  
+				                			cols="82"
+				                			[(ngModel)]="spuType.comment" 
+				                			name="comment" >
+				                </textarea>
+				            </div>
+			       		</div>
+			       		<div  class="form-group">
+					         <div class="col-md-2"></div>
+					         <div class="col-md-10">
+					         	<button  
+					         		class="btn btn-primary" 
+						    		type="submit">
+						    		确定
+						    	</button>
+						    	<button  
+						    		type="button" 
+						    		class="btn btn-default" 
+						    		(click)='onCancel()'>
+						    		取消
+						    	</button>
+					        </div>
+				        </div>
+        		 </form>
+        	</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div [class]="customClasses" [ngClass]="'full-width clearfix'">
+    <!-- <div class="col-md-6 nav-bar left-group"> -->
+    <ul class="col-md-6 tool-bar left-group">
+        <!-- if -->
+        <ng-container>
+        	<li>
+        		<div class="label-angle">视图</div>
+        	</li>
+        	
+        	<li *ngIf="isShowViewLabel">
+                <a (click)="fetchTotal()" [ngClass]="{'active-label': !activeViewLabelItem}" >全部</a>
+            </li>
+
+            <ng-container *ngFor="let configItem of leftGroup">
+                <ng-container [ngSwitch]="configItem.type">
+                     <template [ngSwitchCase]="'button'">
+                       	<li>
+    			            <!-- <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> -->
+    			            <a [ngClass]="{'active-label': activeViewLabelItem === configItem}" 
+                                (click)="activeViewLabelItem = configItem;configItem.handler?.call()">
+                                {{configItem.label}}
+                            </a>
+    			        </li>
+                     </template>
+                     <template ngSwitchDefault>
+                        <!-- <span>ErrorType</span> -->
+                     </template>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <!-- else -->
+       <!--  <ng-container *ngIf="!isShowViewLabel">
+            <ng-container *ngFor="let configItem of leftGroup">
+                <ng-container [ngSwitch]="configItem.type">
+                     <template [ngSwitchCase]="'button'">
+                        <li>
+                            <a (click)="configItem.handler.call()">
+                                {{configItem.label}}
+                            </a>
+                        </li>
+                     </template>
+                     <template ngSwitchDefault>
+                     </template>
+                </ng-container>
+            </ng-container>
+        </ng-container> -->
+    <!-- </div> -->
+	</ul>
+
+    <ul class="col-md-6 tool-bar right-group">
+       <ng-container *ngFor="let configItem of rightGroup" style="display:inline-block;">
+        	<ng-container [ngSwitch]="configItem.type">
+                 <template [ngSwitchCase]="'button'">
+                  	<li >
+			            <a (click)="configItem.handler.call()">
+
+                            <i class="{{configItem.icon}}" aria-hidden="true"></i>
+                            {{configItem.label}}
+                            <i class="badge badge-num" *ngIf="configItem.badgeNum>0">{{configItem.badgeNum}}</i>
+                        </a>
+
+			        </li>
+                 </template>
+                 <template [ngSwitchCase]="'search'">
+                    <div class="pull-right" style="display:inline-block;">
+                        <div class="ui input">
+                            <input name='searchKeyWord' #search [(ngModel)]="configItem.value" (keydown)="onKeydown(configItem)" type="text" />
+                            <i class="fa fa-times-circle fa-lg mr-5 mb-8 icon" 
+                            style="color: #ccc;padding-top: 6px;width:30px" 
+                            (click)="search.value='';configItem.handler?.call(null,'')"></i>
+                        </div>
+                        <button class="font-size-12 search-button-style" type="button" 
+                          (click)="configItem.handler.call(null,search.value)">搜索
+                        </button>
+                    </div>
+                 </template>
+                 <template ngSwitchDefault>
+                   <!-- <span>ErrorType</span> -->
+                 </template>
+            </ng-container>
+        </ng-container>
+    </ul>
+</div>

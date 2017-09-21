@@ -1,0 +1,40 @@
+{
+	"COSTS" : [{
+			"fgtrns008" : 10.000000
+		}
+	],
+	"BOMS" : [
+		{
+		"fggods007": "MA",
+		"fggods006": "A11|A1101|A110101",
+		"fggods005": "D0717A0151084CF19FD8BBD67",
+		"fggods003": "T718礼品带",
+		"fgtrns003": "1/4",
+		"fggods002": "200001468809181290",
+		"fggods001": "20000160718GODS000012",
+		"fggods011": "红色",
+		"fggods010": "T7180102",
+		"fggods009": "10*20",
+		"fggods008": "SemiFG",
+		"wasteRate":0.1,
+		"goodsTypeName":"abc",
+		"unitName":"个"
+		},
+		{
+		"fggods007": "PO",
+		"fggods006": "A11|A1101|A110101",
+		"fggods005": "D0717A0151084CF19FD8BBD67",
+		"fggods003": "T718礼品盒",
+		"fgtrns003": "1/3",
+		"fggods002": "200001468809275074",
+		"fggods001": "20000160718GODS000013",
+		"fggods011": "紫色",
+		"fggods010": "T7180102",
+		"fggods009": "30*50",
+		"fggods008": "SemiFG",
+		"wasteRate":0.2,
+		"goodsTypeName":"abc",
+		"unitName":"个"
+		}
+	]
+}

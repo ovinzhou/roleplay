@@ -1,0 +1,59 @@
+<div class="col-md-12 row container">
+    <div class="col-md-12 row">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12 row">
+       <p-dataTable 
+            [emptyMessage]="emptyMessage"
+            [value]="wages" 
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" 
+            resizableColumns="true"
+            sortable="custom">
+            <p-column   [style]="{'width':'38px'}" 
+                        selectionMode="multiple">
+            </p-column>
+            <p-column   field="wagesName" 
+                        header="工价名称" 
+                        [sortable]="true">
+                <template let-wages="rowData" pTemplate type="body" >
+                    <a  type="text" 
+                        name="proName" 
+                        (click)="onEdit(wages)"
+                        class="interlinkage">{{wages.wagesName}}</a>
+                </template>
+            </p-column>
+            <p-column   field="proName" 
+                        header="工序名称" 
+                        [sortable]="true">
+            </p-column>
+            <p-column   field="valuationNumber" 
+                        header="计价数量" 
+                        [sortable]="true">
+            </p-column>
+            <p-column   field="valuationValue" 
+                        header="工价" 
+                        [sortable]="true">
+            </p-column>
+            <p-column   field="wagesType" 
+                        header="定价类型" 
+                        [sortable]="true">
+            </p-column>
+            <p-column   field="comment" 
+                        header="描述" 
+                        [sortable]="true">
+            </p-column>
+            <p-footer >
+                <div style="float: right;">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]="first" [style]="{'border':'none','padding' : '0px'}" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,'listUser')"></p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+
+
+
+
+

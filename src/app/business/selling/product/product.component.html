@@ -1,0 +1,197 @@
+<div class="col-md-12" >
+    <toolbar customClasses="full-width" 
+            [configList]="spuListToolbarConfigs">
+    </toolbar>
+</div>
+
+<div [ngClass]="{'col-md-12': !orderItemVisible, 'col-md-9':orderItemVisible}" >
+  <div [ngClass]="{'col-md-2': !orderItemVisible, 'col-md-3':orderItemVisible}"
+      (mouseover)="item.focus=true;"
+      (mouseleave)="item.focus=false;"
+      *ngFor='let item of spuList;'>
+      <div class="thumbnail" 
+          [ngClass]="{'chunk-focus':item.focus}">
+          <div class="text-center">
+            <span class="glyphicon glyphicon-chevron-left img-go" 
+              (click)="img_go_prev(item)"
+              [ngClass]="{'white-color': !item.focus||item.currentImgIndex==0, 'gray-color':item.focus&&item.currentImgIndex!=0}">
+            </span>
+            <img 
+              [src]='item.imgs[item.currentImgIndex]||"src/assets/img/icon-no-image.jpg"'  
+              (click)="goSpuDetail(item)">
+            <span class="glyphicon glyphicon-chevron-right img-go" 
+              (click)="img_go_next(item)"
+              [ngClass]="{'white-color': !item.focus||item.currentImgIndex==item.imgs.length-1||item.imgs.length==0, 'gray-color':item.focus&&item.currentImgIndex<item.imgs.length-1}">
+            </span>
+          </div>
+          <div class="caption text-center">
+              <p>
+                <strong 
+                (click)="goSpuDetail(item)">
+                {{item.name}}
+              </strong>
+              </p>
+              <p>SKU数量:{{item.skuNumber}}</p>
+              <p> 
+                <a (click)="onOpenSkuListSelector(item)" 
+                    class="btn btn-default add-btn" 
+                    role="button">加入订单
+                </a>
+              </p>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="col-md-1 side-tool" (click)='orderItemVisible=!orderItemVisible'>
+    <p>查看已选商品</p>
+</div>
+
+<div class="col-md-3"  [hidden]="!orderItemVisible" id='orderItemInfo'>
+  <ul class="list-group" >
+    <li class="list-group-item list-group-item-info" 
+        style="background-color: rgba(221, 221, 221, 0.23);">
+      <input 
+        type="checkbox"
+        (change)="selectedAllTempOrderItem()" 
+        [(ngModel)]='allTempOrderItemChecked'>全部
+      <a class="pull-right" (click)="removeTempOrderItem()">
+        <span class="glyphicon glyphicon-trash" >删除</span>
+      </a>
+    </li>
+
+    <div  class="orderItem-list" id='orderItemList'>
+      <li class="list-group-item" 
+          *ngFor='let item of orderItemList;' 
+          (mouseover)="item.focus=true;"
+          (mouseleave)="item.focus=false;">
+          <div class="item-img">
+            <input type="checkbox" name="" 
+              [(ngModel)]='item.checked' 
+              (change)="selectedTempOrderItem()"
+              >
+            <img [src]='item.imgs[item.currentImgIndex]||"src/assets/img/icon-no-image.jpg"'>
+          </div>
+          <div class="item-detail">
+            <div class="item-detail-name">{{item.name}}</div>
+            <div  class="item-detail-qty">
+              <a class="btn btn-default num-btn-sm" 
+                (click)="changeSkuQty('subtract',item)">-</a>
+                <input  class='sku-qty-number-sm text-center' 
+                        type="number"
+                        (change)='onSkuqtyChange(item)'
+                        [(ngModel)]='item.qty'>
+              <a class="btn btn-default num-btn-sm" (click)="changeSkuQty('add',item)"> +</a>
+              <span class="glyphicon glyphicon-trash" 
+                    *ngIf="item.focus"
+                    (click)="removeTempOrderItem_one(item)"
+                    style="margin-left: 3px;color: #026aa7;cursor: pointer;"></span>
+            </div>
+          </div>
+      </li>
+    </div>
+
+    <li class="list-group-item">
+      <span >已选<strong style="color: red;">{{orderItemList.length}}</strong>件</span>
+      <!-- <span class="pull-right" >合计:
+        <strong style="color: red;">2100</strong>
+      </span> -->
+    </li>
+
+    <li class="list-group-item list-group-item-info text-center" 
+        style="background-color: rgba(221, 221, 221, 0.23);">
+      <a (click)="onSelectorSkusAndCreateOrder()">下单
+        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="col-md-12 ">
+  <a class="center down more" (click)="spuListloadingMore()">加载更多</a>
+</div>
+
+
+
+
+
+<p-dialog
+  [(visible)]="skuListSelectorVisible"
+  modal="modal"
+  width="1000"
+  header="选择商品"
+  *ngIf="skuListSelectorVisible">
+  <div class="col-md-12 sku-list-page" style="padding-top: 10px;">
+    <div class="col-md-4" *ngFor='let item of skuList;' style="margin-bottom: 5px;" 
+      [ngClass]="{'chunk-focus':item.focus}"  
+      (mouseover)="item.focus=true;"
+      (mouseleave)="item.focus=false;">
+      <div class="thumbnail" >
+        <div class="text-left">
+          <span class="glyphicon glyphicon-chevron-left img-go" 
+            (click)="img_go_prev(item)"
+            [ngClass]="{'white-color': !item.focus||item.currentImgIndex==0, 'gray-color':item.focus&&item.currentImgIndex!=0}">
+          </span>
+          <img 
+            [src]='item.imgs[item.currentImgIndex]||"src/assets/img/icon-no-image.jpg"'  
+            (click)="goSkuDetail(item)">
+          <span class="glyphicon glyphicon-chevron-right img-go" 
+            (click)="img_go_next(item)"
+            [ngClass]="{'white-color': !item.focus||item.currentImgIndex==item.imgs.length-1||item.imgs.length==0, 'gray-color':item.focus&&item.currentImgIndex<item.imgs.length-1}">
+          </span>
+
+        </div>
+        <div class="caption text-left" >
+          <p class="item-detail-name"><strong (click)="goSkuDetail(item)">{{item.name}}</strong></p>
+          <p>外箱：
+            <select 
+              [(ngModel)]='item.outerCode' 
+              (change)="onSelectedSkuOuter(item)" 
+              style="height: 26px;width: 78px;margin-left: -5px;">
+              <option *ngFor="let outer of outerLlit;" 
+                [value]='outer.code' >{{outer.name}}
+              </option>
+            </select>{{item.outerQty}}
+          </p>
+          <p>CTN：<input  class='sku-qty-number text-center' 
+                  type="number"
+                  (change)='onSkuCtnChange(item)'
+                  [(ngModel)]='item.outerCtn'>
+                  件
+          </p>
+          <p>数量：<input  class='sku-qty-number text-center' 
+                  type="number"
+                  (change)='onSkuqtyChange(item)'
+                  [(ngModel)]='item.qty'></p>
+
+        </div>
+      </div>
+    </div>
+  <div class="col-md-12 ">
+    <a class="center down more" (click)="skuListloadingMore()"  style="">加载更多</a>
+  </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <button 
+          pButton
+          type="button"
+          (click)="onCloseSkuListSelector()"
+          label="关闭">
+        </button>
+        <button 
+          pButton
+          type="button"
+          (click)="onSelectedSkus()"
+          label="加入订单">
+        </button>
+        <button 
+          pButton
+          type="button"
+          (click)="onSelectorSkusAndCreateOrder()"
+          label="快捷下单">
+        </button>
+    </div>
+  </p-footer>
+
+  </p-dialog>

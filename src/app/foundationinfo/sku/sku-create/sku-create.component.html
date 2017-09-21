@@ -1,0 +1,1107 @@
+<div class="col-md-12">
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-12">
+        		 <form class="form-horizontal" 
+        		 		#skuForm="ngForm" 
+        		 		novalidate 
+        		 		(ngSubmit)="onSubmit(skuForm)">
+					<div class="col-md-8">
+						<!-- SKU编码 -->
+						<div class="form-group" 
+							[ngClass]="{ 'has-error': skuForm.submitted && !customCode.valid }">
+			           		<label class="col-md-3 control-label mt-5">SKU编码
+			           			<span class='text-danger'>*</span>：
+			           		</label>
+				            <div class="col-md-9">
+				                <input type="text" 
+				                		#customCode="ngModel" 
+				                		name="customCode" 
+				                		required
+				                		[disabled]='isUpdate'
+				                		maxlength="80"
+				                		pattern="^[^ ]+$"
+				                		[(ngModel)]="data.customCode" 
+				                		placeholder="SKU编码" 
+				                		class="form-control" />
+				                <div    *ngIf="skuForm.submitted && !customCode.valid && !isUpdate" 
+					       				class="text-danger">
+							            <div [hidden]="!customCode.errors.required">
+							              SKU编码必填
+							            </div>
+							            <div [hidden]="!customCode.errors.pattern">
+							             SKU编码不能输入空格
+							            </div>
+					       		</div>
+				            </div>
+			       		</div>
+						<!-- SKU名称 -->
+						<div class="form-group" 
+							[ngClass]="{ 'has-error': skuForm.submitted && !name.valid }">
+			           		<label class="col-md-3 control-label mt-5">SKU名称
+			           			<span class='text-danger'>*</span>：
+			           		</label>
+				            <div class="col-md-9">
+				                <input type="text" 
+				                		#name="ngModel" 
+				                		name="name" 
+				                		required
+				                		maxlength="80"
+				                		pattern="^[^ ]+$"
+				                		[(ngModel)]="data.name" 
+				                		class="form-control" 
+				                		placeholder="SKU名称" />
+				                <div    *ngIf="skuForm.submitted && !name.valid" 
+					       				class="text-danger">
+							            <div [hidden]="!name.errors.required">
+							              SKU名称必填
+							            </div>
+							            <div [hidden]="!name.errors.pattern">
+							             SKU名称不能输入空格
+							            </div>
+					       		</div>
+				            </div>
+			       		</div>
+			       		<!-- SPU -->
+			       		<div class="form-group" 
+			       			[ngClass]="{ 'has-error': skuForm.submitted && !spuName.valid }">
+		       				<label class=" col-md-3 control-label mt-5">SPU名称
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-9">
+			       				<div class="input-group">
+			       					<input 	type="text" 
+			       							readonly
+			       							required
+			       							#spuName="ngModel"  
+			       							[(ngModel)]="data.spuName" 
+			       							name="spuName"
+			       							class="form-control" 
+							      		   	placeholder="选择SPU">
+							      <span class="input-group-btn">
+							        <button class="btn btn-primary" 
+							        		[ngClass]="{ 'bottom-error': skuForm.submitted && !spuName.valid }"
+							        		(click)='onOpenSpuModal()' 
+							        		[disabled]='isUpdate' 
+							        		type="button" 
+							        		style="border-radius: 0px;">选择
+							        		</button>
+							      </span>
+							    </div>
+							    <div    *ngIf="skuForm.submitted && !spuName.valid" 
+					       				class="text-danger">
+							            <div [hidden]="!spuName.errors.required">
+							              SPU必选
+							            </div>
+					       		</div>
+			       			</div>
+			       		</div>
+						<!-- 物料类型 -->
+			       		<div class="form-group" 
+			       			[ngClass]="{ 'has-error': skuForm.submitted && !skutype.valid }">
+		       				<label class=" col-md-3 control-label mt-5">物料类型
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-9">
+			       			<input 	type="text" 
+			       							readonly
+			       							required
+			       							#skutype="ngModel"  
+			       							[(ngModel)]="data.skutype" 
+			       							name="skutype"
+			       							class="form-control" 
+							      		   	placeholder="选择物料类型">
+			       				<!-- <div class="input-group">
+			       					<input 	type="text" 
+			       							readonly
+			       							required
+			       							#skutype="ngModel"  
+			       							[(ngModel)]="data.skutype" 
+			       							name="skutype"
+			       							class="form-control" 
+							      		   	placeholder="选择物料类型">
+							      <span class="input-group-btn">
+							        <button class="btn btn-info" 
+							        		[ngClass]="{ 'bottom-error': skuForm.submitted && !skutype.valid }"
+							        		(click)='onOpenSpuTypeModal()' 
+							        		type="button" 
+							        		style="border-radius: 0px;">选择
+							        		</button>
+							      </span>
+							    </div> -->
+							    <div    *ngIf="skuForm.submitted && !skutype.valid" 
+					       				class="text-danger">
+							            <div>
+							              物料类型必选
+							            </div>
+					       		</div>
+			       			</div>
+			       		</div>
+			       		<!-- 计量单位 -->
+			       		<div class="form-group" 
+			       			[ngClass]="{ 'has-error': skuForm.submitted && !data.measureId }">
+		       				<label class=" col-md-3 control-label mt-5">计量单位
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-9">
+						      	<ng-select 
+						      		name="measureId"
+						      		[allowClear]="true"
+						      		[active]="activeMeasureItem"
+					              	[items]="measureItems"
+					              	(data)="refreshMeasure($event)"
+					              	(removed)="onRemovedMeasure($event)"
+					              placeholder="计量单位">
+					  			</ng-select>
+					  			<div  *ngIf="skuForm.submitted && !data.measureId" 
+					       				class="text-danger">
+							            <div>
+							            	计量单位必选
+							            </div>
+					       		</div>
+			       			</div>
+			       		</div>
+			       		<div class="form-group" >
+			           		<label class="col-md-3 control-label mt-5">备注：</label>
+				            <div class="col-md-9">
+				                <textarea 	rows="6" 
+				                			class="form-control"  
+				                			cols="82" 
+				                			[(ngModel)]="data.comment" 
+				                			name="comment" >
+				                </textarea>
+				            </div>
+			       		</div>
+						
+					</div>
+					<!-- SPU图片资料 -->
+					<!-- SPU图片资料 -->
+					<div class="col-md-4">
+						<div class="spu-img">
+        					<img [src] ="curImgSrc || 'src/assets/imgs/icon-no-image.jpg'">
+        				</div>
+		        		<div class="spu-img-item">
+	        				<div >
+	        					<div 
+	        						*ngFor='let img of imgs;let i=index;'  
+	        						(mouseover)='onMouseoverImg(img)' style="float: left;">
+	        						<span class="fa fa-times remverIcon" (click)='onRemoveImg(img,i)'></span>
+		        					<img [src]="img" class="img-add-bar"  style="margin-left: -14px;">
+	        					</div>
+	        					<div class="btn-file">
+		        					<img *ngIf='imgs.length<6' src="src/assets/imgs/icon-plus.png" class="img-add-bar">
+
+		        					<input 
+		        						type="file" 
+		        						accept="image/gif,image/jpg,image/jpeg,image/png"
+		        						name="img" 
+		        						*ngIf='imgs.length<6'
+		        						(change)='onImgChange($event)'>
+	        					</div>
+	        				</div>
+		        		</div>
+		        		<div >
+		                	支持jpg、gif、png格式，文件最大为3M。
+		            	</div>
+					</div>
+					<!-- 备注 扩展属性字段-->
+					<div class="col-md-12">
+						
+						
+					</div>
+
+					<!-- 组织关系 -->
+					<div class="col-md-12" 
+						[ngClass]="{ 'has-error': skuForm.submitted && !data.userGroupId }">
+						<div class="form-group">
+        					<div class="panel-heading border-bottom-header">
+			        			<h3 class="panel-title">计划属性</h3>
+			    			</div>
+        				</div>
+			        	
+						<!-- 获取方式 -->
+			       		<div class="form-group" 
+			       			[ngClass]="{ 'has-error': skuForm.submitted &&!data.productMode}">
+		       				<label class=" col-md-2 control-label mt-5">获取方式
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-6">
+						      	<ng-select 
+						      		name="productMode"
+						      		[allowClear]="true"
+						      		[active]="activeProductModeItem"
+					              	[items]="productModeItems"
+					              	(data)="refreshValue('productMode',$event)"
+					              	(removed)="removed('productMode',$event)"
+					              placeholder="选择获取方式">
+					  			</ng-select>
+					  			<div  *ngIf="skuForm.submitted && !data.productMode" 
+					       				class="text-danger">
+							            <div>
+							            	生产方式必选
+							            </div>
+					       		</div>
+			       			</div>
+			       		</div>
+						<!-- 交付方式 -->
+			       		<div class="form-group" 
+							*ngIf='data.productMode !="IN_COMING" &&data.productMode!=""'
+				       		[ngClass]="{ 'has-error': skuForm.submitted && !data.handleMode }">
+		       				<label class=" col-md-2 control-label mt-5">交付方式
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-6">
+						      	<ng-select 
+						      		name="handleMode"
+						      		[allowClear]="true"
+						      		[active]="activeHandleModeItem"
+					              	[items]="handleModeItems"
+					              	(data)="refreshValue('handleMode',$event)"
+					              	(removed)="removed('handleMode',$event)"
+					              placeholder="选择交付方式">
+					  			</ng-select>
+					  			<div  *ngIf="skuForm.submitted && !data.productMode" 
+					       				class="text-danger">
+							            <div>
+							            	交付方式必选
+							            </div>
+					       		</div>
+			       			</div>
+			       		</div>
+						<!-- 是否参与MRP计算 -->
+			       		<div class="form-group" 
+			       			[ngClass]="{ 'has-error': skuForm.submitted && (data.mrpCalc===''||data.mrpCalc===undefined||data.mrpCalc===null) }">
+		       				<label class=" col-md-2 control-label mt-5">参与计算
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-6">
+						      	<ng-select 
+						      		name="mrpCalc"
+						      		[allowClear]="true"
+						      		[active]="activePartakeMrpCalcItem"
+					              	[items]="partakeMrpCalcItems"
+					              	(data)="refreshValue('mrpCalc',$event)"
+					              	(removed)="removed('mrpCalc',$event)"
+					              placeholder="是否参与MRP计算">
+					  			</ng-select>
+					  			<div  *ngIf="skuForm.submitted && (data.mrpCalc===''||data.mrpCalc===undefined ||data.mrpCalc===null)" 
+					       				class="text-danger">
+							            <div>
+							            	是否参与MRP计算必选
+							            </div>
+					       		</div>
+			       			</div>
+			       		</div>
+			       		
+			       		<!-- 安全库存 -->
+						<div class="form-group" 
+							[ngClass]="{ 'has-error': skuForm.submitted && !safeStock.valid }">
+			           		<label class="col-md-2 control-label mt-5">安全库存
+			           			<span class='text-danger'>*</span>：
+			           		</label>
+				            <div class="col-md-6">
+				                <input type="text" 
+				                		#safeStock="ngModel" 
+				                		name="safeStock" 
+				                		required
+				                		maxlength="10"
+				                		pattern="^\d+(\/[1-9]\d*|\.\d+|)$"
+				                		[(ngModel)]="data.safeStock" 
+				                		placeholder="安全库存"
+				                		class="form-control" />
+				                <div    *ngIf="skuForm.submitted && !safeStock.valid" 
+					       				class="text-danger">
+							            <div [hidden]="!safeStock.errors.required">
+							             安全库存必填
+							            </div>
+							            <div [hidden]="!safeStock.errors.pattern">
+							             安全库存只能输入数字和小数点
+							            </div>
+					       		</div>
+				            </div>
+			       		</div>
+			       		<!-- 提前期 -->
+	                    <div class="form-group" 
+	                        [ngClass]="{ 'has-error': skuForm.submitted && !leadTime.valid }">
+	                        <label class="col-md-2 control-label mt-5">提前期
+	                            <span class='text-danger'>*</span>：
+	                        </label>
+	                        <div class="col-md-4">
+	                            <input type="text" 
+	                                    #leadTime="ngModel" 
+	                                    name="leadTime" 
+	                                    required
+	                                    maxlength="10"
+	                                    pattern="^\d+(\/[1-9]\d*|\.\d+|)$"
+	                                    [(ngModel)]="data.leadTime" 
+	                                    placeholder="请输入提前期"
+	                                    class="form-control"
+	                                     />
+	                                
+	                            <div    *ngIf="skuForm.submitted && !leadTime.valid" 
+	                                    class="text-danger">
+	                                    <div [hidden]="!leadTime.errors.required">
+	                                     提前期必填
+	                                    </div>
+	                                    <div [hidden]="!leadTime.errors.pattern">
+	                                     提前期只能输入数字和小数点
+	                                    </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-2">
+	                            <ng-select 
+	                                name="leadTimeItem"
+	                                [allowClear]="true"
+	                                [active]="activeLeadTimeItem"
+	                                [items]="leadTimeItems"
+	                                (data)="refreshValue('leadType',$event)"
+	                                (removed)="removed('leadType',$event)"
+	                              placeholder="选择提前期类型">
+	                            </ng-select>
+	                            <div  *ngIf="skuForm.submitted && !data.leadType" 
+	                                    class="text-danger">
+	                                    <div>
+	                                        提前期类型必选必选
+	                                    </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+			           		<label class="col-md-2 control-label mt-5" style="text-align: right;">
+			           			组织<span class='text-danger'> *</span>：
+			           		</label>
+				            <div class="col-md-6">
+				                <ng-select 
+						      		[allowClear]="true"
+						      		[active]="activeUserGroupItem"
+					              	[items]="userGroupItems"
+					              	(data)="refreshValue('userGroupId',$event)"
+					              	(removed)="removed($event)"
+						            placeholder="请选择组织部门">
+						  		</ng-select>
+						  		<div  *ngIf="skuForm.submitted && !data.userGroupId" 
+					       				class="text-danger">
+						            <div>
+						            	组织部门必选
+						            </div>
+					       		</div>
+				            </div>
+						</div>
+					</div>
+
+					<!-- 产品属性 -->
+					<div class="col-md-12" *ngIf="data.skuAttrs.length > 0">
+						<div class="form-group">
+        					<div class="panel-heading border-bottom-header">
+			        			<h3 class="panel-title">物料属性</h3>
+			    			</div>
+		                    <!-- SPU扩展属性字段，动态生成 -->
+			       		<div class="form-group" 
+			       			[ngClass]="{ 'has-error': skuForm.submitted &&item.activeItem.length===0}"
+			       			*ngFor ="let item of data.skuAttrs">
+		       				<label class=" col-md-2 control-label mt-5">{{item.name}}
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-6">
+			       				<ng-select 
+			       					[disabled]="isUpdate"
+						      		[allowClear]="true"
+					              	[items]="item.items"
+					              	[active] = "item.activeItem"
+					              	(data)="refreshSkuAttrValues(item,$event)">
+					  			</ng-select>
+					  			<div  *ngIf="skuForm.submitted &&item.activeItem.length===0" 
+					       				class="text-danger">
+							            <div>
+							            	{{item.name}}必选
+							            </div>
+					       		</div>
+			       			</div>
+			       		</div>
+        				</div>
+					</div>
+					<!-- 包装信息 -->
+					<div class="col-md-12" *ngIf=' data.firstLevel =="产成品"'>
+						<div class="form-group">
+        					<div class="panel-heading border-bottom-header">
+			        			<h3 class="panel-title">包装信息</h3>
+			    			</div>
+			    			<!-- 外箱名称 -->
+		                    <div class="form-group" 
+		                        [ngClass]="{ 'has-error': skuForm.submitted && !outsideBoxName.valid }">
+		                        <label class=" col-md-2 control-label mt-5">外箱名称
+		                            <span class='text-danger'>*</span>：
+		                        </label>
+		                        <div class="col-md-6">
+		                            <div class="input-group">
+		                                <input  type="text" 
+		                                        #outsideBoxName="ngModel"  
+		                                        [(ngModel)]="data.outsideBoxName" 
+		                                        name="outsideBoxName"
+		                                        required
+		                                        readonly="true" 
+		                                        class="form-control" 
+		                                        placeholder="选择外箱">
+		                                <span class="font-size-10">
+		                                    <button class="btn btn-primary" 
+		                                            [ngClass]="{ 'bottom-error': skuForm.submitted && !outsideBoxName.valid }"
+		                                            (click)='onOpenOutsideBoxModal()' 
+		                                            type="button">选择
+		                                    </button>
+		                                </span>
+		                            </div>
+		                            <div  *ngIf="skuForm.submitted && !outsideBoxName.valid" 
+		                                    class="text-danger">
+		                                    <div [hidden]="!outsideBoxName.errors.required">
+		                                        外箱必选
+		                                    </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 外箱规格 -->
+		                    <div class="form-group"
+		                        [ngClass]="{ 'has-error': skuForm.submitted && !outsideBoxSpecifications.valid }">
+		                        <label class="col-md-2 control-label mt-5">外箱规格(CM)
+		                            <span class='text-danger'>*</span>：
+		                        </label>
+		                        <div class="col-md-6">
+		                                    <input type="text" 
+		                                        #outsideBoxSpecifications="ngModel" 
+		                                        name="outsideBoxSpecifications" 
+		                                        [(ngModel)]="data.outsideBoxSpecifications" 
+		                                        class="form-control"  
+		                                        placeholder="外箱规格(CM)"
+		                                        required  
+		                                        readonly="true" 
+		                                        maxlength="80"
+		                                        pattern="^[^ ]+$" />
+		                            <div    *ngIf="skuForm.submitted && !outsideBoxSpecifications.valid" 
+		                                    class="text-danger">
+		                                    <div [hidden]="!outsideBoxSpecifications.errors.required">
+		                                        外箱规格必填
+		                                    </div>
+		                                    <div [hidden]="!outsideBoxSpecifications.errors.pattern">
+		                                        外箱规格不能输入空格
+		                                    </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 外箱量 -->
+		                    <div class="form-group"
+		                        [ngClass]="{ 'has-error': skuForm.submitted && !outerNumber.valid }">
+		                        <label class="col-md-2 control-label mt-5">外箱量
+		                            <span class='text-danger'>*</span>：
+		                        </label>
+		                        <div class="col-md-6">
+		                                    <input type="text" 
+		                                        #outerNumber="ngModel" 
+		                                        name="skuName" 
+		                                        [(ngModel)]="data.outerNumber" 
+		                                        class="form-control"  
+		                                        placeholder="外箱量"
+		                                        required  
+		                                        maxlength="80"
+		                                        pattern="^[^ ]+$" />
+		                            <div    *ngIf="skuForm.submitted && !outerNumber.valid" 
+		                                    class="text-danger">
+		                                    <div [hidden]="!outerNumber.errors.required">
+		                                        外箱量必填
+		                                    </div>
+		                                    <div [hidden]="!outerNumber.errors.pattern">
+		                                        外箱量不能输入空格
+		                                    </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 内箱名称 -->
+		                    <div class="form-group" 
+		                        [ngClass]="{ 'has-error': skuForm.submitted && !withinBoxName.valid }">
+		                        <label class=" col-md-2 control-label mt-5">内箱名称
+		                            <span class='text-danger'>*</span>：
+		                        </label>
+		                        <div class="col-md-6">
+		                            <div class="input-group">
+		                                <input  type="text" 
+		                                        #withinBoxName="ngModel"  
+		                                        [(ngModel)]="data.withinBoxName" 
+		                                        name="withinBoxName"
+		                                        required
+		                                        readonly="true" 
+		                                        class="form-control" 
+		                                        placeholder="选择内箱">
+		                                <span class="font-size-10">
+		                                    <button class="btn btn-primary" 
+		                                            [ngClass]="{ 'bottom-error': skuForm.submitted && !withinBoxName.valid }"
+		                                            (click)='onOpenWithinBoxModal()' 
+		                                            type="button">选择
+		                                    </button>
+		                                </span>
+		                            </div>
+		                            <div  *ngIf="skuForm.submitted && !withinBoxName.valid" 
+		                                    class="text-danger">
+		                                    <div [hidden]="!withinBoxName.errors.required">
+		                                        内箱必选
+		                                    </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 内箱规格 -->
+		                    <div class="form-group"
+		                        [ngClass]="{ 'has-error': skuForm.submitted && !withinBoxSpecifications.valid }">
+		                        <label class="col-md-2 control-label mt-5">内箱规格(CM)
+		                            <span class='text-danger'>*</span>：
+		                        </label>
+		                        <div class="col-md-6">
+		                                    <input type="text" 
+		                                        #withinBoxSpecifications="ngModel" 
+		                                        name="withinBoxSpecifications" 
+		                                        [(ngModel)]="data.withinBoxSpecifications" 
+		                                        class="form-control"  
+		                                        placeholder="内箱规格(CM)"
+		                                        required  
+		                                        readonly="true" 
+		                                        maxlength="80"
+		                                        pattern="^[^ ]+$" />
+		                            <div    *ngIf="skuForm.submitted && !withinBoxSpecifications.valid" 
+		                                    class="text-danger">
+		                                    <div [hidden]="!withinBoxSpecifications.errors.required">
+		                                        内箱规格必填
+		                                    </div>
+		                                    <div [hidden]="!withinBoxSpecifications.errors.pattern">
+		                                        内箱规格不能输入空格
+		                                    </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 内箱量 -->
+		                    <div class="form-group"
+		                        [ngClass]="{ 'has-error': skuForm.submitted && !innerNumber.valid }">
+		                        <label class="col-md-2 control-label mt-5">内箱量
+		                            <span class='text-danger'>*</span>：
+		                        </label>
+		                        <div class="col-md-6">
+		                                    <input type="text" 
+		                                        #innerNumber="ngModel" 
+		                                        name="innerNumber" 
+		                                        [(ngModel)]="data.innerNumber" 
+		                                        class="form-control"  
+		                                        placeholder="内箱量"
+		                                        required  
+		                                        maxlength="80"
+		                                        pattern="^[^ ]+$" />
+		                            <div    *ngIf="skuForm.submitted && !innerNumber.valid" 
+		                                    class="text-danger">
+		                                    <div [hidden]="!innerNumber.errors.required">
+		                                        内箱量必填
+		                                    </div>
+		                                    <div [hidden]="!innerNumber.errors.pattern">
+		                                        内箱量不能输入空格
+		                                    </div>
+		                            </div>
+		                        </div>
+		                    </div>
+        				</div>
+					</div>
+					
+					<!-- 物料关系 -->
+					<div class="col-md-12" 
+						*ngIf='data.firstLevel !="原料"'>
+						<div class="form-group">
+	        				<div class="panel-heading border-bottom-header">
+				        		<h3 class="panel-title">物料关系</h3>
+				    		</div>
+			    		</div>
+			    		<div class="form-group">
+			    			<button  
+			        		type="button" 
+			        		class="btn btn-default" 
+			        		(click)='onOpenSkuBomModal()'>添加
+			        		</button>
+				        	<button  
+				        		type="button" 
+				        		class="btn btn-default" 
+				        		(click)='onDelSkuBom()'
+				        		[disabled] ='selectedBoms===undefined||selectedBoms.length===0'>删除
+				        	</button>
+			    		</div>
+			    		<div class="form-group">
+					    	<p-dataTable 
+		            			[emptyMessage]="emptyMessage"
+		            			[value]="data.skuBoms" 
+		            			[editable]="true"
+		            			[(selection)]="selectedBoms">
+					            <p-column   [style]="{'width':'38px'}" 
+					                        selectionMode="multiple">
+					            </p-column>
+					            <p-column   field="name" 
+					            			[style]="{'width':'150px'}"
+					                        header="SKU名称" >
+					            </p-column>
+					            <p-column   field="skuTypeName" 
+					                        header="物料类型" 
+					                        [style]="{'width':'200px'}" 
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="measureCode" 
+					            			[style]="setAccountStyles()"
+					                        header="计量单位" 
+					                        class='ui-datatable-odd'>
+					                <template 
+					                	let-index 
+					                	let-col 
+					                	let-bom="rowData" 
+					                	pTemplate="body" 
+					                	let-ri="rowIndex">
+							            <p-dropdown 
+							            	[(ngModel)]="bom[col.field]" 
+							            	[options]="bom.measureItems" 
+							            	[autoWidth]="false" 
+							            	[style]="{'width':'100%'}" name="measure{{ri}}">
+							  			</p-dropdown>
+						        	</template>
+						        </p-column>
+					            <p-column   field="userGroupName" 
+					                        header="组织" 
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="qty" 
+					                        header="*数量" 
+					                        [editable]="true"
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="wasteRate" 
+					                        header="单位损耗率" 
+					                        [editable]="true"
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="comment" 
+					            			[editable]="true"
+					                        header="备注" >
+					            </p-column>
+					        </p-dataTable>
+			    		</div>
+        			</div>
+
+        			<!-- 设置皮费 -->
+        			<div class="col-md-12" 
+        				*ngIf=' data.firstLevel =="产成品"|| data.firstLevel =="半成品" || data.firstLevel =="备品"'>
+        				<!-- title -->
+        				<div class="form-group">
+	        				<div class="panel-heading border-bottom-header">
+				        		<h3 class="panel-title">设置皮费</h3>
+				    		</div>
+			    		</div>
+			    		<!-- 皮费表格 -->
+			    		<div class="form-group">
+			    			<p-dataTable 
+			    				[editable]="true"
+		            			[emptyMessage]="emptyMessage"
+		            			[value]="piffers" >
+					            <p-column   field="name" 
+					                        header="费用名称" >
+					            </p-column>
+					            <p-column   field="type" 
+					                        header="计费类型" 
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="amount" 
+					                        header="金额" 
+					                        [editable]="true"
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="comment" 
+					            			[editable]="true"
+					                        header="备注" >
+					            </p-column>
+					        </p-dataTable>
+			    		</div>
+        			</div>
+
+        			<!-- 工序关系 -->
+        			<!-- <div class="col-md-12"> -->
+        				<!-- title -->
+        				<!-- <div class="form-group">
+	        				<div class="panel-heading border-bottom-header">
+				        		<h3 class="panel-title">工序关系</h3>
+				    		</div>
+			    		</div> -->
+			    		<!-- 操作按钮 -->
+			    		<!-- <div class="form-group">
+			    			<button pButton 
+			        		type="button" 
+			        		class="ui-button-secondary" 
+			        		(click)='onOpenProcedureModal()'
+			        		label="添加">
+			        		</button>
+				        	<button pButton 
+				        		type="button" 
+				        		class="ui-button-secondary" 
+				        		(click)='onDelProcedure()'
+				        		[disabled] ='selectedProcedures===undefined||selectedProcedures.length===0'
+				        		label="删除">
+				        	</button>
+			    		</div> -->
+			    		<!-- 工序表格 -->
+			    		<!-- <div class="form-group">
+			    			<p-dataTable 
+		            			[emptyMessage]="emptyMessage"
+		            			[value]="data.spuProcedures" 
+		            			[(selection)]="selectedProcedures">
+					            <p-column   [style]="{'width':'38px'}" 
+					                        selectionMode="multiple">
+					            </p-column>
+					            <p-column   field="name" 
+					                        header="工序名称" >
+					            </p-column>
+					            <p-column   field="type" 
+					                        header="计费类型" 
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="sunhao" 
+					                        header="模具类型" 
+					                        class='ui-datatable-odd'>
+					            </p-column>
+					            <p-column   field="comment" 
+					                        header="备注" >
+					            </p-column>
+					        </p-dataTable>
+			    		</div> -->
+        			<!-- </div> -->
+					<!-- 操作按钮 -->
+					<div class="col-md-12">
+			       		<div  class="form-group text-right">
+			       			<button  
+					         		class="btn btn-primary" 
+						    		type="submit">
+						    		确定
+						    	</button>
+						    	<button 
+						    		type="button" 
+						    		class="btn btn-default" 
+						    		(click)='onCancel()'>
+						    		取消
+						    	</button>
+				        </div>
+			        </div>
+
+        		 </form>
+        	</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 选择SPU分类 -->
+<p-dialog 
+	header="SPU分类选择"
+    width="600" 
+    modal="true"
+    [(visible)]="display_spu_type_modal">
+    <!-- 一级分类 -->
+    <div class="col-md-4">
+	    <div class="list-group type-container">
+		  <a 	class="list-group-item  type-item" 
+				[ngClass]="{ 'active': firstLevelItem.active}"
+				(click) = 'onFirstLevelItemClick(firstLevelItem)'
+		  		*ngFor="let firstLevelItem of firstLevelItems;">{{firstLevelItem.name}}</a>
+		</div>
+	</div>
+	<!-- 二级分类 -->
+	<div class="col-md-4">
+	    <div class="list-group type-container">
+		  	<a 	class="list-group-item  type-item" 
+				[ngClass]="{ 'active': secondLevelItem.active}"
+				(click) = 'onSecondLevelItemClick(secondLevelItem)'
+		  		*ngFor="let secondLevelItem of secondLevelItems;">{{secondLevelItem.name}}</a>
+		</div>
+	</div>
+	<!-- 三级分类 -->
+	<div class="col-md-4">
+	    <div class="list-group type-container">
+		  <a 	class="list-group-item  type-item" 
+				[ngClass]="{ 'active': thirdLevelItem.active}"
+				(click) = 'onThirdLevelItemClick(thirdLevelItem)'
+		  		*ngFor="let thirdLevelItem of thirdLevelItems;">{{thirdLevelItem.name}}</a>
+		</div>
+	</div>
+	<!-- 操作按钮 -->
+	<div class="col-md-12" style="text-align: right;margin-top: 10px;float: right;">
+		<button 
+    		type="button" 
+    		class="btn btn-default" 
+    		(click)='display_spu_type_modal=!display_spu_type_modal'>
+    		取消
+    	</button>
+     	<button  
+     		[disabled]='disabled'
+     		class="btn btn-primary" 
+     		(click)='onSelectedSpuType()'
+    		type="button">
+    		确定
+    	</button>
+    </div>
+</p-dialog>
+
+<!-- 选择SPU -->
+<p-dialog 
+	header="选择SPU"
+    width="800" 
+    modal="true"
+    [(visible)]="display_spu_modal"> 
+    <div class="col-md-12" style="min-height: 20px;">
+        <toolbar customClasses="full-width" [configList]="spuModalToolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12" style="margin-top: -10px;">
+    	<p-dataTable 
+			[emptyMessage]="emptyMessage"
+			[value]="spuDataList" 
+			scrollable="true" 
+			scrollHeight="280px"
+			resizableColumns="true"
+			sortMode='multiple'
+			(onSort)="onSpuListSort($event)"
+			(onRowDblclick)="onSpuRowDblclick($event)"
+			(onRowClick) ="onSpuRowlclick($event)"
+			[(selection)]="selectedSpu">
+	        <p-column   [style]="{'width':'38px'}" 
+	                    selectionMode="single">
+	        </p-column>
+	        <p-column   field="name" 
+	        			[sortable]="true"
+	        			[style]="{'width':'150px'}" 
+	                    header="SPU名称" >
+	        </p-column>
+	        <p-column   field="firstLevel" 
+	                    header="一级分类" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="secondLevel" 
+	                    header="二级分类" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="thirdLevel" 
+	                    header="三级分类" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="measureName" 
+	                    header="计量单位" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="userGroupName" 
+	                    header="组织" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-footer >
+	            <div class="total-style">
+	                共{{spuTotalRecords}}条记录
+	            </div>
+	            <p-paginator 
+	                rows="10" 
+	                [first]="spuDataListfirst"
+	                [totalRecords]="spuTotalRecords" 
+	                [rowsPerPageOptions]="[10,20,30]" 
+	                (onPageChange)="onSpuDataListPage($event)">
+	            </p-paginator>
+	        </p-footer>
+    	</p-dataTable>
+    </div>
+    <!-- 操作按钮 -->
+    <div class="col-md-12 text-right" style="margin-top: 10px;">
+    	<button  
+     		class="btn btn-primary" 
+     		(click)='onSelectedSpu()'
+    		type="button">
+    		确定
+    	</button>
+    	<button 
+    		type="button" 
+    		class="btn btn-default" 
+    		(click)='onCloseSpuModal()'>
+    		取消
+    	</button>
+    </div>
+</p-dialog>
+
+<!-- 选择SKU -->
+<p-dialog 
+	header="选择物料"
+    width="800" 
+    modal="true"
+    [(visible)]="display_sku_bom_modal"> 
+    <div class="col-md-12" style="min-height: 20px;">
+        <toolbar customClasses="full-width" [configList]="skuModalToolbarConfigs"></toolbar>
+    </div>
+    <!-- 物料列表 -->
+	<div class="col-md-12" style="margin-top: -10px;">
+		<p-dataTable 
+			[emptyMessage]="emptyMessage"
+			[value]="skuDataList" 
+			resizableColumns="true"
+			scrollable="true" 
+			scrollHeight="280px"
+			sortMode='multiple'
+			(onSort)="onSkuListSort($event)"
+			[(selection)]="SelectedSkuDataList">
+	        <p-column   [style]="{'width':'38px'}" 
+	                    selectionMode="multiple">
+	        </p-column>
+	        <p-column   field="name" 
+	        			[sortable]="true"
+	        			[style]="{'width':'150px'}"
+	                    header="SKU名称" >
+	        </p-column>
+	        <p-column   field="firstLevel" 
+	                    header="一级分类" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="secondLevel" 
+	                    header="二级分类" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="thirdLevel" 
+	                    header="三级分类" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="measureName" 
+	                    header="计量单位" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-column   field="userGroupName" 
+	                    header="组织" 
+	                    class='ui-datatable-odd'>
+	        </p-column>
+	        <p-footer >
+	            <div class="total-style">
+	                共{{skuTotalRecords}}条记录
+	            </div>
+	            <p-paginator 
+	            	[first]="skuDataListfirst"
+	                rows="10" 
+	                [totalRecords]="skuTotalRecords" 
+	                [rowsPerPageOptions]="[10,20,30]" 
+	                (onPageChange)="onSkuDataListPage($event)">
+	            </p-paginator>
+	        </p-footer>
+    </p-dataTable>
+	</div>
+    <!-- 操作按钮 -->
+    <div class="col-md-12 text-right " style="margin-top: 10px;">
+    	<div class="form-group">
+    		<button  
+	     		class="btn btn-primary" 
+	     		(click)='onSelectedSkuBoms()'
+	    		type="button">
+	    		确定
+	    	</button>
+	    	<button 
+	    		type="button" 
+	    		class="btn btn-default" 
+	    		(click)='onCloseSkuBomModal()'>
+	    		取消
+	    	</button>
+    	</div>
+    </div>
+</p-dialog>
+
+<!-- 选择工序 -->
+<!-- <p-dialog 
+	header="选择工序"
+    width="600" 
+    modal="true"
+    [(visible)]="display_procedure_modal">  -->
+	<!-- 工序列表 -->
+   <!--  <div class="col-md-12">
+    	<p-dataTable 
+			[emptyMessage]="emptyMessage"
+			[value]="procedureDataList" 
+			[(selection)]="SelectedProcedureDataList">
+            <p-column   [style]="{'width':'38px'}" 
+                        selectionMode="multiple">
+            </p-column>
+            <p-column   field="name" 
+                        header="工序名称" >
+            </p-column>
+            <p-column   field="type" 
+                        header="计费类型" 
+                        class='ui-datatable-odd'>
+            </p-column>
+            <p-column   field="userGroupName" 
+                        header="组织" 
+                        class='ui-datatable-odd'>
+            </p-column>
+            <p-column   field="comment" 
+                        header="备注" >
+            </p-column>
+        </p-dataTable>
+    </div> -->
+    <!-- 操作按钮 -->
+   <!--  <div class="col-md-12" style="text-align: right;">
+    	<button 
+    		type="button" 
+    		class="btn btn-default" 
+    		(click)='display_procedure_modal=!display_procedure_modal'>
+    		取消
+    	</button>
+    	<button  
+     		class="btn btn-default" 
+     		(click)='onSelectedProcedures()'
+    		type="button">
+    		确定
+    	</button>
+    </div> -->
+<!-- </p-dialog> -->
+<p-dialog 
+    [header]="heaaderBoxName"
+    width="600" 
+    modal="true"
+    [(visible)]="display_outside_box_modal">
+    <!-- 一级分类 -->
+    <div>
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <p-dataTable 
+        [emptyMessage]="emptyMessage"
+        [value]="boxDataList" 
+        resizableColumns="true"
+        selectionMode="single"
+        (onRowDblclick)="determineBox()"
+        [(selection)]="selectedBoxData">
+        <p-column   field="name" 
+                    [header]="boxName" 
+                    [sortable]="true"
+                    class='ui-datatable-odd'>
+        </p-column>
+        <p-column   field="specifications" 
+                    header="规格" 
+                    class='ui-datatable-odd'>
+        </p-column>
+        <p-footer >
+                <div class="total-style">
+                    共{{boxTotalRecords}}条记录
+                </div>
+                <p-paginator 
+                    [rows]="10"
+                    [first] ="boxFirst" 
+                    pageLinkSize="3"
+                    [totalRecords]="boxTotalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event)">
+                </p-paginator>
+            </p-footer>
+    </p-dataTable>
+    <!-- 操作按钮 -->
+    <div class="col-md-12" style="text-align: right;margin-top: 10px;float: right;">
+        <button  
+            class="btn btn-primary" 
+            (click)='determineBox()'
+            type="button">
+            确定
+        </button>
+        <button 
+            type="button" 
+            class="btn btn-default" 
+            (click)='display_outside_box_modal=!display_outside_box_modal'>
+            取消
+        </button>
+    </div>
+</p-dialog>

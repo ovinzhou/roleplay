@@ -1,0 +1,91 @@
+.transparent-button-style{
+    background-color: #fdfdfd !important;
+    padding: 3px 11px !important;
+    border: 1px solid #b4bec8 !important;
+    color: #222222 !important;
+    border-radius: 2px !important;
+}
+a{
+	text-decoration:none;
+	cursor:pointer;
+}
+.clear_{
+	clear: both;
+}
+.mb-10{margin-bottom: 10px;}.mb-40{margin-bottom: 40px;}
+.ml-10{margin-left: 10px;}
+.mr-10{margin-right: 10px;}.mr_10{margin-right: -10px;}
+.pt-10{padding-top: 10px};
+.imageStyle{
+	height: 60px;
+	width: 234px;
+}
+.div-text-overflow{
+	width: 20px;
+	text-overflow:ellipsis;
+}
+.nav-bar{
+	background-color: #dfe9f5;
+	padding: 5px;
+}
+
+.group-name-style{
+	padding-top: 5px;
+	font-size: 18px;
+}
+
+.clear-input-value{
+	color: #ccc;
+	padding-top: 6px;
+	width:30px;
+	position: relative;
+	right: 25px;
+}
+
+.button-search{
+	position: relative;
+	right: 30px;
+}
+.nav-bar-group{
+	background-color: #dfe9f5;
+	padding: 5px 0px 30px 0px;
+}
+.footer-button{
+    float: right;
+    margin-top: 10px;
+}
+.ul-style{
+	position: absolute;
+	top: 61px;
+	right: 13px;
+	background-color: #ffffff;
+	border:1px solid #ccc;
+	list-style-type:none;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	padding-left: 0px;
+	padding: 2px;
+}
+.interlinkage{
+  color: #2772DB;
+}
+
+.ms-hover {
+	padding: 4px 20px;
+}
+
+.ms-hover  a {
+	display: block;
+	text-align: center;
+	color: #555;
+	font-family: "微软雅黑";
+}
+.ul-style li:hover {
+	background: #dfe9f5;
+}
+.aa{
+	background-color: red;
+}
+
+.border {
+	border-left: 1px dashed  #d4d4d4;
+}

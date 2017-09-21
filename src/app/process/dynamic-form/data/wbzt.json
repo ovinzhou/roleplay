@@ -1,0 +1,112 @@
+{
+    "tableContent": [
+        {
+            "entityId": "20000",
+            "entityShortName": "google",
+            "id": "20000160825PEUR000001",
+            "principalId": "20000160809PLUS000036",
+            "principalName": "林孝清",
+            "refEntityCode": "00000",
+            "refEntityId": "00005",
+            "refEntityName": "Google(客户、供应商)",
+            "relationType": "Customer,Provider",
+            "relationTypeName": "客户,供应商",
+            "status": "未激活"
+        },
+        {
+            "entityId": "20000",
+            "entityShortName": "九瓣花",
+            "id": "20000160804PEUR000041",
+            "principalId": "20000160618PLUS000001",
+            "principalName": "林坚",
+            "refEntityCode": "00000",
+            "refEntityId": "00572",
+            "refEntityName": "深圳九瓣花工艺制品厂",
+            "relationType": "Provider",
+            "relationTypeName": "供应商",
+            "status": "未激活"
+        },
+        {
+            "entityId": "20000",
+            "entityShortName": "兴百祥",
+            "id": "20000160804PEUR000040",
+            "principalId": "20000160728PLUS000029",
+            "principalName": "谢昌",
+            "refEntityCode": "00000",
+            "refEntityId": "00571",
+            "refEntityName": "兴百祥五金塑胶工艺制品厂",
+            "relationType": "Provider",
+            "relationTypeName": "供应商",
+            "status": "未激活"
+        },
+        {
+            "entityId": "20000",
+            "entityShortName": "埃维纳",
+            "id": "20000160804PEUR000039",
+            "principalId": "20000160618PLUS000001",
+            "principalName": "林坚",
+            "refEntityCode": "00000",
+            "refEntityId": "00570",
+            "refEntityName": "埃维纳玫瑰花",
+            "relationType": "Provider",
+            "relationTypeName": "供应商",
+            "status": "未激活"
+        },
+        {
+            "entityId": "20000",
+            "entityShortName": "嘉阳包装",
+            "id": "20000160728PEUR000103",
+            "principalId": "20000160618PLUS000001",
+            "principalName": "林坚",
+            "refEntityCode": "00000",
+            "refEntityId": "20528",
+            "refEntityName": "嘉阳包装",
+            "relationType": "Provider",
+            "relationTypeName": "供应商",
+            "status": "未激活"
+        }
+    ],
+    "tableHead": [
+        {
+            "fieldCode": "refEntityId",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "供应商ID",
+            "fieldSort": "1",
+            "fieldType": "0",
+            "width": 12
+        },
+        {
+            "fieldCode": "refEntityCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "供应商编码",
+            "fieldSort": "2",
+            "fieldType": "0",
+            "width": 12
+        },
+        {
+            "fieldCode": "refEntityName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "供应商名称",
+            "fieldSort": "3",
+            "fieldType": "0",
+            "width": 12
+        },
+        {
+            "fieldCode": "relationTypeName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "主体类型",
+            "fieldSort": "4",
+            "fieldType": "0",
+            "width": 12
+        }
+    ],
+    "dataCount": 5
+}

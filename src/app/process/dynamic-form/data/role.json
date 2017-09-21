@@ -1,0 +1,30 @@
+[
+    {
+        "code": "rfd-001160516PLEN020026",
+        "creator": "20111160429PLEN020002",
+        "crtTime": "2016-05-17 09:55:21",
+        "id": "rfd-001160516PLEN020026",
+        "name": "rolea",
+        "principal": {
+            "userId": "20111160429PLEN020002"
+        },
+        "refEntity": {
+            "entityId": "rfd-001"
+        },
+        "status": 1
+    },
+    {
+        "code": "rfd-001160516PLEN020027",
+        "creator": "20111160429PLEN020002",
+        "crtTime": "2016-05-17 09:55:21",
+        "id": "rfd-001160516PLEN020027",
+        "name": "roleb",
+        "principal": {
+            "userId": "20111160429PLEN020002"
+        },
+        "refEntity": {
+            "entityId": "rfd-001"
+        },
+        "status": 1
+    }
+]

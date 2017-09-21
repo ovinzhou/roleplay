@@ -1,0 +1,60 @@
+<div class="col-md-12 container ">
+    <div class="col-md-3 tree-menu" >
+        <div class="form-md-line-input pt-0">
+            <i class="fa fa-search" style="position: absolute;
+                margin: 6px 2px 4px 18px;
+                color: #ccc;">
+            </i>
+            
+            <input 
+                type="text" 
+                class="form-control font-size-14"
+                placeholder="搜索..."
+                [(ngModel)]="searchKey"
+                name="searchKey"
+                style=" width: 93%;margin: 10px;height: 27px;font-family: '微软雅黑';
+                        background-color: white;
+                        padding-left: 26px;border: 1px solid #B4BEC8;
+                        border-radius: 5px"
+                (input)="onInput($event)"
+            >
+        </div>
+        <div >
+            <a class="pull-right" (click)='toggleHeading()'><span class="mr-5">{{groupName}}</span><i class="fa fa-list"></i></a>
+            <div class="d-menu" *ngIf="showHeading">
+                <ul class="ui-menu-list ul-style">
+                    <li class="ms-hover"><a (click)="selectOrg()">组织</a></li>
+                    <li class="ms-hover"><a (click)="selectRole()">角色</a></li>
+                </ul>
+            </div>
+        </div>
+        <p-tree [value]="entityInfo" selectionMode="single" [(selection)]="selectedOrg"
+                (onNodeSelect)="nodeSelect($event)"
+                [style]="setStyles()"
+                (onNodeExpand)="nodeExpand($event)"
+                >
+        </p-tree>
+        <p-tree [value]="bizInfoList" selectionMode="single" [(selection)]="selectedOrg"
+                (onNodeSelect)="nodeSelect($event)"
+                [style]="setStyles()"
+                >
+        </p-tree>
+    </div>
+    <div class="col-md-9">
+        <!-- <div class="col-md-12 row">
+            <div class="ml-10">
+               <img [src]="file" alt="主体图片" width="220px" height="60px">
+            </div>
+            <div class="content-text-position">
+                <a class="font-size-30 display_" (click)="goEntityInfo()">深圳市富榕包装制品有限公司</a>
+                <span style="color:#000000">客服电话: 0755-88831046</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr style="width: 98%;margin-left:0px;">
+        </div> -->
+        <div class="full-width">
+            <router-outlet ></router-outlet>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="accountData" 
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas" 
+            sortable="custom">
+	        <p-column [style]="{'width':'30px'}" selectionMode="multiple"></p-column>
+	        <p-column field="account" header="资金账户" [sortable]="true" >
+	            <template let-attr="rowData" pTemplate type="body" >
+	                <a type="text" name="account" class="interlinkage" (click)="onEdit(attr)">
+	                    {{attr.account}}
+	                </a>
+	            </template>
+	        </p-column>
+            <p-column field="bank" header="开户银行" [sortable]="true"></p-column>
+            <p-column field="bankname" header="开户名" [sortable]="true"></p-column>
+            <p-column field="code" header="账号" [sortable]="true"></p-column>
+            <p-column field="currency" header="币值" [sortable]="true"></p-column>
+        </p-dataTable>
+        <p-footer >
+            <div class="total-style">
+                共{{totalRecords}}条记录
+            </div>
+            <p-paginator 
+                [first]='first'
+                rows="10" 
+                [totalRecords]="totalRecords"
+                [rowsPerPageOptions]="[10,20,30]"
+                (onPageChange)="paginate($event,'listUser')">
+            </p-paginator>
+        </p-footer>
+    </div>
+</div>

@@ -1,0 +1,264 @@
+<div class="col-md-12">
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-12">
+        		 <form class="form-horizontal" 
+        		 		#wagesForm="ngForm" 
+        		 		novalidate 
+        		 		(ngSubmit)="onSubmit(wagesForm)">
+						<div class="form-group" 
+							[ngClass]="{ 'has-error': wagesForm.submitted && !wagesName.valid }">
+			           		<label class="col-md-2 control-label mt-5">工价名称
+			           			<span class='text-danger'>*</span>：
+			           		</label>
+				            <div class="col-md-10">
+				                <input type="text" 
+				                		#wagesName="ngModel" 
+				                		name="wagesName" 
+				                		[(ngModel)]="wage.wagesName" 
+				                		class="form-control"  
+				                		required  
+				                		maxlength="10" 
+				                		pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+					       		<div *ngIf="wagesForm.submitted && !wagesName.valid" 
+					       			class="text-danger">
+							            <div [hidden]="!wagesName.errors.required">
+							              属性名称必填
+							            </div>
+							            <div [hidden]="!wagesName.errors.maxlength">
+							              名称最大长度为10
+							            </div>
+							            <div [hidden]="!wagesName.errors.pattern">
+							              名称只能输入中文，英文，数字,及一些特殊字符
+							            </div>
+					       		</div>
+				            </div>
+			       		</div>
+						
+						<div class="form-group">
+		       				<label class=" col-md-2 control-label mt-5 control-label">工序名称
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-10">
+			       				<ng-select 
+						      		[active]="activeProcedure"
+					              	[items]="procedures"
+					              	(data)="selectProcedure($event)"
+					              placeholder="选择工序">
+					  			</ng-select>
+					  			<div *ngIf="wagesForm.submitted && !selectProcedureId" 
+					       			class="text-danger">
+							         工序必选
+					       		</div>
+			       			</div>
+			       		</div>
+
+			       		<div class="form-group">
+		       				<label class=" col-md-2 control-label mt-5 control-label">计费类型
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-10">
+			       				 <input type="text" 
+				                		#billingtype="ngModel" 
+				                		name="billingtype" 
+				                		disabled
+				                		[(ngModel)]="wage.billingtype" 
+				                		class="form-control" />
+			       			</div>
+			       		</div>
+
+			       		<div class="form-group">
+		       				<label class=" col-md-2 control-label mt-5 control-label">定价类型
+		           				<span class='text-danger'>*</span>：
+		           			</label>
+			       			<div class="col-md-10">
+			       				<ng-select 
+						      		[active]="activeType"
+					              	[items]="pricingtypes"
+					              	(data)="selectePricingtype($event)"
+					              placeholder="选择定价类型">
+					  			</ng-select>
+					  			<div *ngIf="wagesForm.submitted && !priceType" 
+					       			class="text-danger">
+							         定价类型必选
+					       		</div>
+			       			</div>
+			       		</div>
+
+			       		<div  *ngIf="priceType == 'GENERAL'">
+				       		<div class="form-group"
+								[ngClass]="{ 'has-error': wagesForm.submitted && !priceNum.valid }">
+				           		<label class="col-md-2 control-label mt-5">计价数量
+				           			<span class='text-danger'>*</span>：
+				           		</label>
+					            <div class="col-md-10">
+					                <input type="text" 
+					                		#priceNum="ngModel" 
+					                		name="priceNum" 
+					                		[(ngModel)]="wage.priceNum" 
+					                		class="form-control"  
+					                		maxlength="10" 
+					                		required
+					                		pattern="^[1-9]\d*$" />
+						       		<div *ngIf="wagesForm.submitted && !priceNum.valid" 
+						       			class="text-danger">
+						       				<div [hidden]="!priceNum.errors.required">
+								              计价数量必填
+								            </div>
+								            <div [hidden]="!priceNum.errors.maxlength">
+								              计价数量最大长度为10
+								            </div>
+								            <div [hidden]="!priceNum.errors.pattern">
+								              计价数量必须为整数.
+								            </div>
+						       		</div>
+					            </div>
+				       		</div>
+				       		<div class="form-group"
+								[ngClass]="{ 'has-error': wagesForm.submitted && !price.valid }">
+				           		<label class="col-md-2 control-label mt-5">工价
+				           			<span class='text-danger'>*</span>：
+				           		</label>
+					            <div class="col-md-10">
+					                <input type="text" 
+					                		#price="ngModel" 
+					                		name="price" 
+					                		[(ngModel)]="wage.price" 
+					                		class="form-control"  
+					                		maxlength="10" 
+					                		pattern="^(?!0(\.0*)?$)(0|[1-9]\d*)(\.\d{0,6})?$" />
+						       		<div *ngIf="wagesForm.submitted && !price.valid" 
+						       			class="text-danger">
+						       				<div [hidden]="!price.errors.required">
+								              计价数量必填
+								            </div>
+								            <div [hidden]="!price.errors.maxlength">
+								              工价最大长度为10
+								            </div>
+								            <div [hidden]="!price.errors.pattern">
+								              工价必须为数字且小数点之后最多可以为六个小数.
+								            </div>
+						       		</div>
+					            </div>
+				       		</div>
+			       		</div>
+			       		<div  *ngIf="priceType == 'SECTION'">
+				       		<div class="form-group" >
+			       			<label class="col-md-2 control-label mt-5 control-label">工价列表:</label>
+			       			<div class="col-md-10">
+			       				<div class="btn-group">
+			       					<button pButton 
+						        		type="button" 
+						        		class="ui-button-secondary" 
+						        		(click)='onAddWages()'
+						        		label="添加">
+						        	</button>
+						        	<button pButton 
+						        		type="button" 
+						        		class="ui-button-secondary" 
+						        		(click)='onDelWages()'
+						        		label="删除">
+						        	</button>
+			       				</div>
+			       				<div style="margin-top: 10px;">
+									<p-dataTable 
+										[editable]="true"
+							            [emptyMessage]="emptyMessage"
+							            [value]="typeDatalist" 
+							            [(selection)]="selectedValus">
+							            <p-column [style]="{'width':'38px'}" 
+							                    selectionMode="multiple">
+							            </p-column>
+							            <p-column field="numberRange" header="数量区间" [editable]="true">
+							            </p-column>
+							            <p-column field="valuationNumber" header="计价数量" [editable]="true">
+							            </p-column>
+							            <p-column field="valuationValue" header="工价" [editable]="true">
+							            </p-column>
+							            <p-column field="manipulate" header="操作">
+							            	<template let-type="rowData" pTemplate type="body" >
+							            		<a  type="text" 
+							                        name="manipulate" 
+							                        (click)="onEditDefaultValue(type)"
+							                        class="interlinkage">{{type.manipulate}}</a>
+							            	</template>
+							            </p-column>
+							        </p-dataTable>
+								</div>
+			       			</div>
+			       		</div>
+			       		</div>
+
+			       		<div class="form-group" >
+			           		<label class="col-md-2 control-label mt-5 control-label">备注:</label>
+				            <div class="col-md-10">
+				                <textarea 	rows="6" 
+				                			class="form-control"  
+				                			cols="82" 
+				                			[(ngModel)]="wage.comment" 
+				                			name="comment" >
+				                </textarea>
+				            </div>
+			       		</div>
+
+			       		<div class="form-group" >
+			       			<label class="col-md-2 control-label mt-5 control-label">关联物料列表:</label>
+			       			<div class="col-md-10">
+			       				<div class="btn-group">
+			       					<button pButton 
+						        		type="button" 
+						        		class="ui-button-secondary" 
+						        		(click)='onAddValue()'
+						        		label="添加">
+						        	</button>
+						        	<button pButton 
+						        		type="button" 
+						        		class="ui-button-secondary" 
+						        		(click)='onDelValue()'
+						        		[disabled] ='selectedValus===undefined||selectedValus.length===0'
+						        		label="删除">
+						        	</button>
+			       				</div>
+			       				<div style="margin-top: 10px;">
+									<p-dataTable 
+										[editable]="true"
+							            [emptyMessage]="emptyMessage"
+							            [value]="wage.skuList" 
+							            [(selection)]="selectedValus">
+							            <p-column [style]="{'width':'38px'}" 
+							                    selectionMode="multiple">
+							            </p-column>
+							            <p-column field="skuName" header="物料名称" [editable]="true">
+							            </p-column>
+							            <p-column field="skuUnit" header="计量单位" [editable]="true">
+							            </p-column>
+							            <p-column field="skuType" header="物料类型" [editable]="true">
+							            </p-column>
+							            <p-column field="orgName" header="组织" [editable]="true">
+							            </p-column>
+							        </p-dataTable>
+								</div>
+			       			</div>
+			       		</div>
+
+			       		<div  class="form-group">
+					         <div class="col-md-2"></div>
+					         <div class="col-md-10">
+					         	<button  
+					         		class="btn btn-primary" 
+						    		type="submit">
+						    		确定
+						    	</button>
+						    	<button  
+						    		type="button" 
+						    		class="btn btn-default" 
+						    		(click)='onCancel()'>
+						    		取消
+						    	</button>
+					        </div>
+				        </div>
+        		 </form>
+        	</div>
+        </div>
+    </div>
+</div>

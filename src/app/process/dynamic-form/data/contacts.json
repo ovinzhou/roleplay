@@ -1,0 +1,87 @@
+{
+    "tableContent": [
+        {
+            "creator": "20111160429PLEN020002",
+            "crtTime": "2016-07-12 16:05:57",
+            "entity": {
+                "entityId": "20335"
+            },
+            "firstName": "张三",
+            "genderName": "女",
+            "mobile": "13233335555",
+            "modTime": "2016-07-12 16:05:57",
+            "modifier": "20111160429PLEN020002",
+            "nickname": "张三",
+            "state": 0,
+            "status": 1,
+            "userId": "20335160712SYUS000002"
+        }
+    ],
+    "tableHead": [
+        {
+            "fieldCode": "userId",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "用户ID",
+            "fieldSort": "1",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "userCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "用户编码",
+            "fieldSort": "2",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "nickname",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "用户名称",
+            "fieldSort": "3",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "photo",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "头像",
+            "fieldSort": "4",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "gender",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "性别",
+            "fieldSort": "5",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "userCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "账户",
+            "fieldSort": "6",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "mobile",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "手机号",
+            "fieldSort": "7",
+            "fieldType": "0"
+        },
+        {
+            "fieldCode": "email",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldName": "邮箱",
+            "fieldSort": "8",
+            "fieldType": "0"
+        }
+    ],
+    "dataCount": 1
+}

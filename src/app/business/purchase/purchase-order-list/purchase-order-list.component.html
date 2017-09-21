@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="orderList" 
+            (onSort)="onSort($event)"
+            resizableColumns="true"
+            [(selection)]="selectedDatas">
+        <p-column   [style]="{'width':'30px'}" 
+                    selectionMode="multiple">
+        </p-column>
+        <p-column   field="transCode" 
+                    header="订单号"  [sortable]="true">
+            <template let-rowData="rowData" pTemplate type="body" >
+                <a (click)="onDetail(rowData)"
+                    class="interlinkage">
+                </a>
+                <span >{{rowData.transCode}}</span>
+            </template>
+        </p-column>
+        <p-column   field="provider" 
+                    header="供应商" [sortable]="true">
+        </p-column>
+        <p-column   field="contacts" 
+                    header="联系人" [sortable]="true">
+        </p-column>
+        <p-column   field="createDate" 
+                    header="下单日期" [sortable]="true">
+        </p-column>
+        <p-column   field="amount" 
+                    header="总金额(￥)" [sortable]="true">
+        </p-column>
+        <p-column   field="status" 
+                    header="状态" [sortable]="true">
+        </p-column>
+        <p-column   field="deliveryDate" 
+                    header="交付日期" [sortable]="true">
+        </p-column>
+        <p-column   field="hadPayAmount" 
+                    header="已付款(￥)" [sortable]="true">
+        </p-column>
+        <p-column   field="handler" 
+                    header="经办人" [sortable]="true">
+        </p-column>
+        <p-column   header="操作" 
+                    [style]="{'width':'150px'}">
+            <template let-rowData="rowData" pTemplate type="body" >
+                <a  (click)="trackOrder(rowData)"
+                    class="interlinkage">跟踪
+                </a>
+                <a (click)="inStore(rowData)" *ngIf="rowData.status == '待入库'"
+                    class="interlinkage">入库
+                </a>
+                <span  *ngIf="rowData.status != '待入库'"
+                    >入库
+                </span>
+                <a  type="text" 
+                    (click)="pay(rowData)" *ngIf="rowData.status != '未生效' && rowData.payStatus != '已付款'"
+                    class="interlinkage">付款
+                </a>
+                <span  *ngIf="rowData.status == '未生效' || rowData.payStatus == '已付款'"
+                    >付款
+                </span>
+                <!-- <a  type="text" 
+                    (click)="receivables(rowData)"
+                    class="interlinkage">收款
+                </a> -->
+            </template>
+        </p-column>
+            <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [totalRecords]="totalRecords"
+                    [rowsPerPageOptions]="[10,20,30]"
+                    (onPageChange)="paginate($event)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+        
+    </div>
+</div>

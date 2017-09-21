@@ -1,0 +1,56 @@
+<div class="col-md-12" style="padding-left: 0; padding-right: 0;">
+    <div class="col-md-2" style="padding-left: 0;">
+        <ul class="nav nav-pills nav-stacked" >
+          <li role="presentation"  [class.selected]='item == clickItem' (click)="onClick(item)" *ngFor="let item of bizItems"><a style="color: #706e6c;">{{item.name}}</a></li>
+        </ul>
+    </div>
+    <div class="col-md-10" style="padding-right: 0; border-left: 1px dashed #dadada;">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+
+        <div class="full-width">
+            <p-dataTable [value]="bizList" 
+                        [(selection)]="selectedBiz"
+                        [resizableColumns]="true"
+                        [reorderableColumns]="true"
+                        (onSort)="orderBy($event)"
+                        [style]="{'width':'100%'}"
+                        [emptyMessage]="emptyMessage"
+                        #dt>
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                <p-column field="name" header="主体名称" sortable="true"  >
+                    <template let-col let-biz="rowData" let-ri="rowIndex" pTemplate="body" >
+                        <a (click)="editBiz(biz)" class="interlinkage">{{biz[col.field]}}</a>
+                    </template>
+                </p-column>
+                <p-column field="shortName" header="主体简称" sortable="true"  
+                            >
+                            
+                </p-column>
+                <p-column field="relationType" header="标签" sortable="true" 
+                           >
+                </p-column>
+                <p-column field="principal" header="负责人" sortable="true"></p-column>
+                <p-footer>
+                    <div class="total-style">
+                        共{{totalRecords}}条记录
+                    </div>
+                    <p-paginator rows="10" [first]="first" [style]="{'border':'none'}" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event,selectedUser)"></p-paginator>
+                </p-footer>
+            </p-dataTable>
+        </div>
+    </div>
+</div>
+<p-dialog header="设置标签" [(visible)]="setLabel" [resizable]="false">
+    <div >
+        <div style="width: 500px;">
+            <div class="ui-g-12"><p-checkbox name="relationType" value="Customer" label="客户" [(ngModel)]="selectedRelationType"></p-checkbox></div>
+            <div class="ui-g-12"><p-checkbox name="relationType" value="Provider" label="供应商" [(ngModel)]="selectedRelationType"></p-checkbox></div>
+            <div class="ui-g-12"><p-checkbox name="relationType" value="Partner" label="合作伙伴" [(ngModel)]="selectedRelationType"></p-checkbox></div>
+            <div class="ui-g-12"><p-checkbox name="relationType" value="Shareholders" label="股东" [(ngModel)]="selectedRelationType"></p-checkbox></div>
+            <div class="footer-button">
+                <button type="button" class="btn btn-default" (click)="close()" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" (click)="batchSetLabel()"><i class="fa fa-check"></i>确定</button>
+            </div>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,33 @@
+{
+    "COSTS": [
+        {
+            "fgexps003": "皮费"
+        }
+    ],
+    "BOMS": [
+        {
+            "fggods006": "rawmaterial|rawmaterial0011|rawmaterial00110001",
+            "fggods005": "28A022DE6908484F8B793D02E",
+            "fggods003": "T-金3",
+            "fgtrns003": "1.0000",
+            "unitName": "克",
+            "fggods002": "200001479260509924",
+            "fggods001": "GODS4CE38BAF120248E15C3B",
+            "goodsTypeName": "毛料",
+            "fgexps002": "200001479260509924",
+            "qtyBalance":100
+        },
+        {
+            "fggods006": "semifinished|CALCFAD7336393204ED5AC43F|CALC5E7FC1AC996E423F8E44D",
+            "fggods005": "835E3F3392D9448EB84FEDD19",
+            "fggods003": "T-金",
+            "fgtrns003": "1.0000",
+            "unitName": "片",
+            "fggods002": "200001479260561283",
+            "fggods001": "GODS4AB2AF10E7CC58C3DE19",
+            "goodsTypeName": "带纸寸布",
+            "fgexps002": "200001479260561283",
+            "qtyBalance":100
+        }
+    ]
+}

@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable 
+            [emptyMessage]="emptyMessage"
+            [value]="spuAttrbutes" 
+            (onSort)="onSort($event)"
+            resizableColumns="true"
+            [(selection)]="selectedDatas">
+            <p-column   [style]="{'width':'38px'}" 
+                        selectionMode="multiple">
+            </p-column>
+            <p-column   field="name" 
+                        header="产品属性" 
+                        [sortable]="true">
+                <template let-attr="rowData" pTemplate type="body" >
+                    <a  type="text" 
+                        name="name" 
+                        class="interlinkage"
+                        (click)="onEdit(attr)">{{attr.name}}</a>
+                </template>
+            </p-column>
+            <p-column   field="value" 
+                        header="属性值" 
+                        class='ui-datatable-odd'>
+                <template let-attr="rowData" pTemplate="body">
+                    <a  type="text" 
+                        name="value" 
+                        class="interlinkage"
+                        (click)="onViewValues(attr)">{{attr.value}}</a>
+                </template>
+            </p-column>
+            <p-column   field="comment" 
+                        header="备注" 
+                        [sortable]="true">
+            </p-column>
+            <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [first]='first'
+                    [totalRecords]="totalRecords" 
+                    [rowsPerPageOptions]="[10,20,30]" 
+                    (onPageChange)="onPage($event)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+
+
+<!-- dialog -->
+<p-dialog 
+    width="400" 
+    modal="true"
+    [(visible)]="display">
+    <p-dataTable 
+        [value]="currSpuAttrValues" 
+        [rows]="10" 
+        [paginator]="true" 
+        [pageLinks]="3" 
+        scrollable="true" 
+        scrollHeight="200px"
+        resizableColumns="true"
+        [rowsPerPageOptions]="[5,10,20]" 
+        [emptyMessage]="emptyMessage">
+        <p-column   field="name" header="产品属性" ></p-column>
+        <p-column   field="code" header="属性值编码" ></p-column>
+        <p-column   field="value" header="属性值" ></p-column>
+    </p-dataTable>
+</p-dialog>
+
+
+

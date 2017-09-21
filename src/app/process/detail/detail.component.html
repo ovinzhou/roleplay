@@ -1,0 +1,49 @@
+<p-dialog [(visible)]="display" 
+          [responsive]="true"
+          modal="modal"
+          width='1000'
+          height='800'>
+    <p-tabView>
+        <p-tabPanel header="表单">
+            <div class="modal-body" *ngIf='display'>
+        		
+                <div  style="height: 600px;width: 100%;overflow: auto;" *ngIf='formType=="tsgdslod"'>
+                <selling-detail [processInfo]="processInfo"></selling-detail>
+                </div>
+                
+                <div *ngIf='formType == ""' style="height: 600px;width: 100%;overflow: auto;">
+                    <rp-dyna-form [init]="initializeFormData"
+                        [readOnly]="true"
+                        actionsPosition="footer">
+                    </rp-dyna-form>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="工作流图">
+            <div class="modal-body">
+        		<img [src]='imgUrl'>
+        	</div>
+        </p-tabPanel>
+        <p-tabPanel header="工作流日志">
+            <div class="modal-body">
+                <p-dataTable [value]="taskLogs" [emptyMessage]="emptyMessage" resizableColumns="true">
+                    <p-column field="nodeName" header="节点名称" [style]="{'width':'100px'}">
+                    </p-column>
+                    <p-column field="assignee" header="处理人" [style]="{'width':'100px'}">
+                    </p-column>
+                    <p-column field="createTime" header="创建时间" [style]="{'width':'100px'}">
+                    </p-column>
+                    <p-column field="completeTime" header="处理时间" [style]="{'width':'100px'}">
+                    </p-column>
+                    <p-column field="note" header="处理意见" [style]="{'width':'100px'}">
+                    </p-column>
+                </p-dataTable>
+                <p-footer *ngIf='isFinished'>
+                    <div class="total-style">
+                        流程已结束
+                    </div>
+                </p-footer>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</p-dialog>

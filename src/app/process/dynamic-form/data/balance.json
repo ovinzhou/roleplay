@@ -1,0 +1,298 @@
+{
+    "tableContent": [
+        {
+            "promDeliTime": "2016-09-23 17:00:10",
+            "qtyTbMatched": "9860.000000",
+            "transMatchedCode": "20000T2P1M1609S17",
+            "planQty": "10000.0000000000000000",
+            "dealerCode": "",
+            "thirdObjCateCode": "finished00030001",
+            "transObjCode": "C5271655441002114",
+            "firstObjCateName": "产成品",
+            "secondObjCateName": "绒盒",
+            "containerName": "",
+            "amntTbMatched": "0.00",
+            "objCateCode": "finished00030001",
+            "transCode": "20000T2P1M1609S17",
+            "fggods007": "74*74*47",
+            "plannedQty": "140.000000",
+            "fggods006": "finished|finished0003|finished00030001",
+            "fggods005": "7C7CF7C138094D5DA64BA1229",
+            "thirdObjCateName": "绒盒",
+            "dealerName": "",
+            "fggods003": "184H-A37",
+            "fggods002": "C5271655441002114",
+            "fggods001": "GODS4A6A978066EDB61F4223",
+            "measureunitName": "个",
+            "measureUnit": "7C7CF7C138094D5DA64BA1229",
+            "firstObjCateCode": "finished",
+            "qty": "10000.000000",
+            "secondObjCateCode": "finished0003",
+            "containerCode": "",
+            "objCateName": "绒盒"
+        }
+    ],
+    "tableHead": [
+        {
+            "fieldCode": "fggods001",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "存货ID",
+            "fieldSort": "0",
+            "fieldType": "0",
+            "width": 200
+        },
+        {
+            "fieldCode": "transObjCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "存货编码",
+            "fieldSort": "1",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "measureUnit",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "计量单位编码",
+            "fieldSort": "2",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "transCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "交易号",
+            "fieldSort": "3",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods003",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "存货名称",
+            "fieldSort": "4",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods012",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "每箱数量",
+            "fieldSort": "5",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods013",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "外箱尺寸",
+            "fieldSort": "6",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "amntTbMatched",
+            "fieldContent": "",
+            "fieldDataType": "number",
+            "fieldDisplay": false,
+            "fieldName": "金额余额",
+            "fieldSort": "7",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "firstObjCateCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "一级分类编码",
+            "fieldSort": "8",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "firstObjCateName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "一级分类",
+            "fieldSort": "9",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "secondObjCateCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "二级分类编码",
+            "fieldSort": "10",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "secondObjCateName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "二级分类",
+            "fieldSort": "11",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "thirdObjCateCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "三级分类编码",
+            "fieldSort": "12",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "thirdObjCateName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "三级分类",
+            "fieldSort": "13",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "objCateCode",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "所属分类编码",
+            "fieldSort": "14",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "objCateName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "所属分类",
+            "fieldSort": "15",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods007",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "规格",
+            "fieldSort": "16",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods008",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "型号",
+            "fieldSort": "17",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods009",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "颜色",
+            "fieldSort": "18",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods010",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "纹底",
+            "fieldSort": "19",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "fggods011",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "纹路",
+            "fieldSort": "20",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "measureunitName",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": true,
+            "fieldName": "计量单位",
+            "fieldSort": "21",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "qtyTbMatched",
+            "fieldContent": "",
+            "fieldDataType": "number",
+            "fieldDisplay": true,
+            "fieldName": "数量余额",
+            "fieldSort": "22",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "qty",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "订单数量",
+            "fieldSort": "23",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "plannedQty",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "已计划数量",
+            "fieldSort": "24",
+            "fieldType": "0",
+            "width": 120
+        },
+        {
+            "fieldCode": "promDeliTime",
+            "fieldContent": "",
+            "fieldDataType": "string",
+            "fieldDisplay": false,
+            "fieldName": "承诺交付时间",
+            "fieldSort": "25",
+            "fieldType": "0",
+            "width": 200
+        }
+    ],
+    "dataCount": 1
+}

@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+        <p-dataTable [emptyMessage]="emptyMessage" (onSort)="onSort($event)" [value]="bomList" [(selection)]="selectedDatas" sortable="custom" resizableColumns="true">
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple">
+            </p-column>
+            <p-column field="name" header="BOM名称">
+                <template let-attr="rowData" pTemplate type="body">
+                    <a type="text" name="name" class="interlinkage" (click)="onEdit(attr)">
+                        {{attr.name}}
+                    </a>
+                </template>
+            </p-column>
+            <p-column field="organization" header="BOM结构">
+                <template let-attr="rowData" pTemplate type="body">
+                    <a type="text" name="organization" class="interlinkage" (click)="checkOrganization(attr)">
+                        查看
+                    </a>
+                </template>
+            </p-column>
+            <p-column field="crtName" header="创建人">
+            </p-column>
+            <p-column field="crtTime" header="创建时间">
+            </p-column>
+            <p-column field="modName" header="修改人">
+            </p-column>
+            <p-column field="modTime" header="修改时间">
+            </p-column>
+            <p-footer>
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator rows="10" [first]='first' [totalRecords]="totalRecords" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPage($event,selectedDatas)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+    </div>
+</div>
+<p-dialog header='查看设计BOM' width="1120" selectionMode="single"  [(visible)]="isShowBomOranizationDetail"  modal="true">
+    <p-treeTable [value]="bomOrganizationList" selectionMode="single">
+        <p-column field="name" header="SPU名称" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="type" header="类型" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="userGroupName" header="组织" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="measureName" header="计量单位" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+        <p-column field="num" header="数量" [style]="{'border-right': '1px solid #d9d9d9'}"></p-column>
+    </p-treeTable>
+</p-dialog>

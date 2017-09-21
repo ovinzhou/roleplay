@@ -1,0 +1,62 @@
+{
+  "tableContent": [
+    {
+      "billing": "pcww",
+      "id": "PLUS42F7BEA846D64030BEF7",
+      "proName": "注塑B组",
+      "status": 1,
+      "wagesDto": {
+        "comment": "asdasd2321",
+        "id": "WAGES4221A14F132A2A34E042",
+        "status": 1,
+        "valuation": {
+          "id": "WAGES4623844325729D7EA7B2",
+          "status": 1,
+          "valuationNumber": 1,
+          "valuationValue": 1,
+          "wagesType": "ptdj"
+        },
+        "valuations": [
+          {
+            "id": "WAGES4623844325729D7EA7B2",
+            "status": 1,
+            "valuationNumber": 1,
+            "valuationValue": 1,
+            "wagesType": "ptdj"
+          }
+        ],
+        "wagesName": "eqwe",
+        "wagesType": "ptdj"
+      }
+    },
+    {
+      "billing": "pcww",
+      "id": "PLUS42F7BEA846D64030BEF8",
+      "proName": "注塑c组",
+      "status": 1,
+      "wagesDto": {
+        "comment": "asdasd2321",
+        "id": "WAGES4221A14F132A2A34E042",
+        "status": 1,
+        "valuation": {
+          "id": "WAGES4623844325729D7EA7B2",
+          "status": 1,
+          "valuationNumber": 1,
+          "valuationValue": 1,
+          "wagesType": "ptdj"
+        },
+        "valuations": [
+          {
+            "id": "WAGES4623844325729D7EA7B2",
+            "status": 1,
+            "valuationNumber": 1,
+            "valuationValue": 1,
+            "wagesType": "ptdj"
+          }
+        ],
+        "wagesName": "eqwe",
+        "wagesType": "ptdj"
+      }
+    }
+  ]
+}

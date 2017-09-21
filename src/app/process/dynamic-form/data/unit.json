@@ -1,0 +1,28 @@
+[
+    {
+        "comment": "",
+        "creator": "",
+        "crtTime": "2016-07-13 14:41:11",
+        "measureunitCode": "D0717A0151084CF19FD8BBD67",
+        "measureunitName": "个",
+        "measureunitTypeCode": "ge",
+        "modTime": "2016-07-13 14:41:11",
+        "modifier": "",
+        "ratio": 1,
+        "sortSeq": 1,
+        "status": 0
+    },
+    {
+        "comment": "",
+        "creator": "",
+        "crtTime": "2016-07-13 14:41:11",
+        "measureunitCode": "7279D1332137408A9F29C75F2",
+        "measureunitName": "套",
+        "measureunitTypeCode": "ge",
+        "modTime": "2016-07-13 14:41:11",
+        "modifier": "",
+        "ratio": 2,
+        "sortSeq": 2,
+        "status": 0
+    }
+]

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+
+    <title>Roleplay</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link href="<%=htmlWebpackPlugin.options.metadata.appPrefix%>assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=htmlWebpackPlugin.options.metadata.appPrefix%>assets/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.options.metadata.nodePrefix%>balloon-css/balloon.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.options.metadata.nodePrefix%>primeng/resources/primeng.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.options.metadata.nodePrefix%>primeng/resources/themes/omega/theme.css" />
+
+    <!-- <link href="<%=htmlWebpackPlugin.options.metadata.appPrefix%>assets/style.css" rel="stylesheet"> -->
+    <link href="<%=htmlWebpackPlugin.options.metadata.appPrefix%>assets/css/ng2-select.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="<%=htmlWebpackPlugin.options.metadata.nodePrefix%>rp-dynamic-form/assets/roleplay.css">
+
+    <script type="text/javascript" src="lib/vendor.dll.js"></script>
+    <script type="text/javascript" src="<%=htmlWebpackPlugin.options.metadata.appPrefix%>roleplay-config.js"></script>
+</head>
+
+<body class="main-content-area">
+    <app-root></app-root>
+    
+    <% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
+      <!-- Webpack Dev Server reload -->
+      <script src="/webpack-dev-server.js"></script>
+    <% } %>
+
+</body>
+
+</html>

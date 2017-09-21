@@ -1,0 +1,107 @@
+<div class="col-md-12">
+    <div class="panel-body">
+    	<div class="row">
+        	<div class="col-md-12">
+        		 <form class="form-horizontal" 
+        		 		#spuAttributeForm="ngForm" 
+        		 		novalidate 
+        		 		(ngSubmit)="onSubmit(spuAttributeForm)">
+						<div class="form-group" 
+							[ngClass]="{ 'has-error': spuAttributeForm.submitted && !name.valid }">
+			           		<label class="col-md-2 control-label mt-5">属性名称
+			           			<span class='text-danger'>*</span>：
+			           		</label>
+				            <div class="col-md-10">
+				                <input type="text" 
+				                		#name="ngModel" 
+				                		[disabled]='isUpdate'
+				                		name="name" 
+				                		[(ngModel)]="spuAttrbute.name" 
+				                		class="form-control"  
+				                		required  
+				                		maxlength="10" 
+				                		pattern="^[\u4e00-\u9fa5\w\d@\.\-_]+$" />
+					       		<div *ngIf="spuAttributeForm.submitted && !name.valid && !isUpdate" 
+					       			class="text-danger">
+							            <div [hidden]="!name.errors.required">
+							              属性名称必填
+							            </div>
+							            <div [hidden]="!name.errors.pattern">
+							              名称只能输入中文，英文，数字,及一些特殊字符
+							            </div>
+					       		</div>
+				            </div>
+			       		</div>
+
+			       		<div class="form-group" >
+			       			<div class="col-md-2"></div>
+			       			<div class="col-md-10">
+			       				<div class="btn-group">
+			       					<button pButton 
+						        		type="button" 
+						        		class="ui-button-secondary" 
+						        		(click)='onAddValue()'
+						        		label="添加">
+						        	</button>
+						        	<button pButton 
+						        		type="button" 
+						        		class="ui-button-secondary" 
+						        		(click)='onDelValue()'
+						        		[disabled] ='selectedValus===undefined||selectedValus.length===0'
+						        		label="删除">
+						        	</button>
+			       				</div>
+			       				<div style="margin-top: 10px;">
+									<p-dataTable 
+										[editable]="true"
+							            [emptyMessage]="emptyMessage"
+							            [value]="spuAttrbute.values" 
+							            (onEditInit)="onEdit($event)"
+							            [(selection)]="selectedValus">
+							            <p-column [style]="{'width':'38px'}" 
+							                    selectionMode="multiple">
+							            </p-column>
+							            <p-column 	field="code" 
+							            			header="属性值编码"  
+							            			[editable]="true">
+							            </p-column>
+							            <p-column field="value" header="属性值" [editable]="true">
+							            </p-column>
+							        </p-dataTable>
+								</div>
+			       			</div>
+			       		</div>
+
+			       		<div class="form-group" >
+			           		<label class="col-md-2 control-label mt-5">备注:</label>
+				            <div class="col-md-10">
+				                <textarea 	rows="6" 
+				                			class="form-control"  
+				                			cols="82" 
+				                			[(ngModel)]="spuAttrbute.comment" 
+				                			name="comment" >
+				                </textarea>
+				            </div>
+			       		</div>
+
+			       		<div  class="form-group">
+					        <div class="col-md-2"></div>
+					        <div class="col-md-10">
+					         	<button  
+					         		class="btn btn-primary" 
+						    		type="submit">
+						    		确定
+						    	</button>
+						    	<button  
+						    		type="button" 
+						    		class="btn btn-default" 
+						    		(click)='onCancel()'>
+						    		取消
+						    	</button>
+						    </div>
+				        </div>
+        		 </form>
+        	</div>
+        </div>
+    </div>
+</div>

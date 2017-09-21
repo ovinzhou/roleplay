@@ -1,0 +1,63 @@
+<div class="row">
+	<div class="explain">
+		<span class="ml-30"> 导入说明：</span><br/>
+		<ul class="fa-ul">
+		  <li>1、导入文件类型必须为xls或xlsx；</li>
+		  <li>2、必须先导入SPU数据，再导入BOM数据；</li>
+		  <li>3、导入重复的SPU数据时，可以选择覆盖或忽略；</li>
+		</ul>
+<!-- 		<div class="pl-30">
+			<a class="btn transparent-button-style ml-20" >下载商品模版</a>
+			<a class="btn transparent-button-style ml-30" >下载BOM模版</a>
+		</div> -->
+	</div>
+	<div  class="tactics pt-20">
+		<!-- <span class="ml-30">当导入的存货数据重复时（依据存货编码判定），更新策略为：</span>
+		<div class="mt-10" style="margin: 0px auto;width: 200px;padding-left: 30px;">
+			<div class="radio-inline">
+	        		<input type="radio" id="ignore" class="user-control-disabled ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="data.overlap" name="overlap" value="true"><label for="ignore">忽略</label>
+	        	</div>
+	        	<div class="radio-inline">
+		    		<input type="radio" id="update" class="user-control-disabled ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="data.overlap" name="overlap" value="false"><label for="update">覆盖</label>
+		    	</div>
+		</div> -->
+		
+		<div style="width: 380px;margin: 30px auto;padding-left:40px;" class="has-error">
+			<span class='btn btn-file ' style="width: 140px;">
+                <span class='fileinput-exists transparent-button-style'>选择SPU文件</span>
+                <input
+                    type='file'
+                    accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+                    name='excel'
+                    (change)='onFileChange($event)'
+                />
+            </span>
+			<span class='btn btn-file ' style="width: 140px;">
+                <span class='fileinput-exists transparent-button-style'>选择BOM文件</span>
+                <input
+                    type='file'
+                    accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+                    name='excel'
+                    (change)='onFileChange($event)'
+                />
+            </span>
+        		<span class="help-block" style="padding-left:20px;margin-top:15px;">{{importStatusInfo.promptInfo}}</span>
+
+        	<div class="progress">
+			  <div class="progress-bar progress-bar-striped active" 
+			  		[ngClass]="{'progress-bar-danger':importStatusInfo.status ==='IMPORT_ERROR'}" 
+			  		role="progressbar" 
+			  		aria-valuenow="60" 
+			  		aria-valuemin="0" 
+			  		aria-valuemax="100" 
+			  		[ngStyle]="{'width.%': progress}">
+			   {{progress}}%
+			  </div>
+			</div>
+			<div class="col-md-12" *ngIf="importStatusInfo.status ==='IMPORT_ERROR'">
+				<a (click)='downloadErrorData()'>下载错误数据</a>
+			</div>
+		</div>
+	</div>
+</div>
+

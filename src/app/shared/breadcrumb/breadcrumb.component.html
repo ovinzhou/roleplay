@@ -1,0 +1,14 @@
+<div [class]="styleClass" [ngStyle]="style" [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'" class="rp-breadcrumb">
+    <ul style="font-size: 15px;background-color: white;">
+        <!-- <li class="fa fa-home fa-lg" (click)="onHomeClick($event)"></li>
+        <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="model"></li> -->
+        <template ngFor let-item let-end="last" [ngForOf]="model">
+            <li role="menuitem">
+                <a [href]="item.url||'#'" class="ui-menuitem-link" (click)="itemClick($event, item)" [ngClass]="{'ui-state-disabled':item.disabled}">
+                    <span class="ui-menuitem-text">{{item.label}}</span>
+                </a>
+            </li>
+            <li class="ui-breadcrumb-chevron fa fa-chevron-right" *ngIf="!end" style="margin: 0 5px;"></li>
+        </template>
+    </ul>
+</div>

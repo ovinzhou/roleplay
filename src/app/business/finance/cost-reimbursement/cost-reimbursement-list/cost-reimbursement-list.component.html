@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-12">
+        <toolbar customClasses="full-width" [configList]="toolbarConfigs"></toolbar>
+    </div>
+    <div class="col-md-12">
+       <p-dataTable
+            [emptyMessage]="emptyMessage"
+            [value]="costReimbursementList" 
+            (onSort)="onSort($event)"
+            [(selection)]="selectedDatas">
+        <p-column   [style]="{'width':'30px'}" 
+                    selectionMode="multiple">
+        </p-column>
+        <p-column   field="transCode" 
+                    [sortable]="true"
+                    header="报销单号"  >
+        </p-column>
+        <p-column   field="type" 
+                    [sortable]="true"
+                    header="报销类型"  >
+        </p-column>
+        <p-column field="amount" header="报销金额" [sortable]="true" styleClass='text-right'>
+            <template let-attr="rowData" pTemplate type="body" >
+                <span  class="interlinkage" >
+                    {{attr.amount}}
+                </span>
+            </template>
+        </p-column>
+        <p-column field="status" header="报销状态" [sortable]="true" styleClass='text-center'>
+            <template let-attr="rowData" pTemplate type="body" >
+                <span  class="interlinkage" >
+                    {{attr.status}}
+                </span>
+            </template>
+        </p-column>
+        <p-column   field="applicant" 
+                    [sortable]="true"
+                    header="报销人"  >
+        </p-column>
+        <p-column   field="applicationTime" 
+                    [sortable]="true"
+                    header="报销日期"  >
+        </p-column>
+            <p-footer >
+                <div class="total-style">
+                    共{{totalRecords}}条记录
+                </div>
+                <p-paginator 
+                    rows="10" 
+                    [first]="first"
+                    [totalRecords]="totalRecords"
+                    [rowsPerPageOptions]="[10,20,30]"
+                    (onPageChange)="paginate($event)">
+                </p-paginator>
+            </p-footer>
+        </p-dataTable>
+        
+    </div>
+</div>
